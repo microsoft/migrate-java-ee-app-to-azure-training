@@ -3,11 +3,11 @@
 ## Migrating the web application
 
 As this web application is very simple the only thing to take note of is the fact
-that the WebLogic deploment descriptor specifies a context-root of `/helloworld`.
+that the WebLogic deployment descriptor specifies a context-root of `/helloworld`.
 
-If you see a specified context-root you need to validate that the web pages inside
-the web application do NOT assume this hard-coded value. If you see it anywhere 
-you will need to make sure the make those links in your web page relative links.
+If you see an application server specific deployment descriptor that specifies a
+context-root you will need to make sure the hard-coded value is NOT used anywhere.
+If it is used you will have to replace it by using relative links.
 
 ## Build the web application
 
