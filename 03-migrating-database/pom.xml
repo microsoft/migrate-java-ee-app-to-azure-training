@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.microsoft.azure.javaeetoazure</groupId>
         <artifactId>project</artifactId>
+        <groupId>com.microsoft.azure.javaeetoazure</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>helloworld</artifactId>
+    <artifactId>migrating-database</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Migrating the Hello World Web Application</name>
+    <name>3. Migrating the database</name>
     <properties>
-        <appName>javaee-helloworld-${maven.build.timestamp}</appName>
-        <appServicePlan>javaee-appserviceplan</appServicePlan>
-        <javaVersion>jre8</javaVersion>
+        <appName>sharearound-${maven.build.timestamp}</appName>
+        <appServicePlan>sharearound-appserviceplan</appServicePlan>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <resourceGroup>javaee-workshop</resourceGroup>
+        <resourceGroup>sharearound</resourceGroup>
         <region>westus2</region>
-        <webContainer>wildfly 14</webContainer>
     </properties>
     <dependencies>
         <dependency>
@@ -32,6 +29,38 @@
     </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>clean</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <target>
+                                <delete dir="src"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>setup</id>
+                        <phase>none</phase>
+                        <configuration>
+                            <target>
+                                <copy todir="src">
+                                    <fileset dir="../01-initial/src"/>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -61,8 +90,8 @@
                     <appServicePlanName>${appServicePlan}</appServicePlanName>
                     <runtime>
                         <os>linux</os>
-                        <javaVersion>${javaVersion}</javaVersion>
-                        <webContainer>${webContainer}</webContainer>
+                        <javaVersion>jre8</javaVersion>
+                        <webContainer>wildfly 14</webContainer>
                     </runtime>
                     <deployment>
                         <resources>

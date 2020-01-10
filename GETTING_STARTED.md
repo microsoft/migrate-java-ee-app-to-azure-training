@@ -6,6 +6,8 @@ This workshop assumes you have the following ready for use.
 1. Zulu OpenJDK 1.8
 1. Maven 3.6.3
 1. Visual Studio Code (with Java Extension Pack and the Remote Containers Extension Pack)
+1. Docker
+1. Docker Compose
 
 ## Install and Configure Azure CLI
 
