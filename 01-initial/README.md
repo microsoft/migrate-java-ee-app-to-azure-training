@@ -1,6 +1,6 @@
 # The initial Sharearound web application
 
-If you want to see the initial Sharearound web application in action, please 
+If you want to see the initial Sharearound web application in action, please
 build the web application using:
 
 ```shell

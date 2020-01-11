@@ -12,7 +12,7 @@ application is using a database for now.
 ## Setting up
 
 To start the migration we are going to copy the application from the `01-initial`
-directory into this directory. 
+directory into this directory.
 
 To do so please issue the following command line
 in your terminal:
@@ -34,7 +34,7 @@ was used we now need to make sure the application does NOT use it anywhere in a
 hard-coded way.
 
 Luckily in this application there is only one spot in the application that has the
-value hard-coded and that is in the index.jsp page. Please change `/sharearound` 
+value hard-coded and that is in the index.jsp page. Please change `/sharearound`
 to `TODO`.
 
 ## Build the web application
@@ -55,7 +55,7 @@ Please add the following XML snippet just before </plugins> in the POM file.
 <plugin>
     <groupId>com.microsoft.azure</groupId>
     <artifactId>azure-webapp-maven-plugin</artifactId>
-    <version>1.8.0</version> 
+    <version>1.8.0</version>
     <configuration>
         <schemaVersion>v2</schemaVersion>
         <resourceGroup>${resourceGroup}</resourceGroup>
@@ -91,7 +91,7 @@ so you can override them using the Maven command line.
 Note that for a successful Azure App Service deployment you will need to have a
 least a `resource group`, a `region`, an `appName` and an `appServicePlan`.
 
-We are going to add a `<properties>` section to the POM file that will set some 
+We are going to add a `<properties>` section to the POM file that will set some
 defaults for these.
 
 Please add the following XML snippet just before `</project>` in the POM file.
@@ -121,9 +121,10 @@ Use the following commandline:
   mvn azure-webapp:deploy -DappName=sharearound-<unique-id>
 ```
 
-Once the command completes it will show you the URL of the deployed web 
-application, it will look similar to 
-`https://sharearound-<unique-id>.azurewebsites.net`.
+While this command is running, please feel free to review [App Service on Linux Documentation](https://docs.microsoft.com/en-us/azure/app-service/containers/)
+
+Once the command completes it will show you the URL of the deployed web
+application, it will look similar to `https://sharearound-<unique-id>.azurewebsites.net`. Please capture this URL as you will need it later.
 
 Open your browser to the shown URL to verify that you have successfully deployed
 web application.
