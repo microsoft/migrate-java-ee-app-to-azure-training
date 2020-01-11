@@ -32,6 +32,7 @@
                         <configuration>
                             <target>
                                 <delete dir="src"/>
+                                <delete dir="target"/>
                             </target>
                         </configuration>
                         <goals>

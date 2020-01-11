@@ -38,7 +38,12 @@
                         <phase>clean</phase>
                         <configuration>
                             <target>
-                                <delete dir="src"/>
+                                <delete includeemptydirs="true">
+                                    <fileset dir="src">
+                                        <exclude name="main/webapp/index.jsp"/>
+                                    </fileset>
+                                </delete>
+                                <delete dir="target"/>
                             </target>
                         </configuration>
                         <goals>
@@ -50,7 +55,7 @@
                         <phase>none</phase>
                         <configuration>
                             <target>
-                                <copy todir="src">
+                                <copy todir="src" overwrite="false">
                                     <fileset dir="../01-initial/src"/>
                                 </copy>
                             </target>

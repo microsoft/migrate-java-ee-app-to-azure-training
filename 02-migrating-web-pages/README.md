@@ -34,8 +34,8 @@ was used we now need to make sure the application does NOT use it anywhere in a
 hard-coded way.
 
 Luckily in this application there is only one spot in the application that has the
-value hard-coded and that is in the index.jsp page. Please change `/sharearound`
-to `TODO`.
+value hard-coded and that is in the index.jsp page. Please remove `/sharearound/`
+to make the links relative.
 
 ## Build the web application
 
@@ -44,7 +44,7 @@ Now we are ready to build the web application.
 Use the following command line:
 
 ```shell
-  mvn package
+mvn package
 ```
 
 ## Add the Azure Web App Maven plugin for deployment

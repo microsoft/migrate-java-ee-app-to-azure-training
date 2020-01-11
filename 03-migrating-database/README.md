@@ -59,7 +59,7 @@ Previously you determined your own external IP address. Now it is time to open u
 Replace `<external-ip>` in the command line below with your own external IP address and execute the command:
 
 ```shell
-az postgres server firewall-rule create --resource-group sharearound --server sharearound-postgres --name AllowMyIP --start-ip-address <external-ip> --end-ip-address <external-ip>
+az postgres server firewall-rule create --resource-group sharearound --server sharearound-<unique-id> --name AllowMyIP --start-ip-address <external-ip> --end-ip-address <external-ip>
 ```
 
 ## Verifying you can access your database
@@ -95,6 +95,8 @@ Type "help" for help.
 
 postgres=>
 ```
+
+## Populate the database with data
 
 We are now going to start the process of populating the database.
 
@@ -143,3 +145,7 @@ And then also exit the running Docker container by executing the command below:
 ```shell
 exit
 ```
+
+## Changing the deployment to use the remote database
+
+As JavaEE applications use JNDI to refer to the data sources used we only have to change the deployment to point the JNDI entry to the new database. So in the following steps we will be changing the deployment to use the remote database.
