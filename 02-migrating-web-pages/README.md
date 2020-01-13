@@ -121,10 +121,13 @@ Use the following commandline:
   mvn azure-webapp:deploy -DappName=sharearound-<unique-id>
 ```
 
-While this command is running, please feel free to review [App Service on Linux Documentation](https://docs.microsoft.com/en-us/azure/app-service/containers/)
+While this command is running, please feel free to review
+[App Service on Linux Documentation](https://docs.microsoft.com/en-us/azure/app-service/containers/)
 
 Once the command completes it will show you the URL of the deployed web
-application, it will look similar to `https://sharearound-<unique-id>.azurewebsites.net`. Please capture this URL as you will need it later.
+application, it will look similar to
+`https://sharearound-<unique-id>.azurewebsites.net`. Please capture this URL as
+you will need it later.
 
 Open your browser to the shown URL to verify that you have successfully deployed
 web application.

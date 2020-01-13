@@ -13,7 +13,8 @@ And the deploy it using:
 mvn antrun:run@deploy
 ```
 
-Once the command completes open your browser to <http://localhost:9090/sharearound/>
+Once the command completes open your browser to 
+<http://localhost:9090/sharearound/>
 
 Feel free to browse around to get familiar with the application you are going to
 migrate.
