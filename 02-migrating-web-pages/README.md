@@ -2,7 +2,8 @@
 
 ## What are we going to do in this step
 
-The first step in any migration to Azure is to migrate the deployment process.
+The first thing you should do in any migration to Azure is to migrate the
+deployment process.
 
 As we have chosen the deployment target for this training to be Azure App Service
 we need to make some changes to make it possible to deploy this web application
@@ -109,11 +110,11 @@ Please add the following XML snippet just before `</project>` in the POM file.
 
 ## Deploy the web application
 
-To deploy the web application you will need a unique id as the URL space of
-Azure App Service is shared across Azure subscriptions . In a class room setting
-ask your proctor what the value of the `<unique-id>` needs to be. If you are doing
-this workshop by yourself you can omit the `-DappName=sharearound-<unique-id>` and
-a unique id will be generated for you.
+To deploy the web application you will need a unique id as the DNS space of
+Azure App Service is shared across all Azure subscriptions . In a class room
+setting ask your proctor what the value of the `<unique-id>` needs to be. If you
+are doing this workshop by yourself you can omit the 
+`-DappName=sharearound-<unique-id>` and a unique id will be generated for you.
 
 Use the following commandline:
 
@@ -132,5 +133,4 @@ you will need it later.
 Open your browser to the shown URL to verify that you have successfully deployed
 web application.
 
-[Next](../03-migrating-database/README.md)
-[Up](../README.md)
+[Previous](../01-initial/README.md) &nbsp; [Next](../03-migrating-database/README.md)

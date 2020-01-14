@@ -1,19 +1,31 @@
 # The initial Sharearound web application
 
-If you want to see the initial Sharearound web application in action, please
-build the web application using:
+## What are we going to do in this step
+
+We are going to be looking at an JavaEE application that we are going to migrate.
+Note this is an imperfect application that uses an unsupported version of the JDK,
+an unsupported version of a JavaEE application server. So we will need to do some
+migrating!
+
+## Building the web application
+
+Please build the web application using:
 
 ```shell
 mvn package
 ```
 
-The next step is to build a Docker image for the web application.
+## Building the Docker image
+
+Next we build a Docker image for the web application using:
 
 ```
 docker build -t sharearound -f src/main/docker/Dockerfile .
 ```
 
-The final step is to start up the application server and the database by means
+## Starting the application server and database locally
+
+Finally we are going to start up the application server and the database by means
 of Docker compose. From the `src/main/docker-compose/sharearound` directory
 issue the following command.
 
@@ -44,4 +56,3 @@ docker-compose down
 ```
 
 [Next](../02-migrating-web-pages/README.md)
-[Up](../README.md)

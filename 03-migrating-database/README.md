@@ -79,6 +79,11 @@ address and execute the command:
 az postgres server firewall-rule create --resource-group sharearound --server sharearound-<unique-id> --name AllowMyIP --start-ip-address <external-ip> --end-ip-address <external-ip>
 ```
 
+*Note if you install the PostgreSQL extension for Azure CLI you can simplify
+creation of the database a bit, see 
+[az postgres](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
+for more information*
+
 ## Verifying you can access your database
 
 Now that the firewall has been configured we need to verify that you can actually
@@ -133,6 +138,7 @@ The next step will be to load the database with some data.
 
 ```shell
 \i src/main/postgres/load.sql
+```
 
 This will populate the database with our setup data.
 
@@ -156,7 +162,7 @@ As JavaEE applications use JNDI to refer to their data sources we only have to
 change the deployment to point the JNDI entry to the new database. So in the
 following steps we will be changing the deployment to use the remote database.
 
-Please add the following XML snipet to the `<configuration>` block just before the
+Please add the following XML snippet to the `<configuration>` block just before the
 end as denoted by `</configuration>` of the `azure-webapp-maven-plugin` plugin in
 the pom.xml file.
 
@@ -187,9 +193,9 @@ below for that and make sure you replace `UNIQUE_ID` with the unique id for the
 database.
 
 ```xml
-<postgresJdbcUrl>jdbc:postgresql://sharearound-UNIQUE_ID.postgres.database.azure.com:5432/sharearound?sslmode=require</postgresJdbcUrl>
-<postgresUsername>postgres@sharearound-UNIQUE_ID</postgresUsername>
-<postgresPassword>p0stgr@s1</postgresPassword>
+<postgresJdbcUrl>FILL_IN_JDBC_URL</postgresJdbcUrl>
+<postgresUsername>FILL_IN_USERNAME</postgresUsername>
+<postgresPassword>FILL_IN_PASSWORD</postgresPassword>
 ```
 
 The next step is to update the `src/main/resources/META-INF/persistence.xml` file
@@ -264,14 +270,6 @@ put *
 exit
 ```
 
-The next step is to set the startup script to our custom startup script.
-
-Replace `<unique-id>` with your unique id and execute the following command line:
-
-```shell
-az webapp config set -g sharearound -n sharearound-<unique-id> --startup-file /home/site/deployments/tools/startup_script.sh
-```
-
 ## Build the web application
 
 Execute the following command line:
@@ -280,13 +278,45 @@ Execute the following command line:
 mvn package
 ```
 
-## Redeploy the application
+## Deploy the application
 
-To redeploy the web application please replace `<unique-id>` with your unique id
-and use the following commandline:
+*Note if you have successfully completed "Migrating the web pages" you can skip
+this step.*
+
+To deploy the web application please replace `<unique-id>` with your unique id,
+the `<postgres-username>` with your PostgreSQL username, the `<postgres-password>`
+with the PostgreSQL password, the `<postgres-jdbc-url>` with the PostgreSQL JDBC
+url and use the following commandline:
+
+Note the postgresJdbcUrl should be similar to 
+`jdbc:postgresql://sharearound-UNIQUE_ID.postgres.database.azure.com:5432/sharearound?sslmode=require`
 
 ```shell
-mvn azure-webapp:deploy -DappName=sharearound-<unique-id>
+mvn azure-webapp:deploy -DappName=sharearound-<unique-id> -DpostgresUsername=<postgres-username> -DpostgresPassword=<postgres-password> -DpostgresJdbcUrl=<postgres-jdbc-url>
+```
+
+## Update the startup script
+
+The next step is to set the startup script to our custom startup script.
+
+Replace `<unique-id>` with your unique id and execute the following command line:
+
+```shell
+az webapp config set -g sharearound -n sharearound-<unique-id> --startup-file /home/site/deployments/tools/startup_script.sh
+```
+
+## Redeploy the application
+
+To redeploy the web application please replace `<unique-id>` with your unique id,
+the `<postgres-username>` with your PostgreSQL username, the `<postgres-password>`
+with the PostgreSQL password, the `<postgres-jdbc-url>` with the PostgreSQL JDBC
+url and use the following commandline:
+
+Note the postgresJdbcUrl should be similar to 
+`jdbc:postgresql://sharearound-UNIQUE_ID.postgres.database.azure.com:5432/sharearound?sslmode=require`
+
+```shell
+mvn azure-webapp:deploy -DappName=sharearound-<unique-id> -DpostgresUsername=<postgres-username> -DpostgresPassword=<postgres-password> -DpostgresJdbcUrl=<postgres-jdbc-url>
 ```
 
 Once the command completes it will show you the URL of the deployed web
@@ -296,3 +326,5 @@ you will need it later.
 
 Open your browser to the shown URL to verify that you have successfully deployed
 web application.
+
+[Previous](../02-migrating-web-pages/README.md) &nbsp; [Next](../04-adding-app-insights/README.md)

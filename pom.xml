@@ -10,5 +10,6 @@
         <module>01-initial</module>
         <module>02-migrating-web-pages</module>
         <module>03-migrating-database</module>
+        <module>04-adding-app-insights</module>
     </modules>
 </project>
