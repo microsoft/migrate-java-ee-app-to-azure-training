@@ -95,7 +95,7 @@
                             <artifactId>postgresql</artifactId>
                             <version>42.2.9</version>
                             <type>jar</type>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <outputDirectory>${project.build.directory}/../src/main/appservice</outputDirectory>
                             <destFileName>postgresql.jar</destFileName>
                         </artifactItem>
                     </artifactItems>

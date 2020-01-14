@@ -1,8 +1,10 @@
 version: '3'
 services:
   webapp:
+    container_name: webapp
     image: sharearound
     ports:
       - "9090:8080"
   postgres:
+    container_name: postgres
     image: postgres

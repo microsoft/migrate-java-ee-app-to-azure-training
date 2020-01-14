@@ -47,7 +47,7 @@ value:
 az postgres server create --resource-group sharearound --name sharearound-<unique-id> --location westus2 --admin-user postgres --admin-password p0stgr@s1 --sku-name B_Gen5_1
 ```
 
-While this command is running, please feel free to review
+While this command is running, please feel free to review the
 [Azure Database for PostgreSQL documentation](https://docs.microsoft.com/en-us/azure/postgresql/)
 
 Once the command completes take note of the output and capture the value of the
@@ -150,12 +150,6 @@ Now exit the `psql` session using the following command line:
 \q
 ```
 
-And then also exit the running Docker container by executing the command below:
-
-```shell
-exit
-```
-
 ## Changing the deployment to use the remote database
 
 As JavaEE applications use JNDI to refer to their data sources we only have to
@@ -189,11 +183,116 @@ POSTGRES_USERNAME and POSTGRES_PASSWORD.
 
 Note we are using place holders here so we will have to add the defaults to the
 end of the `<properties>` block in the pom.xml file. Please use the XML snippet
-below for that and make sure you replace `<unique-id>` with the unique id for the
+below for that and make sure you replace `UNIQUE_ID` with the unique id for the
 database.
 
 ```xml
-<postgresJdbcUrl>jdbc:postgresql://sharearound-<unique-id>.postgres.database.azure.com:5432/sharearound?sslmode=require</postgresJdbcUrl>
-<postgresUsername>postgres</postgresUsername>
+<postgresJdbcUrl>jdbc:postgresql://sharearound-UNIQUE_ID.postgres.database.azure.com:5432/sharearound?sslmode=require</postgresJdbcUrl>
+<postgresUsername>postgres@sharearound-UNIQUE_ID</postgresUsername>
 <postgresPassword>p0stgr@s1</postgresPassword>
 ```
+
+The next step is to update the `src/main/resources/META-INF/persistence.xml` file
+to point to our database on the cloud.
+
+Replace the `<jta-data-source>` block with the one below:
+
+```xml
+<jta-data-source>java:jboss/datasources/sharearoundDS</jta-data-source>
+```
+
+Now we need the JDBC driver for PostgreSQL as we need to upload it to App Service.
+
+Please execute the following command line:
+
+```shell
+mvn initialize
+```
+
+Now all the files are staged in the `src/main/appservice` directory.
+
+The next steps is to see if you have set any deployment credentials before:
+
+```shell
+az webapp deployment user show
+```
+
+If `publishingUsername` is not set to `null` you have previously set deployment
+credentials, please use them in the following steps. Otherwise we are now going
+to set the deployment credentials.
+
+```shell
+az webapp deployment user set --user-name sharearound-user
+```
+
+It will prompt for a password. Pick any password you want. If it does not conform
+to the minimum requirements it will tell you. If that happens pick a password
+that does conform.
+
+We need to know the hostname of the FTP server we need to upload to. Please
+replace `<unique-id>` with your unique id and execute the command line below.
+
+```shell
+az webapp deployment list-publishing-profiles --name sharearound-<unique-id> --resource-group sharearound
+```
+
+Look for `profileName` similar to `sharearound-<unique-id> - FTP`. Once you have
+found it then look for the `publishUrl` in the same block. That will be the
+correct FTP server URL for your web application.
+
+So now you should have the the following:
+
+1. The FTP username
+2. The FTP password
+3. The FTP hostname
+
+Note when logging in you will have to prefix the FTP username with the appName,
+e.g. `sharearound-<unique-id>\sharearound-user`
+
+Now we are going to connect to the FTP server and upload the files from the
+`src/main/appservice` directory into to the remote directory
+`/site/deployments/tools/`.
+
+From the `src/main/appservice` directory execute the following
+command lines replacing `<unique-id>` with your unique id and the `<ftp-hostname>`
+with the FTP hostname.
+
+```shell
+ncftp -u sharearound-<unique-id>\\sharearound-user <ftp-hostname>
+cd /site/deployments/tools
+put *
+exit
+```
+
+The next step is to set the startup script to our custom startup script.
+
+Replace `<unique-id>` with your unique id and execute the following command line:
+
+```shell
+az webapp config set -g sharearound -n sharearound-<unique-id> --startup-file /home/site/deployments/tools/startup_script.sh
+```
+
+## Build the web application
+
+Execute the following command line:
+
+```shell
+mvn package
+```
+
+## Redeploy the application
+
+To redeploy the web application please replace `<unique-id>` with your unique id
+and use the following commandline:
+
+```shell
+mvn azure-webapp:deploy -DappName=sharearound-<unique-id>
+```
+
+Once the command completes it will show you the URL of the deployed web
+application, it will look similar to
+`https://sharearound-<unique-id>.azurewebsites.net`. Please capture this URL as
+you will need it later.
+
+Open your browser to the shown URL to verify that you have successfully deployed
+web application.

@@ -11,5 +11,16 @@
     </h:head>
     <h:body>
         Items available for sharing
+        <h:dataTable var="item" value="#{itemListBean.items}">
+            <h:column>
+                <h:outputText value="#{item.id}"/>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{item.title}"/>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{item.shortDescription}"/>
+            </h:column>
+        </h:dataTable>
     </h:body>
 </html>

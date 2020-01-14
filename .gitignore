@@ -2,7 +2,6 @@
 .project
 .settings/
 .vscode/
-02-migrating-static-pages/src
 nb-configuration.xml
 target/
 

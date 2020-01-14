@@ -12,6 +12,14 @@
     <artifactId>migrating-web-pages</artifactId>
     <packaging>war</packaging>
     <name>2. Migrating the web pages</name>
+    <properties>
+        <appName>sharearound-${maven.build.timestamp}</appName>
+        <appServicePlan>sharearound-appserviceplan</appServicePlan>
+        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <resourceGroup>sharearound</resourceGroup>
+        <region>westus2</region>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -31,7 +39,9 @@
                         <phase>clean</phase>
                         <configuration>
                             <target>
-                                <delete dir="src"/>
+                                <delete dir="src" includeemptydirs="true">
+                                    <exclude name="main/resources/META-INF/persistence.xml"/>
+                                </delete>
                                 <delete dir="target"/>
                             </target>
                         </configuration>
@@ -44,7 +54,7 @@
                         <phase>none</phase>
                         <configuration>
                             <target>
-                                <copy todir="src">
+                                <copy todir="src" overwrite="false">
                                     <fileset dir="../01-initial/src"/>
                                 </copy>
                             </target>
@@ -62,6 +72,33 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>1.8.0</version>
+                <configuration>
+                    <schemaVersion>v2</schemaVersion>
+                    <resourceGroup>${resourceGroup}</resourceGroup>
+                    <region>${region}</region>
+                    <appName>${appName}</appName>
+                    <appServicePlanName>${appServicePlan}</appServicePlanName>
+                    <runtime>
+                        <os>linux</os>
+                        <javaVersion>jre8</javaVersion>
+                        <webContainer>wildfly 14</webContainer>
+                    </runtime>
+                    <deployment>
+                        <resources>
+                            <resource>
+                                <directory>${project.basedir}/target</directory>
+                                <includes>
+                                    <include>*.war</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </deployment>
                 </configuration>
             </plugin>
         </plugins>

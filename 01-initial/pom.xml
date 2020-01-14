@@ -26,56 +26,38 @@
         <finalName>sharearound</finalName>
         <plugins> 
             <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <executions>
-                    <execution>
-                        <id>deploy</id>
-                        <phase>none</phase>
-                        <configuration>
-                            <target>
-                                <echo>Building Docker image</echo>
-                                <exec executable="docker">
-                                    <arg line="build -t sharearound -f src/main/docker/Dockerfile ."/>
-                                </exec>
-                                <echo>Deployig web application and database</echo>
-                                <exec dir="src/main/docker-compose/sharearound" executable="docker-compose">
-                                    <arg line="up -d"/>
-                                </exec>
-                                <echo>Loading database with data</echo>
-                                <echo>TODO</echo>
-                                <echo>Done!</echo>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>undeploy</id>
-                        <phase>none</phase>
-                        <configuration>
-                            <target>
-                                <echo>Undeployig web application and database</echo>
-                                <exec dir="src/main/docker-compose/sharearound" executable="docker-compose">
-                                    <arg line="down"/>
-                                </exec>
-                                <echo>Done!</echo>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>org.postgresql</groupId>
+                            <artifactId>postgresql</artifactId>
+                            <version>42.2.9</version>
+                            <type>jar</type>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <destFileName>postgresql.jar</destFileName>
+                        </artifactItem>
+                    </artifactItems>
                 </configuration>
             </plugin>
             <plugin>
