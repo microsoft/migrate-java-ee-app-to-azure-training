@@ -1,4 +1,4 @@
-# Migrating the web pages
+# Adding Application Insights
 
 ## What are we going to do in this step
 
@@ -33,7 +33,7 @@ mvn package
 To deploy the web application you will need a unique id as the URL space of
 Azure App Service is shared across all Azure subscriptions . In a class room
 setting ask your proctor what the value of the `<unique-id>` needs to be. If you
-are doing this workshop by yourself you can omit the 
+are doing this workshop by yourself you can omit the
 `-DappName=sharearound-<unique-id>` and a unique id will be generated for you.
 
 Use the following commandline:
@@ -83,10 +83,10 @@ Please add the following to the `<dependencies>` block in your `pom.xml` file.
 </dependency>
 ```
 
-## Create ApplicationInsights.xml 
+## Create ApplicationInsights.xml
 
 Create `src/main/resources/ApplicationInsights.xml` and paste the contents below
-into that file and replace `**  Your instrumentation key **` with your 
+into that file and replace `**  Your instrumentation key **` with your
 instrumentation key.
 
 ```xml
@@ -101,7 +101,7 @@ instrumentation key.
       <Add type="com.microsoft.applicationinsights.web.extensibility.modules.WebSessionTrackingTelemetryModule"/>
       <Add type="com.microsoft.applicationinsights.web.extensibility.modules.WebUserTrackingTelemetryModule"/>
    </TelemetryModules>
-   
+
    <!-- Events correlation (not required for bare API) -->
    <!-- These initializers add context data to each event -->
    <TelemetryInitializers>
@@ -114,9 +114,9 @@ instrumentation key.
 </ApplicationInsights>
 ```
 
-## Build the web application
+## Rebuild the web application
 
-Now we are ready to build the web application.
+Now we are ready to rebuild the web application.
 
 Use the following command line:
 
@@ -124,12 +124,12 @@ Use the following command line:
 mvn package
 ```
 
-## Deploy the web application
+## Redeploy the web application
 
-To deploy the web application you will need a unique id as the URL space of
+To redeploy the web application you will need a unique id as the URL space of
 Azure App Service is shared across all Azure subscriptions . In a class room
 setting ask your proctor what the value of the `<unique-id>` needs to be. If you
-are doing this workshop by yourself you can omit the 
+are doing this workshop by yourself you can omit the
 `-DappName=sharearound-<unique-id>` and a unique id will be generated for you.
 You will also need the `instrumentationKey` you captured before.
 
@@ -156,14 +156,44 @@ link on the main page. It should trigger an error. Please refresh that page also
 
 Go to the [Azure Portal](https://portal.azure.com)
 
-In the search bar enter `sharearound-app-insights` and press enter.
+In the search bar enter `sharearound-app-insights` and press enter one to start
+the search. Press enter a second time to go to the match found.
 
-You should now see the Application Insights overview page.
+![Azure Search Bar](images/azure-search-bar.png "Azure Search Bar")
+
+You should now see the Application Insights overview page for `sharearound-app-insights`.
+
+![Sharearound Application Insights](images/sharearound-app-insights.png "Sharearound Application Insights")
 
 If you want to drill down even more click on `Application Dashboard`.
 
+![Application Dashboard](images/application-dashboard.png "Application Dashboard")
+
+The Application Dashboard will look similar to the image below:
+
+![Application Dashboard Page](images/application-dashboard-detail.png "Application Dashboard Page")
+
 ## Looking at Log Analytics
 
-TODO
+It is possible to drill even further down by analyzing the logs that are collected.
+To do so we are going to us Log Analytics.
+
+In the search bar enter `sharearound-app-insights` and press enter one to start
+the search. Press enter a second time to go to the match found.
+
+![Azure Search Bar](images/azure-search-bar.png "Azure Search Bar")
+
+Then in the left navigation area click on `Log (Analytics)`. You might have to scroll down to see it.
+
+![Log Analytics](images/log-analytics-button.png "Log Analytics")
+
+Once you click it you should see an image similar to the one below:
+
+*If you get a message that Log Analytics is not enabled yet.
+ please enable it*
+
+![Log Analytics Overview](images/log-analytics-overview.png "Log Analytics Overview")
+
+
 
 [Previous](../03-migrating-database/README.md)

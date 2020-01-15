@@ -80,7 +80,7 @@ az postgres server firewall-rule create --resource-group sharearound --server sh
 ```
 
 *Note if you install the PostgreSQL extension for Azure CLI you can simplify
-creation of the database a bit, see 
+creation of the database a bit, see
 [az postgres](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
 for more information*
 
@@ -288,7 +288,7 @@ the `<postgres-username>` with your PostgreSQL username, the `<postgres-password
 with the PostgreSQL password, the `<postgres-jdbc-url>` with the PostgreSQL JDBC
 url and use the following commandline:
 
-Note the postgresJdbcUrl should be similar to 
+Note the postgresJdbcUrl should be similar to
 `jdbc:postgresql://sharearound-UNIQUE_ID.postgres.database.azure.com:5432/sharearound?sslmode=require`
 
 ```shell
@@ -312,7 +312,7 @@ the `<postgres-username>` with your PostgreSQL username, the `<postgres-password
 with the PostgreSQL password, the `<postgres-jdbc-url>` with the PostgreSQL JDBC
 url and use the following commandline:
 
-Note the postgresJdbcUrl should be similar to 
+Note the postgresJdbcUrl should be similar to
 `jdbc:postgresql://sharearound-UNIQUE_ID.postgres.database.azure.com:5432/sharearound?sslmode=require`
 
 ```shell
