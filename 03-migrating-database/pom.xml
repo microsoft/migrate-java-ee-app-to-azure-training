@@ -41,6 +41,7 @@
                                 <delete includeemptydirs="true">
                                     <fileset dir="src">
                                         <exclude name="main/webapp/index.jsp"/>
+                                        <exclude name="main/appservice/*"/>
                                     </fileset>
                                 </delete>
                                 <delete dir="target"/>
@@ -96,7 +97,7 @@
                             <version>42.2.9</version>
                             <type>jar</type>
                             <outputDirectory>${project.build.directory}/../src/main/appservice</outputDirectory>
-                            <destFileName>postgresql.jar</destFileName>
+                            <destFileName>postgres.jar</destFileName>
                         </artifactItem>
                     </artifactItems>
                 </configuration>

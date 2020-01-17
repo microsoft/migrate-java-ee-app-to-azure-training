@@ -89,4 +89,6 @@ Execute the command line below:
 az servicebus namespace authorization-rule keys list --resource-group sharearound --namespace-name sharearound-$UNIQUE_ID --name RootManageSharedAccessKey --query primaryConnectionString --output tsv
 ````
 
+Please capture the connection string as you will need it later.
+
 [Previous](../04-adding-app-insights/README.md)

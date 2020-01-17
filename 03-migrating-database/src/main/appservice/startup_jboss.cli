@@ -1,0 +1,7 @@
+module add --name=org.postgres --resources=/home/site/deployments/tools/postgres.jar --module-xml=/home/site/deployments/tools/postgres-module.xml
+
+/subsystem=datasources/jdbc-driver=postgres:add(driver-name=postgres,driver-module-name=org.postgres,driver-class-name=org.postgresql.Driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+data-source add --name=sharearoundDS --driver-name=postgres --jndi-name=java:jboss/datasources/sharearoundDS --connection-url=${POSTGRES_JDBC_URL,env.POSTGRES_JDBC_URL} --user-name=${POSTGRES_USERNAME,env.POSTGRES_USERNAME} --password=${POSTGRES_PASSWORD,env.POSTGRES_PASSWORD} --use-ccm=true --max-pool-size=5 --blocking-timeout-wait-millis=5000 --enabled=true --driver-class=org.postgresql.Driver --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter --jta=true --use-java-context=true --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker
+
+reload --use-current-server-config=true

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<module xmlns="urn:jboss:module:1.1" name="postgres">
+    <resources>
+       <resource-root path="/home/site/deployments/tools/postgres.jar" />
+    </resources>
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.transaction.api"/>
+    </dependencies>
+</module>
