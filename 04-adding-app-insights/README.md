@@ -227,4 +227,4 @@ Now there is a whole lot more to Log Analytics, but the rest is left up to you!
 For more information review [What is Application Insights?](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) and
 [Overview of log queries in Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/log-query-overview)
 
-[Previous](../03-migrating-database/README.md)
+[Previous](../03-migrating-database/README.md) &nbsp; [Next](../05-migrating-messaging/README.md)
