@@ -9,6 +9,6 @@
     </head>
     <body>
         <h1>Share Around</h1>
-        <a href="/sharearound/items.xhtml">Look at the available items</a>
+        <a href="items.xhtml">Look at the available items</a>
     </body>
 </html>
