@@ -156,7 +156,7 @@ link on the main page. It should trigger an error. Please refresh that page also
 
 Go to the [Azure Portal](https://portal.azure.com)
 
-In the search bar enter `sharearound-app-insights` and press enter one to start
+In the search bar enter `sharearound-app-insights` and press enter once to start
 the search. Press enter a second time to go to the match found.
 
 ![Azure Search Bar](images/azure-search-bar.png "Azure Search Bar")
@@ -178,7 +178,7 @@ The Application Dashboard will look similar to the image below:
 It is possible to drill even further down by analyzing the logs that are collected.
 To do so we are going to us Log Analytics.
 
-In the search bar enter `sharearound-app-insights` and press enter one to start
+In the search bar enter `sharearound-app-insights` and press enter once to start
 the search. Press enter a second time to go to the match found.
 
 ![Azure Search Bar](images/azure-search-bar.png "Azure Search Bar")
@@ -194,6 +194,37 @@ Once you click it you should see an image similar to the one below:
 
 ![Log Analytics Overview](images/log-analytics-overview.png "Log Analytics Overview")
 
+In the area where it says 'Type your query here' enter the following:
 
+```shell
+requests
+| limit 50
+```
+
+And then click the `Run` button above it. After a short while it should show you
+an image similar to the one below.
+
+![HTTP requests](images/log-analytics-requests.png "HTTP requests")
+
+You can drill down even more by clicking on any of those requests. But lets
+continue on and select a slightly different query.
+
+Replace the query with:
+
+```shell
+exceptions
+| limit 50
+```
+
+This will show any of the exceptions that are happening.
+
+![Exception requests](images/log-analytics-exceptions.png "Exception requests")
+
+You should see database exceptions, which are expected.
+
+Now there is a whole lot more to Log Analytics, but the rest is left up to you!
+
+For more information review [What is Application Insights?](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) and
+[Overview of log queries in Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/log-query-overview)
 
 [Previous](../03-migrating-database/README.md)
