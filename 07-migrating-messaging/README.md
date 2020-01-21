@@ -20,10 +20,11 @@ in your terminal:
 
 Some of the resources we are going to create need to have a unique id. In a class
 room setting ask your proctor what the value of the `UNIQUE_ID` needs to be. If
-you are doing this workshop by yourself use the same timestamp in `YYYYMMDDHHSS` format as your unique id.
+you are doing this workshop by yourself use the same timestamp in `YYYYMMDDHHSS`
+format as your unique id.
 
-Replacing `FILL_THIS_IN` with the value you determined above and execute the command
-line below:
+Replacing `FILL_THIS_IN` with the value you determined above and execute the
+command line below:
 
 ```shell
 export UNIQUE_ID=FILL_THIS_IN
@@ -63,7 +64,7 @@ Please capture this URL as you will need it later.
 
 We are going to create the Azure Service Bus.
 
-> Note the DNS namespace of Azure Service Bus is shared across all Azure 
+> Note the DNS namespace of Azure Service Bus is shared across all Azure
 > subscriptions so your unique id will be used to make it unique.
 
 Please execute the command line:
@@ -72,8 +73,9 @@ Please execute the command line:
 az servicebus namespace create --resource-group sharearound --name sharearound-$UNQIUE_ID --location westus2
 ```
 
+This command will take some time to execute.
 
-This command will take some time to execute. While you are waiting feel free to review our
+While you are waiting feel free to review our
 [Azure Service Bus Messaging documentation](https://docs.microsoft.com/en-us/azure/service-bus-messaging/).
 
 The next step is to create the topic on the service bus.
@@ -84,7 +86,6 @@ Execute the command below:
 az servicebus queue create --resource-group sharearound --namespace-name sharearound-$UNIQUE_ID --name EmailQueue
 ```
 
-
 The next step is to get the connection string to the queue.
 
 Execute the command line below:
@@ -94,7 +95,5 @@ az servicebus namespace authorization-rule keys list --resource-group sharearoun
 ````
 
 Please capture the connection string as you will need it later.
-
-
 
 [Previous](../04-adding-app-insights/README.md)

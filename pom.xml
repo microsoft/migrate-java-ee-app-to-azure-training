@@ -8,9 +8,9 @@
     <name>JavaEE to Azure App Service Training</name>
     <modules>
         <module>01-initial</module>
-        <module>02-migrating-web-pages</module>
-        <module>03-migrating-database</module>
-        <module>04-adding-app-insights</module>
-        <module>05-migrating-messaging</module>
+        <module>04-migrating-web-pages</module>
+        <module>07-migrating-messaging</module>
+        <module>06-adding-app-insights</module>
+        <module>05-migrating-database</module>
     </modules>
 </project>

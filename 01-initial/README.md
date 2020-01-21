@@ -55,4 +55,4 @@ to shut it down issue the following command:
 docker-compose down
 ```
 
-[Next](../02-migrating-web-pages/README.md)
+[Next](../02-setting-up-acr/README.md)

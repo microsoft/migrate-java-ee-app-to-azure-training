@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.microsoft.azure.javaeetoazure</groupId>
         <artifactId>project</artifactId>
+        <groupId>com.microsoft.azure.javaeetoazure</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>migrating-messaging</artifactId>
+    <artifactId>migrating-database</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>5. Migrating messaging</name>
+    <name>5. Migrating the database</name>
     <properties>
-        <appName>sharearound-${UNIQUE_ID}</appName>
+        <appName>sharearound-${maven.build.timestamp}</appName>
         <appServicePlan>sharearound-appserviceplan</appServicePlan>
+        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <resourceGroup>sharearound</resourceGroup>
         <region>westus2</region>
@@ -38,9 +38,11 @@
                         <phase>clean</phase>
                         <configuration>
                             <target>
-                                <delete dir="src" includeemptydirs="true">
-                                    <exclude name="main/webapp/index.jsp"/>
-                                    <exclude name="main/resources/META-INF/persistence.xml"/>
+                                <delete includeemptydirs="true">
+                                    <fileset dir="src">
+                                        <exclude name="main/webapp/index.jsp"/>
+                                        <exclude name="main/appservice/*"/>
+                                    </fileset>
                                 </delete>
                                 <delete dir="target"/>
                             </target>
@@ -75,13 +77,47 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>org.postgresql</groupId>
+                            <artifactId>postgresql</artifactId>
+                            <version>42.2.9</version>
+                            <type>jar</type>
+                            <outputDirectory>${project.build.directory}/../src/main/appservice</outputDirectory>
+                            <destFileName>postgres.jar</destFileName>
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.microsoft.azure</groupId>
                 <artifactId>azure-webapp-maven-plugin</artifactId>
-                <version>1.8.0</version>
+                <version>1.8.0</version> 
                 <configuration>
                     <schemaVersion>v2</schemaVersion>
                     <resourceGroup>${resourceGroup}</resourceGroup>
-                    <region>${region}</region>
+                    <region>westus2</region>
                     <appName>${appName}</appName>
                     <appServicePlanName>${appServicePlan}</appServicePlanName>
                     <runtime>
@@ -104,4 +140,3 @@
         </plugins>
     </build>
 </project>
-
