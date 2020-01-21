@@ -21,6 +21,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>sharearound</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>

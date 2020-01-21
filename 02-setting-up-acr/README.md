@@ -42,6 +42,14 @@ az acr create --name sharearoundacr$UNIQUE_ID --location westus2 \
   --resource-group sharearound --sku Basic
 ```
 
+## Login into your ACR
+
+Now log into your ACR using the command line below:
+
+```shell
+az acr login -n sharearoundacr$UNIQUE_ID
+```
+
 ## More information
 
 For more information about ACR, see:
@@ -52,4 +60,4 @@ For more information about ACR, see:
 
 [Previous](../01-initial/README.md) &nbsp; [Next](../03-setting-up-aks/README.md)
 
-5m
+6m

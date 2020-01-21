@@ -2,24 +2,20 @@
 
 ## What are we going to do in this step
 
-The first thing you should do in any migration to Azure is to migrate the
-deployment process.
-
-As we have chosen the deployment target for this training to be Azure App Service
-we need to make some changes to make it possible to deploy this web application
-onto Azure. For simplicity sake we are going to ignore the fact that the
-application is using a database for now.
+As we have chosen the deployment target for this training to be Azure Kubernetes
+Service (AKS) we need to make some changes to make it possible to deploy this web
+application onto AKS. For simplicity sake we are going to ignore the fact that
+the application is using a database for now.
 
 ## Setting up
 
-To start the migration we are going to copy the application from the `01-initial`
+To start the application migration we are going to copy the application from the `01-initial`
 directory into this directory.
 
-To do so please issue the following command line
-in your terminal:
+To do so please issue the following command line in your terminal:
 
 ```shell
-  mvn antrun:run@setup
+mvn antrun:run@setup
 ```
 
 ## Changes needed to the web pages
@@ -30,9 +26,8 @@ specific context root. In this particular case we have one, you can find the
 
 Look at the contents and you will  notice it specifies `/sharearound`.
 
-As we are targetting Azure App Service using WildFly and a specific context root
-was used we now need to make sure the application does NOT use it anywhere in a
-hard-coded way.
+As we are targeting AKS and a specific context root was used we now need to make
+sure the application does NOT use it anywhere in a hard-coded way.
 
 Luckily in this application there is only one spot in the application that has the
 value hard-coded and that is in the index.jsp page. Please remove `/sharearound/`
@@ -48,89 +43,83 @@ Use the following command line:
 mvn package
 ```
 
-## Add the Azure Web App Maven plugin for deployment
+## Build the Docker image locally
 
-Please add the following XML snippet just before </plugins> in the POM file.
+Now that we have the web application we need to build a Docker image with both
+WildFly and your web application in it.
 
-```xml
-<plugin>
-    <groupId>com.microsoft.azure</groupId>
-    <artifactId>azure-webapp-maven-plugin</artifactId>
-    <version>1.8.0</version>
-    <configuration>
-        <schemaVersion>v2</schemaVersion>
-        <resourceGroup>${resourceGroup}</resourceGroup>
-        <region>${region}</region>
-        <appName>${appName}</appName>
-        <appServicePlanName>${appServicePlan}</appServicePlanName>
-        <runtime>
-            <os>linux</os>
-            <javaVersion>jre8</javaVersion>
-            <webContainer>wildfly 14</webContainer>
-        </runtime>
-        <deployment>
-            <resources>
-                <resource>
-                    <directory>${project.basedir}/target</directory>
-                    <includes>
-                        <include>*.war</include>
-                    </includes>
-                </resource>
-            </resources>
-        </deployment>
-    </configuration>
-</plugin>
-```
-
-By adding the Maven plugin above you will be able to use Maven to deploy your
-web application while you are developing. Note for production deployment we
-recommend setting up a CI/CD pipeline!
-
-Each of the relevant pieces in the `<configuration>` block has been parameterized
-so you can override them using the Maven command line.
-
-Note that for a successful Azure App Service deployment you will need to have a
-least a `resource group`, a `region`, an `appName` and an `appServicePlan`.
-
-We are going to add a `<properties>` section to the POM file that will set some
-defaults for these.
-
-Please add the following XML snippet just before `</project>` in the POM file.
-
-```xml
-<properties>
-    <appName>sharearound-${maven.build.timestamp}</appName>
-    <appServicePlan>sharearound-appserviceplan</appServicePlan>
-    <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <resourceGroup>sharearound</resourceGroup>
-    <region>westus2</region>
-</properties>
-```
-
-## Deploy the web application
-
-To deploy the web application you will need a unique id as the DNS space of
-Azure App Service is shared across all Azure subscriptions . In a class room
-setting ask your proctor what the value of the `<unique-id>` needs to be. If you
-are doing this workshop by yourself you can omit the 
-`-DappName=sharearound-<unique-id>` and a unique id will be generated for you.
-
-Use the following commandline:
+To do so execute the following command line:
 
 ```shell
-  mvn azure-webapp:deploy -DappName=sharearound-<unique-id>
+docker build -t sharearoundacr$UNIQUE_ID.azurecr.io/sharearound -f src/main/docker/Dockerfile.wildfly .
 ```
 
-While this command is running, please feel free to review
-[App Service on Linux Documentation](https://docs.microsoft.com/en-us/azure/app-service/containers/)
+## Test the Docker image locally
 
-Once the command completes it will show you the URL of the deployed web
-application, it will look similar to
-`https://sharearound-<unique-id>.azurewebsites.net`. Please capture this URL as
-you will need it later.
+Now we are going to validate that the image works.
 
-Open your browser to the shown URL to verify that you have successfully deployed
-web application.
+Please execute the following command line:
 
-[Previous](../01-initial/README.md) &nbsp; [Next](../03-migrating-database/README.md)
+```shell
+docker run --rm -it -p 8080:8080 sharearoundacr$UNIQUE_ID.azurecr.io/sharearound
+```
+
+You should see something like the output below:
+
+```shell
+Full 18.0.1.Final (WildFly Core 10.0.3.Final) started in 5058ms - Started 315 of 577 services (369 services are lazy, passive or on-demand)
+```
+
+Now open Microsoft Edge to http://localhost:8080/.
+
+You should see a web page with ....
+
+Now shutdown the Docker container using:
+
+```shell
+Ctrl+C
+```
+
+## Build the image on ACR
+
+```shell
+az acr build --registry sharearoundacr$UNIQUE_ID --image sharearound --file src/main/docker/Dockerfile.wildfly .
+```
+
+## Deploy to the AKS cluster
+
+Determine the name of your ACR by executing the following command line:
+
+```shell
+echo sharearoundacr$UNIUE_ID
+```
+
+And open up `src/main/aks/deployment.yml` in your editor and replace REGISTRY with
+the value of the previous command (which is the name of your ACR).
+
+And then finally deploy the application by using the following command line:
+
+```shell
+kubectl apply -f src/main/aks/deployment.yml
+```
+
+The command will quickly return, but the deployment will still be going on.
+
+We are going to use `kubectl` to wait for the service to come up:
+
+Execute the following command line:
+
+```shell
+kubectl get service/sharearound -w
+```
+
+Now wait until you see the EXTERNAL-IP column populated with an IP address.
+
+Once the IP address is there you are ready to open Microsoft Edge to
+`http://EXTERNAL-IP:8080/`
+
+You should see the same page as before, but now it is running on AKS!
+
+[Previous](../03-setting-up-aks/README.md) &nbsp; [Next](../05-migrating-database/README.md)
+
+12m
