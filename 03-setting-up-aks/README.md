@@ -73,7 +73,7 @@ below:
 export KUBECONFIG=$PWD/kubeconfig
 ```
 
-This set the KUBECONFIG environment variable to point to the `kubeconfig` file 
+This set the KUBECONFIG environment variable to point to the `kubeconfig` file
 so `kubectl` will be able to interact with your AKS cluster.
 
 ## List the nodes in your AKS cluster

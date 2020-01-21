@@ -9,8 +9,8 @@ the application is using a database for now.
 
 ## Setting up
 
-To start the application migration we are going to copy the application from the `01-initial`
-directory into this directory.
+To start the application migration we are going to copy the application from the
+`01-initial` directory into this directory.
 
 To do so please issue the following command line in your terminal:
 
@@ -71,9 +71,9 @@ You should see something like the output below:
 Full 18.0.1.Final (WildFly Core 10.0.3.Final) started in 5058ms - Started 315 of 577 services (369 services are lazy, passive or on-demand)
 ```
 
-Now open Microsoft Edge to http://localhost:8080/.
+Now open Microsoft Edge to [http://localhost:8080/](http://localhost:8080/)
 
-You should see a web page with ....
+You should see a web page with TODO
 
 Now shutdown the Docker container using:
 
