@@ -51,7 +51,8 @@ WildFly and your web application in it.
 To do so execute the following command line:
 
 ```shell
-docker build -t sharearoundacr$UNIQUE_ID.azurecr.io/sharearound -f src/main/docker/Dockerfile.wildfly .
+docker build -t sharearoundacr$UNIQUE_ID.azurecr.io/sharearound \
+  -f src/main/docker/Dockerfile.wildfly .
 ```
 
 ## Test the Docker image locally
@@ -82,8 +83,14 @@ Ctrl+C
 
 ## Build the image on ACR
 
+Since our AKS cluster needs to be able to pull the image from a Docker registry
+we are going to build it using Azure CLI and target our ACR.
+
+Execute the following command line to do so:
+
 ```shell
-az acr build --registry sharearoundacr$UNIQUE_ID --image sharearound --file src/main/docker/Dockerfile.wildfly .
+az acr build --registry sharearoundacr$UNIQUE_ID --image sharearound \
+  --file src/main/docker/Dockerfile.wildfly .
 ```
 
 ## Deploy to the AKS cluster
@@ -94,7 +101,7 @@ Determine the name of your ACR by executing the following command line:
 echo sharearoundacr$UNIUE_ID
 ```
 
-And open up `src/main/aks/deployment.yml` in your editor and replace REGISTRY with
+Now open `src/main/aks/deployment.yml` in your editor and replace REGISTRY with
 the value of the previous command (which is the name of your ACR).
 
 And then finally deploy the application by using the following command line:
@@ -105,7 +112,7 @@ kubectl apply -f src/main/aks/deployment.yml
 
 The command will quickly return, but the deployment will still be going on.
 
-We are going to use `kubectl` to wait for the service to come up:
+We are going to use `kubectl` to wait for the service to become available:
 
 Execute the following command line:
 
