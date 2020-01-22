@@ -9,3 +9,5 @@ CREATE TABLE IF NOT EXISTS item (
 
 INSERT INTO item(title, short_description) 
 VALUES ('Ironman Blu-ray', 'Ironman Blu-ray');
+
+COMMIT;
