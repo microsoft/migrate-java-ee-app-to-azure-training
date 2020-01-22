@@ -18,6 +18,20 @@ To do so please issue the following command line in your terminal:
 mvn antrun:run@setup
 ```
 
+## Determine your unique id and set it in your environment
+
+Some of the resources we are going to create need to have a unique id. In a class
+room setting ask your proctor what the value of the `UNIQUE_ID` needs to be. If
+you are doing this workshop by yourself use the same timestamp in `YYYYMMDDHHSS`
+format as your unique id throughout the training.
+
+Replacing `FILL_THIS_IN` with the value you determined above and execute the
+command line below:
+
+```shell
+export UNIQUE_ID=FILL_THIS_IN
+```
+
 ## Changes needed to the web pages
 
 We need to verify if there is a server specific deployment descriptor that sets a
@@ -73,7 +87,7 @@ Full 18.0.1.Final (WildFly Core 10.0.3.Final) started in 5058ms - Started 315 of
 
 Now open Microsoft Edge to [http://localhost:8080/](http://localhost:8080/)
 
-You should see a web page with TODO
+You should see the home page of the *Sharearound* application.
 
 Now shutdown the Docker container using:
 
@@ -122,7 +136,7 @@ kubectl get service/sharearound --output wide -w
 
 Now wait until you see the EXTERNAL-IP column populated with an IP address.
 
-> Note if the command does not show the EXTERNAL-IP after a long while, please 
+> Note if the command does not show the EXTERNAL-IP after a long while, please
 > use `Ctrl+C` to cancel the command and then reissue the command without `-w`.
 
 Once the IP address is there you are ready to open Microsoft Edge to
