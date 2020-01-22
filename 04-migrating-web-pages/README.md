@@ -123,7 +123,7 @@ kubectl get service/sharearound --output wide -w
 Now wait until you see the EXTERNAL-IP column populated with an IP address.
 
 > Note if the command does not show the EXTERNAL-IP after a long while, please 
-> use `Ctrl+C` to cancel the command and then reissue the command with `-w`.
+> use `Ctrl+C` to cancel the command and then reissue the command without `-w`.
 
 Once the IP address is there you are ready to open Microsoft Edge to
 `http://EXTERNAL-IP:8080/`
