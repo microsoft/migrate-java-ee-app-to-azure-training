@@ -33,7 +33,9 @@ export UNIQUE_ID=FILL_THIS_IN
 
 ## Create the AKS cluster
 
-Now we are going to create your AKS cluster, please execute the command line below:
+Now we are going to create your AKS cluster.
+
+Please execute the command line below:
 
 ```shell
 az aks create --verbose --name sharearound-aks-$UNIQUE_ID \
@@ -51,9 +53,10 @@ section.
 In order to access the Kubernetes cluster using `kubectl` you will need a Kube config file.
 
 > Note as the purpose of this training is migrating the JavaEE application to
-> AKS we are concentrating on that and we are using admin access to the AKS
-> cluster. For production environments we recommend you configure RBAC to limit
-> access to your Kubernetes cluster based on roles.
+> AKS and not Kubernetes administration we are using admin access to the AKS
+> cluster. For production environments we recommend
+> [configuring RBAC](https://docs.microsoft.com/en-us/azure/aks/azure-ad-rbac)
+> to limit access to your Kubernetes cluster based on roles.
 
 Execute the following command line:
 

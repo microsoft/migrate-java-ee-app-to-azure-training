@@ -2,7 +2,7 @@
 
 ## What are we going to do in this step
 
-In the previous step we made sure we could deploy the web application on Azure 
+In the previous step we made sure we could deploy the web application on Azure
 Kubernetes Service (AKS) without taking into account that it is using a database.
 In this step we are going to tackle the migration of the database.
 
@@ -16,6 +16,20 @@ in your terminal:
 
 ```shell
 mvn antrun:run@setup
+```
+
+## Determine your unique id and set it in your environment
+
+Some of the resources we are going to create need to have a unique id. In a class
+room setting ask your proctor what the value of the `UNIQUE_ID` needs to be. If
+you are doing this workshop by yourself use the same timestamp in `YYYYMMDDHHSS`
+format as your unique id throughout the training.
+
+Replacing `FILL_THIS_IN` with the value you determined above and execute the
+command line below:
+
+```shell
+export UNIQUE_ID=FILL_THIS_IN
 ```
 
 ## Create the resource group
@@ -34,25 +48,50 @@ customer you can opt to keep your on-premise database and creating the appropria
 connectivity to it. However we recommend moving it to our managed offering Azure
 Database for PostgreSQL.
 
-To create the PostgreSQL database on Azure you will need a unique id as the DNS
-space is shared across all Azure subscriptions. In a class room setting ask your
-proctor what the value of the `<unique-id>` needs to be. If you are doing this
-workshop by yourself use the current timestamp in YYYYMMDDHHSS format as your
-`<unique-id>`.
+> Any PostgreSQL database on Azure shares the DNS namespace across all Azure
+> subscriptions, so the UNIQUE_ID determined previously is used to make its name
+> unique.
 
-Use the command line below and substitute `<unique-id>` with the appropriate
-value:
+Before we go ahead and create the database we are going to set the Postgres admin
+username and password in your environment. In a classroom setting ask your
+proctor what the value of `PGUSER` and `PGPASS` needs to be. If you are doing this
+workshop by yourself use the any combination you like.
+
+To set the `PGUSER` environment variable use the following command line, replacing
+`FILL_THIS_IN` with the appropriate value:
 
 ```shell
-az postgres server create --resource-group sharearound --name sharearound-<unique-id> --location westus2 --admin-user postgres --admin-password p0stgr@s1 --sku-name B_Gen5_1
+export PGUSER=FILL_THIS_IN
 ```
 
-While this command is running, please feel free to review the
-[Azure Database for PostgreSQL documentation](https://docs.microsoft.com/en-us/azure/postgresql/)
+And for the `PGPASS` environment variable use the following command line,
+replacing `FILL_THIS_IN` with the appropriate value:
 
-Once the command completes take note of the output and capture the value of the
-`fullyQualifiedDomainName` JSON property. It will look similar to
-`sharearound-<unique-id>.postgres.database.azure.com`.
+```shell
+export PGRPASS=FILL_THIS_IN
+```
+
+And now it is time to create the database.
+
+Use the command line below:
+
+```shell
+az postgres server create --resource-group sharearound \
+  --name sharearound-postgres-$UNIQUE_ID --location westus2 \
+  --admin-user $PGUSER --admin-password $PGPASS \
+  --sku-name B_Gen5_1
+```
+
+While this command is running, please feel free to review the documentation
+listed below at [More information](#more-information).
+
+Now lets set the `PGHOST` environment variable so you can use it later.
+
+Execute the following command line:
+
+```shell
+export PGHOST=sharearound-postgres-$UNIQUE_ID.postgres.database.azure.com
+```
 
 ## Determine your own IP address
 
@@ -62,38 +101,53 @@ database.
 Execute the following command line:
 
 ```shell
-echo `curl -s http://whatismyip.akamai.com/`
+export EXTERNAL_IP=`curl -s http://whatismyip.akamai.com/`
 ```
 
-Please capture the external IP address as you will need it later.
+This will set the `EXTERNAL_IP` environment variable to our own external IP.
 
-## Open the firewall to allow access from your local IP address
+## Open the firewall to allow access from your own external IP address
 
-Previously you determined your own external IP address. Now it is time to open up
-the firewall so you can access PostgreSQL remotely.
+Previously you determined your own external IP address.
 
-Replace `<external-ip>` in the command line below with your own external IP
-address and execute the command:
+Now it is time to open up the firewall so you can access PostgreSQL remotely.
+
+Execute the following command line:
 
 ```shell
-az postgres server firewall-rule create --resource-group sharearound --server sharearound-<unique-id> --name AllowMyIP --start-ip-address <external-ip> --end-ip-address <external-ip>
+az postgres server firewall-rule create --resource-group sharearound \
+  --server sharearound-postgres-$UNIQUE_ID --name AllowMyIP \
+  --start-ip-address $EXTERNAL_IP --end-ip-address $EXTERNAL_IP
 ```
 
-*Note if you install the PostgreSQL extension for Azure CLI you can simplify
-creation of the database a bit, see
-[az postgres](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
-for more information*
+> Note if you install the PostgreSQL extension for Azure CLI you can simplify
+> creation of the database a bit, see
+> [az postgres](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
+> for more information
+
+## Turn off requiring SSL connections
+
+> In a production environment you should NOT disable requiring SSL connections
+> between your application and the database, but as the target of this training is
+> migrating your JavaEE application and it simplifies the migration, we are going
+> to turn off requiring SSL connections.
+
+Please execute the following command line:
+
+```shell
+az postgres server update --resource-group sharearound \
+ --name sharearound-postgres-$UNIQUE_ID --ssl-enforcement Disabled
+```
 
 ## Verifying you can access your database
 
 Now that the firewall has been configured we need to verify that you can actually
 access the database as we will need to load it up with some setup data.
 
-Replace `<unique-id>` with your unique id for the database and execute the command
-line below:
+Execute the command line below:
 
 ```shell
- psql --host sharearound-<unique-id>.postgres.database.azure.com --username postgres@sharearound-<unique-id> --dbname postgres --password
+psql "dbname=postgres user=$PGUSER@sharearound-postgres-$UNIQUE_ID"
 ```
 
 Note it will prompt for the password. Use the same password as the one you used to
@@ -132,8 +186,6 @@ database:
 \c sharearound
 ```
 
-It will prompt for the password again, please enter the same password as before.
-
 The next step will be to load the database with some data.
 
 ```shell
@@ -162,112 +214,13 @@ As JavaEE applications use JNDI to refer to their data sources we only have to
 change the deployment to point the JNDI entry to the new database. So in the
 following steps we will be changing the deployment to use the remote database.
 
-Please add the following XML snippet to the `<configuration>` block just before the
-end as denoted by `</configuration>` of the `azure-webapp-maven-plugin` plugin in
-the pom.xml file.
-
-```xml
-<appSettings>
-    <property>
-        <name>POSTGRES_JDBC_URL</name>
-        <value>${postgresJdbcUrl}</value>
-    </property>
-    <property>
-        <name>POSTGRES_USERNAME</name>
-        <value>${postgresUsername}</value>
-    </property>
-    <property>
-        <name>POSTGRES_PASSWORD</name>
-        <value>${postgresPassword}</value>
-    </property>
-</appSettings>
-```
-
-These will make it so that when you redeploy the Maven plugin will convey the app
-settings to Azure App Service with the following names, POSTGRES_JDBC_URL,
-POSTGRES_USERNAME and POSTGRES_PASSWORD.
-
-Note we are using place holders here so we will have to add the defaults to the
-end of the `<properties>` block in the pom.xml file. Please use the XML snippet
-below for that and make sure you replace `UNIQUE_ID` with the unique id for the
-database.
-
-```xml
-<postgresJdbcUrl>FILL_IN_JDBC_URL</postgresJdbcUrl>
-<postgresUsername>FILL_IN_USERNAME</postgresUsername>
-<postgresPassword>FILL_IN_PASSWORD</postgresPassword>
-```
-
-The next step is to update the `src/main/resources/META-INF/persistence.xml` file
+Please update the `src/main/resources/META-INF/persistence.xml` file
 to point to our database on the cloud.
 
 Replace the `<jta-data-source>` block with the one below:
 
 ```xml
 <jta-data-source>java:jboss/datasources/sharearoundDS</jta-data-source>
-```
-
-Now we need the JDBC driver for PostgreSQL as we need to upload it to App Service.
-
-Please execute the following command line:
-
-```shell
-mvn initialize
-```
-
-Now all the files are staged in the `src/main/appservice` directory.
-
-The next steps is to see if you have set any deployment credentials before:
-
-```shell
-az webapp deployment user show
-```
-
-If `publishingUsername` is not set to `null` you have previously set deployment
-credentials, please use them in the following steps. Otherwise we are now going
-to set the deployment credentials.
-
-```shell
-az webapp deployment user set --user-name sharearound-user
-```
-
-It will prompt for a password. Pick any password you want. If it does not conform
-to the minimum requirements it will tell you. If that happens pick a password
-that does conform.
-
-We need to know the hostname of the FTP server we need to upload to. Please
-replace `<unique-id>` with your unique id and execute the command line below.
-
-```shell
-az webapp deployment list-publishing-profiles --name sharearound-<unique-id> --resource-group sharearound
-```
-
-Look for `profileName` similar to `sharearound-<unique-id> - FTP`. Once you have
-found it then look for the `publishUrl` in the same block. That will be the
-correct FTP server URL for your web application.
-
-So now you should have the the following:
-
-1. The FTP username
-2. The FTP password
-3. The FTP hostname
-
-Note when logging in you will have to prefix the FTP username with the appName,
-e.g. `sharearound-<unique-id>\sharearound-user`
-
-Now we are going to connect to the FTP server and upload the files from the
-`src/main/appservice` directory into to the remote directory
-`/site/deployments/tools/`.
-
-From the `src/main/appservice` directory execute the following
-command lines replacing `<unique-id>` with your unique id and the `<ftp-hostname>`
-with the FTP hostname.
-
-```shell
-ncftp -u sharearound-<unique-id>\\sharearound-user <ftp-hostname>
-cd /site/deployments/tools
-put *
-exit
 ```
 
 ## Build the web application
@@ -278,53 +231,75 @@ Execute the following command line:
 mvn package
 ```
 
-## Deploy the application
+25m
 
-*Note if you have successfully completed "Migrating the web pages" you can skip
-this step.*
+TODO
 
-To deploy the web application please replace `<unique-id>` with your unique id,
-the `<postgres-username>` with your PostgreSQL username, the `<postgres-password>`
-with the PostgreSQL password, the `<postgres-jdbc-url>` with the PostgreSQL JDBC
-url and use the following commandline:
+1. Enable PostgreSQL configuration in Dockerfile
+1. Update sharearound.yml to use JDBC environment variables
 
-Note the postgresJdbcUrl should be similar to
-`jdbc:postgresql://sharearound-UNIQUE_ID.postgres.database.azure.com:5432/sharearound?sslmode=require`
+## Build the image on ACR
 
-```shell
-mvn azure-webapp:deploy -DappName=sharearound-<unique-id> -DpostgresUsername=<postgres-username> -DpostgresPassword=<postgres-password> -DpostgresJdbcUrl=<postgres-jdbc-url>
-```
+Since our AKS cluster needs to be able to pull the image from a Docker registry
+we are going to build it using Azure CLI and target our ACR.
 
-## Update the startup script
-
-The next step is to set the startup script to our custom startup script.
-
-Replace `<unique-id>` with your unique id and execute the following command line:
+Execute the following command line to do so:
 
 ```shell
-az webapp config set -g sharearound -n sharearound-<unique-id> --startup-file /home/site/deployments/tools/startup_script.sh
+az acr build --registry sharearoundacr$UNIQUE_ID --image sharearound \
+  --file src/main/docker/Dockerfile.wildfly .
 ```
 
-## Redeploy the application
+1m
 
-To redeploy the web application please replace `<unique-id>` with your unique id,
-the `<postgres-username>` with your PostgreSQL username, the `<postgres-password>`
-with the PostgreSQL password, the `<postgres-jdbc-url>` with the PostgreSQL JDBC
-url and use the following commandline:
+## Deploy to the AKS cluster
 
-Note the postgresJdbcUrl should be similar to
-`jdbc:postgresql://sharearound-UNIQUE_ID.postgres.database.azure.com:5432/sharearound?sslmode=require`
+Determine the name of your ACR by executing the following command line:
 
 ```shell
-mvn azure-webapp:deploy -DappName=sharearound-<unique-id> -DpostgresUsername=<postgres-username> -DpostgresPassword=<postgres-password> -DpostgresJdbcUrl=<postgres-jdbc-url>
+echo sharearoundacr$UNIQUE_ID
 ```
 
-Once the command completes it will show you the URL of the deployed web
-application, it will look similar to
-`https://sharearound-<unique-id>.azurewebsites.net`. Please capture this URL as
-you will need it later.
+Now open `src/main/aks/deployment.yml` in your editor and replace REGISTRY with
+the value of the previous command (which is the name of your ACR).
 
-Open your browser to the shown URL to verify that you have successfully deployed
-web application.
+1m
+
+And then finally deploy the application by using the following command line:
+
+```shell
+kubectl apply -f src/main/aks/deployment.yml
+```
+
+1m
+
+The command will quickly return, but the deployment will still be going on.
+
+We are going to use `kubectl` to wait for the service to become available:
+
+Execute the following command line:
+
+```shell
+kubectl get service/sharearound --output wide -w
+```
+
+1m
+
+Now wait until you see the EXTERNAL-IP column populated with an IP address.
+
+> Note if the command does not show the EXTERNAL-IP after a long while, please
+> use `Ctrl+C` to cancel the command and then reissue the command without `-w`.
+
+Once the IP address is there you are ready to open Microsoft Edge to
+`http://EXTERNAL-IP:8080/`
+
+You should see the same page as before, but now it is running on AKS!
+
+## More information
+
+1. [Azure Database for PostgreSQL documentation](https://docs.microsoft.com/en-us/azure/postgresql/)
+1. [Azure CLI postgres extension documentation](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
+1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
+1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
 [Previous](../02-migrating-web-pages/README.md) &nbsp; [Next](../04-adding-app-insights/README.md)

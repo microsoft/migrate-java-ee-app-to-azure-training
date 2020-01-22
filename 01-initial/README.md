@@ -19,14 +19,14 @@ mvn package
 
 Next we build a Docker image for the web application using:
 
-```
-docker build -t sharearound -f src/main/docker/Dockerfile .
+```shell
+docker build -t sharearound -f src/main/compose/Dockerfile .
 ```
 
 ## Starting the application server and database locally
 
 Finally we are going to start up the application server and the database by means
-of Docker compose. From the `src/main/docker-compose/sharearound` directory
+of Docker compose. From the `src/main/compose/sharearound` directory
 issue the following command.
 
 ```shell
@@ -38,18 +38,19 @@ Once the command completes we are going to load the database with some data.
 Please execute the following commands from base directory:
 
 ```shell
-docker cp src/main/postgresql/load.sql postgres:/mnt
+docker cp src/main/postgres/load.sql postgres:/mnt
 docker exec postgres bash -c 'psql --username postgres < /mnt/load.sql'
 ```
 
-Once the command completes open your browser to 
+Once the command completes open your browser to
 <http://localhost:9090/sharearound/>
 
 Feel free to browse around to get familiar with the application you are going to
 migrate.
 
 Once you are done looking around you can leave it up and running, or if you want
-to shut it down issue the following command:
+to shut it down issue the following command from the
+`src/main/compose/sharearound` directory:
 
 ```shell
 docker-compose down

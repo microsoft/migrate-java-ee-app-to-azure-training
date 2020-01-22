@@ -35,7 +35,9 @@ export UNIQUE_ID=FILL_THIS_IN
 
 ## Create the ACR
 
-Now we are going to create your ACR, please execute the command line below:
+Now we are going to create your ACR.
+
+Please execute the command line below:
 
 ```shell
 az acr create --name sharearoundacr$UNIQUE_ID --location westus2 \

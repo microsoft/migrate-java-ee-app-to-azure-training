@@ -1,7 +1,8 @@
 <?xml version="1.0" ?>
-<module xmlns="urn:jboss:module:1.1" name="postgres">
+
+<module xmlns="urn:jboss:module:1.1" name="org.postgres">
     <resources>
-       <resource-root path="/home/site/deployments/tools/postgres.jar" />
+       <resource-root path="/usr/local/postgresql/postgres.jar" />
     </resources>
     <dependencies>
         <module name="javax.api"/>

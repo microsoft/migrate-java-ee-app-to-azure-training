@@ -1,0 +1,17 @@
+#
+# Add the PostgreSQL module
+#
+module add --name=org.postgres --resources=/usr/local/postgresql/postgres.jar --module-xml=/usr/local/postgresql/postgres-module.xml
+
+#
+# Register the PostgreSQL driver
+#
+/subsystem=datasources/jdbc-driver=org.postgres:add(driver-name=org.postgres,driver-module-name=org.postgres,driver-class-name=org.postgresql.Driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+#
+# Create the datasource
+#
+data-source add --name=sharearoundDS --driver-name=org.postgres --jndi-name=java:jboss/datasources/sharearoundDS --connection-url=${PGJDBCURL,env.PGJBDCURL} --user-name=${PGUSER,env.PGUSER} --password=${PGPASS,env.PGPASS} --use-ccm=true --max-pool-size=5 --blocking-timeout-wait-millis=5000 --enabled=true --driver-class=org.postgresql.Driver --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter --jta=true --use-java-context=true --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker
+
+reload --use-current-server-config=true
+shutdown

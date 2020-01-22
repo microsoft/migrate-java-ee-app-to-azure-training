@@ -65,8 +65,7 @@ WildFly and your web application in it.
 To do so execute the following command line:
 
 ```shell
-docker build -t sharearoundacr$UNIQUE_ID.azurecr.io/sharearound \
-  -f src/main/docker/Dockerfile.wildfly .
+docker build -t test -f src/main/aks/Dockerfile .
 ```
 
 ## Test the Docker image locally
@@ -76,7 +75,7 @@ Now we are going to validate that the image works.
 Please execute the following command line:
 
 ```shell
-docker run --rm -it -p 8080:8080 sharearoundacr$UNIQUE_ID.azurecr.io/sharearound
+docker run --rm -it -p 8080:8080 test
 ```
 
 You should see something like the output below:
@@ -104,7 +103,7 @@ Execute the following command line to do so:
 
 ```shell
 az acr build --registry sharearoundacr$UNIQUE_ID --image sharearound \
-  --file src/main/docker/Dockerfile.wildfly .
+  --file src/main/aks/Dockerfile .
 ```
 
 ## Deploy to the AKS cluster
@@ -115,13 +114,13 @@ Determine the name of your ACR by executing the following command line:
 echo sharearoundacr$UNIQUE_ID
 ```
 
-Now open `src/main/aks/deployment.yml` in your editor and replace REGISTRY with
+Now open `src/main/aks/sharearound.yml` in your editor and replace REGISTRY with
 the value of the previous command (which is the name of your ACR).
 
 And then finally deploy the application by using the following command line:
 
 ```shell
-kubectl apply -f src/main/aks/deployment.yml
+kubectl apply -f src/main/aks/sharearound.yml
 ```
 
 The command will quickly return, but the deployment will still be going on.

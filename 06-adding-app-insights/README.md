@@ -31,7 +31,7 @@ mvn package
 ## Deploy the web application
 
 To deploy the web application you will need a unique id as the URL space of
-Azure App Service is shared across all Azure subscriptions . In a class room
+Azure App Service is shared across all Azure subscriptions . In a classroom
 setting ask your proctor what the value of the `<unique-id>` needs to be. If you
 are doing this workshop by yourself you can omit the
 `-DappName=sharearound-<unique-id>` and a unique id will be generated for you.
@@ -127,7 +127,7 @@ mvn package
 ## Redeploy the web application
 
 To redeploy the web application you will need a unique id as the URL space of
-Azure App Service is shared across all Azure subscriptions . In a class room
+Azure App Service is shared across all Azure subscriptions . In a classroom
 setting ask your proctor what the value of the `<unique-id>` needs to be. If you
 are doing this workshop by yourself you can omit the
 `-DappName=sharearound-<unique-id>` and a unique id will be generated for you.
