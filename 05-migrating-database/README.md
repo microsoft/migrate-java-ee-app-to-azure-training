@@ -2,9 +2,9 @@
 
 ## What are we going to do in this step
 
-In the previous step we made sure we could deploy the web application on Azure App
-Service without taking into account that it is using a database. In this step we
-are going to tackle the migration of the database.
+In the previous step we made sure we could deploy the web application on Azure 
+Kubernetes Service (AKS) without taking into account that it is using a database.
+In this step we are going to tackle the migration of the database.
 
 ## Setting up
 

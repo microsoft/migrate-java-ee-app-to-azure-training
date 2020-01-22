@@ -98,7 +98,7 @@ az acr build --registry sharearoundacr$UNIQUE_ID --image sharearound \
 Determine the name of your ACR by executing the following command line:
 
 ```shell
-echo sharearoundacr$UNIUE_ID
+echo sharearoundacr$UNIQUE_ID
 ```
 
 Now open `src/main/aks/deployment.yml` in your editor and replace REGISTRY with
@@ -117,10 +117,13 @@ We are going to use `kubectl` to wait for the service to become available:
 Execute the following command line:
 
 ```shell
-kubectl get service/sharearound -w
+kubectl get service/sharearound --output wide -w
 ```
 
 Now wait until you see the EXTERNAL-IP column populated with an IP address.
+
+> Note if the command does not show the EXTERNAL-IP after a long while, please 
+> use `Ctrl+C` to cancel the command and then reissue the command with `-w`.
 
 Once the IP address is there you are ready to open Microsoft Edge to
 `http://EXTERNAL-IP:8080/`

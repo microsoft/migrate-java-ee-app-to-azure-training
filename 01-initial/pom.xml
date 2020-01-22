@@ -8,7 +8,6 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>initial</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>1. The initial Sharearound web application</name>
     <properties>
