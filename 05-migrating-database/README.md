@@ -68,7 +68,7 @@ And for the `PGPASS` environment variable use the following command line,
 replacing `FILL_THIS_IN` with the appropriate value:
 
 ```shell
-export PGRPASS=FILL_THIS_IN
+export PGPASS=FILL_THIS_IN
 ```
 
 And now it is time to create the database.
@@ -139,6 +139,16 @@ az postgres server update --resource-group sharearound \
  --name sharearound-postgres-$UNIQUE_ID --ssl-enforcement Disabled
 ```
 
+## Set the PGFULLUSER environment variable
+
+Accessing the PostgreSQL database on Azure requires a longer version of your username which we will construct now.
+
+Execute the command line below to set the PGFULLUSER environment variable:
+
+```shell
+export PGFULLUSER=$PGUSER@sharearound-postgres-$UNIQUE_ID
+```
+
 ## Verifying you can access your database
 
 Now that the firewall has been configured we need to verify that you can actually
@@ -147,11 +157,12 @@ access the database as we will need to load it up with some setup data.
 Execute the command line below:
 
 ```shell
-psql "dbname=postgres user=$PGUSER@sharearound-postgres-$UNIQUE_ID"
+psql "dbname=postgres user=$PGFULLUSER"
 ```
 
-Note it will prompt for the password. Use the same password as the one you used to
-create the database.
+Note it will prompt for the password.
+
+Use the same password as the one you used to create the database.
 
 If you connected successfully you will see something similar to:
 
@@ -231,12 +242,10 @@ Execute the following command line:
 mvn package
 ```
 
-25m
+In the `src/main/aks/Dockerfile` file we are now going to enable the database
+section.
 
-TODO
-
-1. Enable PostgreSQL configuration in Dockerfile
-1. Update sharearound.yml to use JDBC environment variables
+Follow the instructions in the file.
 
 ## Build the image on ACR
 
@@ -247,10 +256,8 @@ Execute the following command line to do so:
 
 ```shell
 az acr build --registry sharearoundacr$UNIQUE_ID --image sharearound \
-  --file src/main/docker/Dockerfile.wildfly .
+  --file src/main/aks/Dockerfile .
 ```
-
-1m
 
 ## Deploy to the AKS cluster
 
@@ -263,15 +270,41 @@ echo sharearoundacr$UNIQUE_ID
 Now open `src/main/aks/deployment.yml` in your editor and replace REGISTRY with
 the value of the previous command (which is the name of your ACR).
 
-1m
+As we want to be able to point the WildFly server to a PostgreSQL database without
+having to rebuild the image we also have to update the
+`src/main/aks/sharearound.yml` file to use environment variables.
+
+> Note as this is a YAML file you have to be VERY careful with formatting.
+> When you copy and paste it make sure the same amount of spaces are present
+> as below.
+
+Copy the text below and paste it into the file `src/main/aks/sharearound.yml` just
+below `image`:
+
+```yaml
+        env:
+        - name: PGJDBCURL
+          value: FILL_IN
+        - name: PGFULLUSER
+          value: FILL_IN
+        - name: PGPASS
+          value: FILL_IN
+```
+
+And then replace each `FILL_IN` with the values of the corresponding environment
+variables with the same name.
+
+If you need your environment variables use the command line below:
+
+```shell
+export
+```
 
 And then finally deploy the application by using the following command line:
 
 ```shell
-kubectl apply -f src/main/aks/deployment.yml
+kubectl apply -f src/main/aks/sharearound.yml
 ```
-
-1m
 
 The command will quickly return, but the deployment will still be going on.
 
@@ -282,8 +315,6 @@ Execute the following command line:
 ```shell
 kubectl get service/sharearound --output wide -w
 ```
-
-1m
 
 Now wait until you see the EXTERNAL-IP column populated with an IP address.
 
@@ -304,3 +335,10 @@ You should see the same page as before, but now it is running on AKS!
 1. [psql — PostgreSQL interactive terminal documentation](https://www.postgresql.org/docs/current/app-psql.html)
 
 [Previous](../02-migrating-web-pages/README.md) &nbsp; [Next](../04-adding-app-insights/README.md)
+
+33m
+
+TODO
+
+1. Write snippet for PGJDBCURL
+2. Reverify last deployment step
