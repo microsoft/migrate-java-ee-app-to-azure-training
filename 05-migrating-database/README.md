@@ -300,6 +300,11 @@ If you need your environment variables use the command line below:
 export
 ```
 
+> Note that exposing the JDBC URL, username and password in the YAML file is not
+> a recommended practice, but for the training sufficient to show a JavaEE
+> application can talk to the PostgreSQL database. In a production environment we
+> recommend using either Kubernetes secrets, or Azure KeyVault.
+
 And then finally deploy the application by using the following command line:
 
 ```shell
