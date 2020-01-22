@@ -301,7 +301,7 @@ export
 ```
 
 > Note that exposing the JDBC URL, username and password in the YAML file is not
-> a recommended practice, but for the training sufficient to show a JavaEE
+> a recommended practice. For the training it is sufficient to show that a JavaEE
 > application can talk to the PostgreSQL database. In a production environment we
 > recommend using either Kubernetes secrets, or Azure KeyVault.
 
