@@ -128,9 +128,9 @@ az postgres server firewall-rule create --resource-group sharearound \
 ## Turn off requiring SSL connections
 
 > In a production environment you should NOT disable requiring SSL connections
-> between your application and the database, but as the target of this training is
-> migrating your JavaEE application and it simplifies the migration, we are going
-> to turn off requiring SSL connections.
+> between your application and the database. As the target of this training is
+> migrating your JavaEE application, we are going to turn off requiring SSL
+> connections.
 
 Please execute the following command line:
 
@@ -301,5 +301,6 @@ You should see the same page as before, but now it is running on AKS!
 1. [Azure CLI postgres extension documentation](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
+1. [psql — PostgreSQL interactive terminal documentation](https://www.postgresql.org/docs/current/app-psql.html)
 
 [Previous](../02-migrating-web-pages/README.md) &nbsp; [Next](../04-adding-app-insights/README.md)
