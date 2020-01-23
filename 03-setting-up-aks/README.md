@@ -39,7 +39,8 @@ Please execute the command line below:
 
 ```shell
 az aks create --verbose --name sharearound-aks-$UNIQUE_ID \
-  --resource-group sharearound --attach-acr sharearoundacr$UNIQUE_ID
+  --resource-group sharearound --attach-acr sharearoundacr$UNIQUE_ID \
+  --node-count 1
 ```
 
 Note this step will take a while.
