@@ -1,6 +1,7 @@
 # Prerequisites
 
-**Note each command mentioned in a README should be executed in the directory of that README unless specified otherwise**
+**Note each command mentioned in a README should be executed in the directory of
+that README unless specified otherwise**
 
 You have 2 options to satisfy the prerequisites needed to complete this training.
 
