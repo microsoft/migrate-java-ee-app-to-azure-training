@@ -381,6 +381,6 @@ You should see the same page as before, but now it is running on AKS!
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-[Previous](../02-migrating-web-pages/README.md) &nbsp; [Next](../04-adding-app-insights/README.md)
+[Previous](../04-migrating-web-pages/README.md) &nbsp; [Next](../06-adding-app-insights/README.md)
 
 35m

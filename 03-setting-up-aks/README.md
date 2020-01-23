@@ -49,6 +49,8 @@ In the meanwhile feel free to read the
 documentation mentioned below in the [More information](#more-information)
 section.
 
+Or take a break!
+
 ## Get the Kubernetes config file
 
 In order to access the Kubernetes cluster using `kubectl` you will need a Kube config file.

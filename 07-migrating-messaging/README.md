@@ -1,5 +1,7 @@
 # Migrating messaging
 
+IN PROGRES
+
 ## What are we going to do in this step
 
 In this step we are going to migrate to use of messaging to Azure Service Bus.
