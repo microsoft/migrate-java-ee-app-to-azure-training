@@ -125,6 +125,21 @@ az postgres server firewall-rule create --resource-group sharearound \
 > [az postgres](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
 > for more information
 
+## Open the firewall to allow access from Azure services
+
+We need to open up the firewall so your AKS cluster has access to PostgreSQL.
+
+> Note here we are opting to open it up to all Azure services. In a production
+> environment you should probably limit a bit more.
+
+Execute the following command line:
+
+```shell
+az postgres server firewall-rule create --resource-group sharearound \
+  --server sharearound-postgres-$UNIQUE_ID --name AllowAllAzureIps \
+  --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+```
+
 ## Turn off requiring SSL connections
 
 > In a production environment you should NOT disable requiring SSL connections
@@ -147,6 +162,17 @@ Execute the command line below to set the PGFULLUSER environment variable:
 
 ```shell
 export PGFULLUSER=$PGUSER@sharearound-postgres-$UNIQUE_ID
+```
+
+## Set the PGJDBCURL environment variable
+
+Accessing the PostgreSQL database over JDBC requires a URL of a specific format
+which we will construct now.
+
+Execute the command line below to set the PGJDBCURL environment variable:
+
+```shell
+export PGJDBCURL=jdbc:postgresql://sharearound-postgres-$UNIQUE_ID.postgres.database.azure.com:5432/sharearound"
 ```
 
 ## Verifying you can access your database
@@ -187,6 +213,18 @@ CREATE DATABASE sharearound;
 This will create the `sharearound` database.
 
 Note this might take a short while to complete.
+
+Now we need to make sure your user has access to the newly created database
+
+Execute the following command line, replacing `<username>` with the username you picked previously:
+
+```sql
+GRANT ALL PRIVILEGES ON DATABASE sharearound TO <username>;
+```
+
+> Note in a production environment you would not use the PostgreSQL admin user
+> to allow access to application databases. You would setup users for each
+> of your application databases.
 
 Next we are going to use the database.
 
@@ -334,16 +372,15 @@ You should see the same page as before, but now it is running on AKS!
 ## More information
 
 1. [Azure Database for PostgreSQL documentation](https://docs.microsoft.com/en-us/azure/postgresql/)
+1. [Firewall rules in Azure Database for PostgreSQL](https://docs.microsoft.com/en-us/azure/postgresql/concepts-firewall-rules)
+1. [Configure SSL connectivity in Azure Database for PostgreSQL](https://docs.microsoft.com/en-us/azure/postgresql/concepts-ssl-connection-security)
 1. [Azure CLI postgres extension documentation](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
+1. [psql — PostgreSQL interactive terminal documentation](https://www.postgresql.org/docs/current/app-psql.html)
+1. [PostgreSQL - CREATE USER](https://www.postgresql.org/docs/current/sql-createuser.html)
+1. [PostgreSQL - GRANT](https://www.postgresql.org/docs/current/sql-grant.html)
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
-1. [psql — PostgreSQL interactive terminal documentation](https://www.postgresql.org/docs/current/app-psql.html)
 
 [Previous](../02-migrating-web-pages/README.md) &nbsp; [Next](../04-adding-app-insights/README.md)
 
-33m
-
-TODO
-
-1. Write snippet for PGJDBCURL
-2. Reverify last deployment step
+35m
