@@ -16,6 +16,7 @@ You have 2 options to satisfy the prerequisites needed to complete this training
 1. Run the Docker container
 1. Log into Azure
 1. Set your default subscription
+1. Setup your VSCode workspace
 
 ### Install Visual Studio Code
 
@@ -36,11 +37,11 @@ Click on the `Install` button.
 
 ### Install Docker
 
-*Note if you do not have a Docker ID yet you will need to sign up as you need it
-to download Docker Desktop*
+*Note if you do not have a Docker ID yet you will need to sign up for one as you
+will need it to download the Docker Desktop*
 
-*Note you DO not have to go through the tutorial, you only need to download the
-Docker installer*
+*Note you DO not have to go through the Docker tutorial, you only need to download
+the Docker installer*
 
 Go to [Get Started with Docker](https://www.docker.com/get-started)
 
@@ -62,11 +63,18 @@ docker run --privileged --name devenv -v DIRECTORY:/mnt \
 
 #### If you are running on Windows 
 
-Open the settings for Docker Desktop for Windows
+Open the settings for Docker Desktop for Windows by clicking on the little whale
+icon on your taskbar and and then click `Settings`.
 
-Make sure `Expose daemon on tcp://localhost:2375 without TLS` is checked. 
+Make sure `Expose daemon on tcp://localhost:2375 without TLS` is checked.
 
-*Note this only needs to be checked for the duration of the training*
+We need to verify Docker Desktop for Windows is set to run Linux containers.
+
+Click on the little whale icon on your taskbar. See if it says 
+`Switch to Windows containers...` or `Switch to Linux containers...`.
+
+If it says `Switch to Linux containers...` please click it, otherwise no action is
+required.
 
 Replace `DIRECTORY` below with the base directory of the training material.
 
@@ -121,6 +129,17 @@ Set your default subscription using the subscription id from the previous output
 ````shell
 az account set --subscription "subscription-id"
 ````
+
+### Setup your VSCode workspace
+
+We are going setup the VSCode workspace so you can easily edit any files in the
+upcoming steps.
+
+Click `Add Folder`.
+
+In the dialog enter `/mnt`.
+
+And click `OK`
 
 Now you are ready to start the training!
 

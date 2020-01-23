@@ -13,11 +13,7 @@
     <packaging>war</packaging>
     <name>7. Migrating messaging</name>
     <properties>
-        <appName>sharearound-${UNIQUE_ID}</appName>
-        <appServicePlan>sharearound-appserviceplan</appServicePlan>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <resourceGroup>sharearound</resourceGroup>
-        <region>westus2</region>
     </properties>
     <dependencies>
         <dependency>
@@ -28,6 +24,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>sharearound</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -72,33 +69,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.microsoft.azure</groupId>
-                <artifactId>azure-webapp-maven-plugin</artifactId>
-                <version>1.8.0</version>
-                <configuration>
-                    <schemaVersion>v2</schemaVersion>
-                    <resourceGroup>${resourceGroup}</resourceGroup>
-                    <region>${region}</region>
-                    <appName>${appName}</appName>
-                    <appServicePlanName>${appServicePlan}</appServicePlanName>
-                    <runtime>
-                        <os>linux</os>
-                        <javaVersion>jre8</javaVersion>
-                        <webContainer>wildfly 14</webContainer>
-                    </runtime>
-                    <deployment>
-                        <resources>
-                            <resource>
-                                <directory>${project.basedir}/target</directory>
-                                <includes>
-                                    <include>*.war</include>
-                                </includes>
-                            </resource>
-                        </resources>
-                    </deployment>
                 </configuration>
             </plugin>
         </plugins>

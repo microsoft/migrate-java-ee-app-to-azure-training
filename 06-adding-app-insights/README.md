@@ -240,6 +240,6 @@ Now there is a whole lot more to Log Analytics, but the rest is left up to you!
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-[Previous](../03-migrating-database/README.md)
+[Previous](../03-migrating-database/README.md) &nbsp; [Next](../99-cleanup/README.md) 
 
 10m
