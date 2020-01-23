@@ -50,10 +50,12 @@ And follow the directions there.
 
 #### If you are running on non-Windows OS
 
-Use the following command line to start the Docker container:
+Replace `DIRECTORY` below with the base directory of the training material.
+
+And execute the command line:
 
 ```shell
-docker run --privileged --name devenv -v $PWD:/mnt \
+docker run --privileged --name devenv -v DIRECTORY:/mnt \
  -v /var/run/docker.sock:/var/run/docker.sock -d \
  azurejavalab.azurecr.io/azurejavalab:2020.01
 ```
@@ -66,7 +68,7 @@ Make sure `Expose daemon on tcp://localhost:2375 without TLS` is checked.
 
 *Note this only needs to be checked for the duration of the training*
 
-Replace `DIRECTORY` below with the directory of the training material.
+Replace `DIRECTORY` below with the base directory of the training material.
 
 And execute the command line:
 
@@ -79,7 +81,7 @@ docker run --name devenv -v DIRECTORY:/mnt \
 If Docker Desktop for Windows asks to share enter the proper credentials
 to allow it to do so.
 
-#### Next steps are again for all OS-es
+#### Next steps are for all OS-es
 
 Now start VSCode
 
@@ -93,7 +95,7 @@ Remote-Containers: Attach to Running Container...
 
 Then select the `devenv` remote container.
 
-This will open a 2nd window of VSCode which will be attached to the Docker 
+This will open a 2nd window of VSCode which will be attached to the running Docker 
 container.
 
 This is the VSCode window we will use for the duration of the training.
@@ -103,7 +105,7 @@ Open up a Terminal using the Terminal | New Terminal menu.
 ### Login into Azure
 
 ````shell
-  az login
+az login
 ````
 
 ### Set your default subscription
@@ -111,13 +113,13 @@ Open up a Terminal using the Terminal | New Terminal menu.
 Get a list of your subscriptions
 
 ````shell
-  az account list --output table
+az account list --output table
 ````
 
 Set your default subscription using the subscription id from the previous output
 
 ````shell
-  az account set --subscription "subscription-id"
+az account set --subscription "subscription-id"
 ````
 
 Now you are ready to start the training!
