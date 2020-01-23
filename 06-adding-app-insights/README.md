@@ -1,5 +1,12 @@
 # Adding Application Insights
 
+## Prerequisites
+
+It is assumed you have completed the following steps:
+
+1. [Setting up ACR](../02-setting-up-acr/README.md)
+2. [Setting up AKS](../03-setting-up-aks/README.md)
+
 ## What are we going to do in this step
 
 In this step we are going to configure Application Insights so you can have more
@@ -18,41 +25,6 @@ in your terminal:
   mvn antrun:run@setup
 ```
 
-## Build the web application
-
-Now we are ready to build the web application.
-
-Use the following command line:
-
-```shell
-mvn package
-```
-
-## Deploy the web application
-
-To deploy the web application you will need a unique id as the URL space of
-Azure App Service is shared across all Azure subscriptions . In a classroom
-setting ask your proctor what the value of the `<unique-id>` needs to be. If you
-are doing this workshop by yourself you can omit the
-`-DappName=sharearound-<unique-id>` and a unique id will be generated for you.
-
-Use the following commandline:
-
-```shell
-  mvn azure-webapp:deploy -DappName=sharearound-<unique-id>
-```
-
-While this command is running, please feel free to review
-[What is Application Insights?](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
-
-Once the command completes it will show you the URL of the deployed web
-application, it will look similar to
-`https://sharearound-<unique-id>.azurewebsites.net`. Please capture this URL as
-you will need it later.
-
-Open your browser to the shown URL to verify that you have successfully deployed
-web application.
-
 ## Installing Application Insights Azure CLI extension
 
 ```shell
@@ -65,7 +37,8 @@ We need to create the Application Insights application so we have a place we can
 gather our insights to. Please execute the command line below:
 
 ```shell
-az monitor app-insights component create --app sharearound-app-insights --resource-group sharearound --location westus2 --appliication-type java
+az monitor app-insights component create --app sharearound-app-insights \
+  --resource-group sharearound --location westus2 --application-type java
 ```
 
 Please capture the instrumentationKey as you will need it for later.
@@ -92,7 +65,7 @@ instrumentation key.
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <ApplicationInsights xmlns="http://schemas.microsoft.com/ApplicationInsights/2013/Settings" schemaVersion="2014-05-30">
-   <!-- The key from the portal: -->
+   <!-- The key from the portal / CLI: -->
    <InstrumentationKey>** Your instrumentation key **</InstrumentationKey>
 
    <!-- HTTP request component (not required for bare API) -->
@@ -114,9 +87,9 @@ instrumentation key.
 </ApplicationInsights>
 ```
 
-## Rebuild the web application
+## Build the web application
 
-Now we are ready to rebuild the web application.
+Now we are ready to build the web application.
 
 Use the following command line:
 
@@ -124,33 +97,56 @@ Use the following command line:
 mvn package
 ```
 
-## Redeploy the web application
+## Build the image on ACR
 
-To redeploy the web application you will need a unique id as the URL space of
-Azure App Service is shared across all Azure subscriptions . In a classroom
-setting ask your proctor what the value of the `<unique-id>` needs to be. If you
-are doing this workshop by yourself you can omit the
-`-DappName=sharearound-<unique-id>` and a unique id will be generated for you.
-You will also need the `instrumentationKey` you captured before.
+Since our AKS cluster needs to be able to pull the image from a Docker registry
+we are going to build it using Azure CLI and target our ACR.
 
-Use the following commandline:
+Execute the following command line to do so:
 
 ```shell
-  mvn azure-webapp:deploy -DappName=sharearound-<unique-id>
+az acr build --registry sharearoundacr$UNIQUE_ID --image sharearound \
+  --file src/main/aks/Dockerfile .
 ```
 
-While this command is running, please feel free to review
-[What is Application Insights?](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
+1m
 
-Once the command completes it will show you the URL of the deployed web
-application, it will look similar to
-`https://sharearound-<unique-id>.azurewebsites.net`. Please capture this URL as
-you will need it later.
+## Deploy to the AKS cluster
 
-Open your browser to the shown URL to verify that you have successfully deployed
-web application. Please refresh the main page 10 times or so. Then click on the
-link on the main page. It should trigger an error. Please refresh that page also
-10 times or so.
+Determine the name of your ACR by executing the following command line:
+
+```shell
+echo sharearoundacr$UNIQUE_ID
+```
+
+Now open `src/main/aks/sharearound.yml` in your editor and replace REGISTRY with
+the value of the previous command (which is the name of your ACR).
+
+And then finally deploy the application by using the following command line:
+
+```shell
+kubectl apply -f src/main/aks/sharearound.yml
+```
+
+The command will quickly return, but the deployment will still be going on.
+
+We are going to use `kubectl` to wait for the service to become available:
+
+Execute the following command line:
+
+```shell
+kubectl get service/sharearound --output wide -w
+```
+
+Now wait until you see the EXTERNAL-IP column populated with an IP address.
+
+> Note if the command does not show the EXTERNAL-IP after a long while, please
+> use `Ctrl+C` to cancel the command and then reissue the command without `-w`.
+
+Once the IP address is there you are ready to open Microsoft Edge to
+`http://EXTERNAL-IP:8080/`. Please refresh the main page 10 times or so. Then
+click on the link on the main page. It should trigger an error. Please refresh
+that page also 10 times or so.
 
 ## Looking at the Application Insights
 
@@ -176,7 +172,8 @@ The Application Dashboard will look similar to the image below:
 ## Looking at Log Analytics
 
 It is possible to drill even further down by analyzing the logs that are collected.
-To do so we are going to us Log Analytics.
+
+To do so we are going to use Log Analytics.
 
 In the search bar enter `sharearound-app-insights` and press enter once to start
 the search. Press enter a second time to go to the match found.
@@ -188,9 +185,6 @@ Then in the left navigation area click on `Log (Analytics)`. You might have to s
 ![Log Analytics](images/log-analytics-button.png "Log Analytics")
 
 Once you click it you should see an image similar to the one below:
-
-*If you get a message that Log Analytics is not enabled yet.
- please enable it*
 
 ![Log Analytics Overview](images/log-analytics-overview.png "Log Analytics Overview")
 
@@ -222,9 +216,30 @@ This will show any of the exceptions that are happening.
 
 You should see database exceptions, which are expected.
 
+Click on `>` next to any of the exceptions to drill down to see what the problem
+is.
+
+In the `innermostMessage` you should see something similar to the following:
+
+```
+Table "ITEM" not found; SQL statement:
+select item0_.id as id1_0_, item0_.short_description as short_de2_0_, item0_.title as title3_0_ from item item0_ [42102-193]
+```
+
+Remember at the beginning of this step we told you that we are purposely ignoring
+the database. Here the message is telling you the database does NOT have the
+proper table.
+
 Now there is a whole lot more to Log Analytics, but the rest is left up to you!
 
-For more information review [What is Application Insights?](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) and
-[Overview of log queries in Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/log-query-overview)
+## More information
 
-[Previous](../03-migrating-database/README.md) &nbsp; [Next](../05-migrating-messaging/README.md)
+1. [What is Application Insights?](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
+1. [Azure CLI command for Application Insights](https://docs.microsoft.com/en-us/cli/azure/ext/application-insights/monitor/app-insights?view=azure-cli-latest)
+1. [Overview of log queries in Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/log-query-overview)
+1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
+1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
+
+[Previous](../03-migrating-database/README.md)
+
+10m

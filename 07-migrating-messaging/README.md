@@ -1,6 +1,6 @@
 # Migrating messaging
 
-IN PROGRES
+IN PROGRES -- NOT DONE!
 
 ## What are we going to do in this step
 

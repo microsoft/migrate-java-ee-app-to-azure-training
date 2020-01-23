@@ -1,5 +1,12 @@
 # Migrating the database
 
+## Prerequisites
+
+It is assumed you have completed the following steps:
+
+1. [Setting up ACR](../02-setting-up-acr/README.md)
+2. [Setting up AKS](../03-setting-up-aks/README.md)
+
 ## What are we going to do in this step
 
 In the previous step we made sure we could deploy the web application on Azure
@@ -17,29 +24,6 @@ in your terminal:
 ```shell
 mvn antrun:run@setup
 ```
-
-## Determine your unique id and set it in your environment
-
-Some of the resources we are going to create need to have a unique id. In a class
-room setting ask your proctor what the value of the `UNIQUE_ID` needs to be. If
-you are doing this workshop by yourself use the same timestamp in `YYYYMMDDHHSS`
-format as your unique id throughout the training.
-
-Replacing `FILL_THIS_IN` with the value you determined above and execute the
-command line below:
-
-```shell
-export UNIQUE_ID=FILL_THIS_IN
-```
-
-## Create the resource group
-
-```shell
-az group create --name sharearound --location westus2
-```
-
-*Note if the output tells you the resource group already exists that is fine and
-continue on.*
 
 ## Create the PostgreSQL database on Azure
 
@@ -305,7 +289,7 @@ Determine the name of your ACR by executing the following command line:
 echo sharearoundacr$UNIQUE_ID
 ```
 
-Now open `src/main/aks/deployment.yml` in your editor and replace REGISTRY with
+Now open `src/main/aks/sharearound.yml` in your editor and replace REGISTRY with
 the value of the previous command (which is the name of your ACR).
 
 As we want to be able to point the WildFly server to a PostgreSQL database without

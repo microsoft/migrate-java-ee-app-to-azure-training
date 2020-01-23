@@ -1,5 +1,12 @@
 # Migrating the web pages
 
+## Prerequisites
+
+It is assumed you have completed the following steps:
+
+1. [Setting up ACR](../02-setting-up-acr/README.md)
+2. [Setting up AKS](../03-setting-up-aks/README.md)
+
 ## What are we going to do in this step
 
 As we have chosen the deployment target for this training to be Azure Kubernetes
@@ -16,20 +23,6 @@ To do so please issue the following command line in your terminal:
 
 ```shell
 mvn antrun:run@setup
-```
-
-## Determine your unique id and set it in your environment
-
-Some of the resources we are going to create need to have a unique id. In a class
-room setting ask your proctor what the value of the `UNIQUE_ID` needs to be. If
-you are doing this workshop by yourself use the same timestamp in `YYYYMMDDHHSS`
-format as your unique id throughout the training.
-
-Replacing `FILL_THIS_IN` with the value you determined above and execute the
-command line below:
-
-```shell
-export UNIQUE_ID=FILL_THIS_IN
 ```
 
 ## Changes needed to the web pages
