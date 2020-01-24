@@ -32,8 +32,9 @@ Open your browser to [Remote - Containers](https://marketplace.visualstudio.com/
 
 Click on the `Install` button.
 
-It will ask you if you want to open this URL in VSCode. Confirm that you want to
-open it in VSCode.
+It will ask you if you want to open this URL in VSCode.
+
+Confirm that you want to open it in VSCode.
 
 ![Remote - Containers - Install](images/remote-vscode-install.png "Remote - Containers - Install")
 
@@ -47,8 +48,8 @@ installed and you can continue on*
 *Note if you do not have a Docker ID yet you will need to sign up for one as you
 will need it to download the Docker Desktop*
 
-*Note you DO not have to go through the Docker tutorial, you only need to download
-the Docker installer*
+**Note you DO NOT have to go through the Docker tutorial, you only need to
+download the Docker Desktop installer and then install Docker Desktop**
 
 *Note if at any time you are asked to reboot your machine please do so*
 
@@ -58,7 +59,7 @@ And follow the directions there.
 
 ### Run the Docker container
 
-#### If you are running on non-Windows OS
+#### If you are running on a non-Windows OS
 
 Replace `DIRECTORY` below with the base directory of the training material.
 
