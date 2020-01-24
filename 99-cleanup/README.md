@@ -2,9 +2,9 @@
 
 Once you are done with the training you should cleanup any resources you created.
 
-To cleanup the Azure resources use the following command line: 
+To cleanup the Azure resources use the following command line:
 
-```
+```shell
 az group delete --name sharearound
 ```
 
@@ -16,7 +16,7 @@ docker kill devenv
 docker rm devenv
 ```
 
-## If you did the training on Windows 
+## If you did the training on Windows
 
 Make sure to uncheck `Expose daemon on tcp://localhost:2375 without TLS`
 in the Docker Desktop for Windows settings.
