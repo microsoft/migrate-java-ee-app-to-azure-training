@@ -221,7 +221,7 @@ is.
 
 In the `innermostMessage` you should see something similar to the following:
 
-```
+```log
 Table "ITEM" not found; SQL statement:
 select item0_.id as id1_0_, item0_.short_description as short_de2_0_, item0_.title as title3_0_ from item item0_ [42102-193]
 ```
@@ -230,7 +230,15 @@ Remember at the beginning of this step we told you that we are purposely ignorin
 the database. Here the message is telling you the database does NOT have the
 proper table.
 
-Now there is a whole lot more to Log Analytics, but the rest is left up to you!
+## What did you accomplish
+
+1. You have created an Application Insights resource.
+1. You have added Application Insights to the web application.
+1. You have build the Docker image with WildFly and your application.
+1. You have deployed the Docker image to AKS.
+1. You have verified the web application works on AKS.
+1. You have explored Application Insights a bit.
+1. You have explored Log Analytics a bit.
 
 ## More information
 
@@ -240,6 +248,6 @@ Now there is a whole lot more to Log Analytics, but the rest is left up to you!
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-[Previous](../03-migrating-database/README.md) &nbsp; [Next](../99-cleanup/README.md) 
+[Previous](../03-migrating-database/README.md) &nbsp; [Next](../99-cleanup/README.md)
 
 10m

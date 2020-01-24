@@ -22,9 +22,9 @@ continue on.*
 ## Determine your unique id and set it in your environment
 
 Some of the resources we are going to create need to have a unique id. In a class
-room setting ask your proctor what the value of the `UNIQUE_ID` needs to be. If
-you are doing this workshop by yourself use the same timestamp in `YYYYMMDDHHSS`
-format as your unique id throughout the training.
+room setting ask your proctor what the value of the `UNIQUE_ID` environment
+variable needs to be. If you are doing this workshop by yourself use the same
+timestamp in `YYYYMMDDHHSS` format as your unique id throughout the training.
 
 Replacing `FILL_THIS_IN` with the value you determined above and execute the
 command line below:
@@ -51,6 +51,12 @@ Now log into your ACR using the command line below:
 ```shell
 az acr login -n sharearoundacr$UNIQUE_ID
 ```
+
+## What did you accomplish
+
+1. You have created a resource group to host your resources.
+1. You have created an ACR to host your Docker images.
+1. You have verified you can login into your ACR.
 
 ## More information
 

@@ -20,9 +20,9 @@ continue on.*
 ## Determine your unique id and set it in your environment
 
 Some of the resources we are going to create need to have a unique id. In a class
-room setting ask your proctor what the value of the `UNIQUE_ID` needs to be. If
-you are doing this workshop by yourself use the same timestamp in `YYYYMMDDHHSS`
-format as your unique id throughout the training.
+room setting ask your proctor what the value of the `UNIQUE_ID` environment
+variable needs to be. If you are doing this workshop by yourself use the same
+timestamp in `YYYYMMDDHHSS` format as your unique id throughout the training.
 
 Replacing `FILL_THIS_IN` with the value you determined above and execute the
 command line below:
@@ -94,6 +94,13 @@ kubectl get nodes
 ```
 
 This should show you the list of nodes in your Kubernetes cluster.
+
+## What did you accomplish
+
+1. You have created a resource group to host your resources.
+1. You have created an AKS cluster to host your containers.
+1. You have created a Kubeconfig file for use by kubectl.
+1. You have verified you can see the nodes of your AKS cluster.
 
 ## More information
 

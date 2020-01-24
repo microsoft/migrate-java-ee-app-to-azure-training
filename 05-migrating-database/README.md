@@ -353,6 +353,22 @@ Once the IP address is there you are ready to open Microsoft Edge to
 
 You should see the same page as before, but now it is running on AKS!
 
+Now to verify the web application is properly talking to the database click on
+the link to show a list of items.
+
+It should show you a short list of items.
+
+## What did you accomplish
+
+1. You have created an Azure Database for PostgreSQL.
+1. You have verified you can access the PostgreSQL database.
+1. You have loaded the data for the application into your PostgreSQL database.
+1. You have migrated the web application to use the PostgreSQL database.
+1. You have build the Docker image with WildFly and your application.
+1. You have deployed the Docker image to AKS.
+1. You have verified the web application works on AKS.
+1. You have verified the web application can access the PostgreSQL database.
+
 ## More information
 
 1. [Azure Database for PostgreSQL documentation](https://docs.microsoft.com/en-us/azure/postgresql/)

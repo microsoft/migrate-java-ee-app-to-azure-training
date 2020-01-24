@@ -56,6 +56,12 @@ to shut it down issue the following command from the
 docker-compose down
 ```
 
+## What did you accomplish
+
+1. You have build the web application locally.
+1. You have deployed the web application locally using Docker Compose.
+1. You have verified the web application works.
+
 [Next](../02-setting-up-acr/README.md)
 
 6m

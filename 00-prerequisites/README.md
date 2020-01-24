@@ -10,6 +10,10 @@
 >
 > ---
 
+## What are we going to do in this step
+
+In this step we are going to setup the environment you will need for this training.
+
 You have 2 options to satisfy the prerequisites needed to complete this training.
 
 1. [Docker Container option](#docker-container-option)
@@ -222,5 +226,9 @@ You will need to install the following tools:
 > *Note the training material assumes all commands are run in a unix shell*
 >
 > ---
+
+## What did you accomplish
+
+1. You have setup your environment to start the training.
 
 [Next](../01-initial/README.md)
