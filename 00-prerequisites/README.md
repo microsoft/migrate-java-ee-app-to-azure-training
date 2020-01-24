@@ -1,7 +1,7 @@
 # Prerequisites
 
-**Note each command mentioned in a README should be executed in the directory of
-that README unless specified otherwise**
+> **Note each command mentioned in a README should be executed in the
+> directory of that README unless specified otherwise**
 
 You have 2 options to satisfy the prerequisites needed to complete this training.
 
@@ -16,24 +16,30 @@ You have 2 options to satisfy the prerequisites needed to complete this training
 1. Run the Docker container
 1. Log into Azure
 1. Set your default subscription
-1. Setup your VSCode workspace
 
-### Install Visual Studio Code
+### Install Visual Studio Code (VSCode)
 
 Open your browser to [Download Visual Studio Code](https://code.visualstudio.com/Download).
 
-Click on the button appropriate for your OS.
+Click on the button appropriate for your OS and install VSCode
 
 ### Install the Remote Containers extension for VSCode
 
 Open your browser to [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+![Remote - Containers](images/remote-containers.png "Remote - Containers")
 
 Click on the `Install` button.
 
 It will ask you if you want to open this URL in VSCode. Confirm that you want to
 open it in VSCode.
 
+![Remote - Containers - Install](images/remote-vscode-install.png "Remote - Containers - Install")
+
 Click on the `Install` button.
+
+*Note if you do not see the `Install` button you already have the extension
+installed and you can continue on*
 
 ### Install Docker
 
@@ -42,6 +48,8 @@ will need it to download the Docker Desktop*
 
 *Note you DO not have to go through the Docker tutorial, you only need to download
 the Docker installer*
+
+*Note if at any time you are asked to reboot your machine please do so*
 
 Go to [Get Started with Docker](https://www.docker.com/get-started)
 
@@ -61,17 +69,31 @@ docker run --name devenv -v DIRECTORY:/mnt \
  azurejavalab.azurecr.io/azurejavalab:2020.01
 ```
 
-#### If you are running on Windows 
+#### If you are running on Windows
+
+![Docker Whale icon](images/docker-whale.png "Docker Whale icon")
 
 Open the settings for Docker Desktop for Windows by clicking on the little whale
-icon on your taskbar and and then click `Settings`.
+icon on your taskbar.
+
+![Docker settings](images/docker-settings.png "Docker settings")
+
+And then click `Settings`.
+
+![Docker expose](images/docker-expose.png "Docker expose")
 
 Make sure `Expose daemon on tcp://localhost:2375 without TLS` is checked.
 
 We need to verify Docker Desktop for Windows is set to run Linux containers.
 
-Click on the little whale icon on your taskbar. See if it says 
-`Switch to Windows containers...` or `Switch to Linux containers...`.
+![Docker Whale icon](images/docker-whale.png "Docker Whale icon")
+
+Click on the little whale icon on your taskbar again.
+
+![Docker switch containers](images/docker-switch-containers.png "Docker switch containers")
+
+See if it says `Switch to Windows containers...` or 
+`Switch to Linux containers...`.
 
 If it says `Switch to Linux containers...` please click it, otherwise no action is
 required.
@@ -93,53 +115,72 @@ to allow it to do so.
 
 Now start VSCode
 
+![Remote window](images/remote-window.png "Remote window")
+
 Click on the green icon on the bottom left of VSCode.
 
-Enter the following in the prompt that shows up:
+![Remote prompt](images/remote-prompt.png "Remote prompt")
+
+Enter the following in the prompt that shows up and press enter:
 
 ```shell
-Remote-Containers: Attach to Running Container...
+Remote-Containers: Attach to Running Container
 ```
 
-Then select the `devenv` remote container.
+The next step is to select the remote container we want to connect to.
 
-This will open a 2nd window of VSCode which will be attached to the running Docker 
-container.
+![Remote devenv container](images/remote-devenv.png "Remote devenv container")
+
+Click to select the `devenv` remote container.
+
+This will open a 2nd window of VSCode which will be attached to the running Docker container.
 
 This is the VSCode window we will use for the duration of the training.
 
-Open up a Terminal using the Terminal | New Terminal menu.
+> Hint: you can spot which VSCode window is the remote VSCode window by
+> looking at the title of the window. It should contain [Container ....
+
+Switch to the remote window of VSCode.
+
+Type `Ctrl + Shift + P` (or `Cmd + Shift + P` if you are on macOS)
+
+Enter the following in the prompt and press Enter:
+
+```shell
+Terminal: Create New Integrated Terminal
+```
+
+This will open a new integrated terminal.
+
+The remainder of the steps are going to be performed in the integrated terminal unless noted otherwise.
 
 ### Login into Azure
+
+To login into Azure execute the following command line:
 
 ````shell
 az login
 ````
 
+Follow the directions given and return here when you are done.
+
 ### Set your default subscription
 
-Get a list of your subscriptions
+We need to set the subscription you want to use for this training.
+
+To get a list of your subscriptions execute the command line below:
 
 ````shell
 az account list --output table
 ````
 
-Set your default subscription using the subscription id from the previous output
+Now replace `subscription-id`  with the `SubscriptionId` you determined you want to use in the command line below.
+
+Execute the command line to set the default subscription id:
 
 ````shell
 az account set --subscription "subscription-id"
 ````
-
-### Setup your VSCode workspace
-
-We are going setup the VSCode workspace so you can easily edit any files in the
-upcoming steps.
-
-Click `Add Folder`.
-
-In the dialog enter `/mnt`.
-
-And click `OK`
 
 Now you are ready to start the training!
 
