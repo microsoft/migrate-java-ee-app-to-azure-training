@@ -3,7 +3,9 @@
 > ---
 >
 > Note you need an Azure subscription for this training. If you haven't signed
-> up for Azure, please do so now. Go to
+> up for Azure, please do so now.
+>
+> Go to
 > [Create your Azure free account today](https://azure.microsoft.com/en-us/free/)
 >
 > ---
