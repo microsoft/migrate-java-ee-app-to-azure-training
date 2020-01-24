@@ -1,8 +1,12 @@
 # Prerequisites
 
+> ---
+>
 > Note you need an Azure subscription for this training. If you haven't signed
 > up for Azure, please do so now. Go to
 > [Create your Azure free account today](https://azure.microsoft.com/en-us/free/)
+>
+> ---
 
 You have 2 options to satisfy the prerequisites needed to complete this training.
 
@@ -193,6 +197,12 @@ Now you are ready to start the training!
 ## Alternate option
 
 *Note we DO not recommend using this option*
+
+> ---
+>
+> *Note the training material assumes all commands are run in a unix shell*
+>
+> ---
 
 You will need to install the following tools:
 
