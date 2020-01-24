@@ -1,7 +1,8 @@
 # Prerequisites
 
-> **Note each command mentioned in a README should be executed in the
-> directory of that README unless specified otherwise**
+> Note you need an Azure subscription for this training. If you haven't signed
+> up for Azure, please do so now. Go to
+> [Create your Azure free account today](https://azure.microsoft.com/en-us/free/)
 
 You have 2 options to satisfy the prerequisites needed to complete this training.
 
@@ -152,7 +153,11 @@ Terminal: Create New Integrated Terminal
 
 This will open a new integrated terminal.
 
-The remainder of the steps are going to be performed in the integrated terminal unless noted otherwise.
+The remainder of the steps are going to be performed in the integrated terminal 
+unless noted otherwise.
+
+> **Note each command mentioned in a README should be executed in the
+> directory of that README unless specified otherwise**
 
 ### Login into Azure
 
