@@ -56,7 +56,7 @@ Replace `DIRECTORY` below with the base directory of the training material.
 And execute the command line:
 
 ```shell
-docker run --privileged --name devenv -v DIRECTORY:/mnt \
+docker run --name devenv -v DIRECTORY:/mnt \
  -v /var/run/docker.sock:/var/run/docker.sock -d \
  azurejavalab.azurecr.io/azurejavalab:2020.01
 ```
