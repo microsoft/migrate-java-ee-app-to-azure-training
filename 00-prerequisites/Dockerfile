@@ -47,6 +47,13 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-c
     chmod +x /usr/local/bin/docker-compose
 
 #
+# Install kubectl
+#
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin/kubectl
+
+#
 # Install PostgreSQL client
 #
 RUN apt-get install -y postgresql-client && \
