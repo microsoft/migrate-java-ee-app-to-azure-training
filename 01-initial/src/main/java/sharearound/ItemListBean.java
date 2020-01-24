@@ -5,7 +5,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 @Named(value = "itemListBean")
 @RequestScoped
@@ -23,7 +23,7 @@ public class ItemListBean {
      * @return the items.
      */
     public List<Item> getItems() {
-        Query query = em.createQuery("SELECT object(o) FROM Item AS o");
+        TypedQuery<Item> query = em.createQuery("SELECT object(o) FROM Item AS o", Item.class);
         return query.getResultList();
     }
 }
