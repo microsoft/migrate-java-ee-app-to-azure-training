@@ -57,7 +57,7 @@ will need it to download the Docker Desktop*
 **Note you DO NOT have to go through the Docker tutorial, you only need to
 download the Docker Desktop installer and then install Docker Desktop**
 
-*Note if at any time you are asked to reboot your machine please do so*
+> *Note if at any time you are asked to reboot your machine please do so*
 
 Go to [Get Started with Docker](https://www.docker.com/get-started)
 
@@ -100,7 +100,7 @@ Click on the little whale icon on your taskbar again.
 
 ![Docker switch containers](images/docker-switch-containers.png "Docker switch containers")
 
-See if it says `Switch to Windows containers...` or 
+See if it says `Switch to Windows containers...` or
 `Switch to Linux containers...`.
 
 If it says `Switch to Linux containers...` please click it, otherwise no action is
@@ -161,7 +161,7 @@ Terminal: Create New Integrated Terminal
 
 This will open a new integrated terminal.
 
-The remainder of the steps are going to be performed in the integrated terminal 
+The remainder of the steps are going to be performed in the integrated terminal
 unless noted otherwise.
 
 > **Note each command mentioned in a README should be executed in the
@@ -199,11 +199,9 @@ Now you are ready to start the training!
 
 ## Alternate option
 
-*Note we DO not recommend using this option*
-
 > ---
 >
-> *Note the training material assumes all commands are run in a unix shell*
+> *Note we DO not recommend using this option*
 >
 > ---
 
@@ -218,5 +216,11 @@ You will need to install the following tools:
 1. curl
 1. kubectl
 1. psql
+
+> ---
+>
+> *Note the training material assumes all commands are run in a unix shell*
+>
+> ---
 
 [Next](../01-initial/README.md)
