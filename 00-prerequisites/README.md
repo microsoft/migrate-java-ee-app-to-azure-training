@@ -123,13 +123,13 @@ to allow it to do so.
 
 Now start VSCode
 
-![Remote window](images/remote-window.png "Remote window")
+Type `Ctrl + Shift + P` (or `Cmd + Shift + P` if you are on macOS)
 
-Click on the green icon on the bottom left of VSCode.
+You should see a window like the one below show up.
 
 ![Remote prompt](images/remote-prompt.png "Remote prompt")
 
-Enter the following in the prompt that shows up and press enter:
+Enter the following in the prompt and press enter:
 
 ```shell
 Remote-Containers: Attach to Running Container
@@ -139,9 +139,10 @@ The next step is to select the remote container we want to connect to.
 
 ![Remote devenv container](images/remote-devenv.png "Remote devenv container")
 
-Click to select the `devenv` remote container.
+Click `devenv` to attach to the remote Docker container.
 
-This will open a 2nd window of VSCode which will be attached to the running Docker container.
+This opens a 2nd window of VSCode that is attached to the running Docker
+container.
 
 This is the VSCode window we will use for the duration of the training.
 
