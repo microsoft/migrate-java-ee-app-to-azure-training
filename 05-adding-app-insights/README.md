@@ -112,8 +112,6 @@ az acr build --registry sharearoundacr$UNIQUE_ID --image sharearound \
   --file src/main/aks/Dockerfile .
 ```
 
-1m
-
 ## Deploy to the AKS cluster
 
 Determine the name of your ACR by executing the following command line:
@@ -131,7 +129,7 @@ And then finally deploy the application by using the following command line:
 kubectl apply -f src/main/aks/sharearound.yml
 ```
 
-The command will quickly return, but the deployment will still be going on.
+The command will return, but the deployment will still be going on.
 
 We are going to use `kubectl` to wait for the service to become available:
 
@@ -262,6 +260,14 @@ mvn clean
 ```
 
 And then start back at the top of this README.
+
+## Additional troubleshooting commands
+
+1. `kubectl get pods` will show the status of your pods.
+1. `kubectl logs -f service/sharearound` will show logs for the `sharearound`
+   service.
+1. `kubectl describe deployment/sharearound --output yaml` will show your 
+   deployment YAML.
 
 [Previous](../04-migrating-web-pages/README.md) &nbsp; [Next](../06-migrating-database/README.md)
 
