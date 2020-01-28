@@ -12,7 +12,14 @@
 
 ## What are we going to do in this step
 
-In this step we are going to setup the environment you will need for this training.
+In this step we are going to setup the environment you will need for this
+training.
+
+> ---
+> If you used Git clone to get the Git repository and you are running on Windows 
+> please make sure the you have autocrlf set. Please execute 
+> `git config --global core.autocrlf input`.
+> ---
 
 You have 2 options to satisfy the prerequisites needed to complete this training.
 
@@ -81,6 +88,11 @@ docker run --name devenv -v DIRECTORY:/mnt \
  azurejavalab.azurecr.io/azurejavalab:2020.01
 ```
 
+> ---
+>  Note if you want to build the Docker container yourself execute the build 
+>  script (build.sh / build.cmd) on your local machine.
+> ---
+
 #### If you are running on Windows
 
 ![Docker Whale icon](images/docker-whale.png "Docker Whale icon")
@@ -119,6 +131,11 @@ docker run --name devenv -v DIRECTORY:/mnt \
  -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d \
  azurejavalab.azurecr.io/azurejavalab:2020.01
 ```
+
+> ---
+>  Note if you want to build the Docker container yourself execute the build 
+>  script (build.sh / build.cmd) on your local machine.
+> ---
 
 If Docker Desktop for Windows asks to share enter the proper credentials
 to allow it to do so.

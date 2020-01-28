@@ -114,7 +114,7 @@ az postgres server firewall-rule create --resource-group sharearound \
 We need to open up the firewall so your AKS cluster has access to PostgreSQL.
 
 > Note here we are opting to open it up to all Azure services. In a production
-> environment you should probably limit a bit more.
+> environment this is not recommended and you should define tigther rules.
 
 Execute the following command line:
 
@@ -381,6 +381,6 @@ It should show you a short list of items.
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-[Previous](../04-migrating-web-pages/README.md) &nbsp; [Next](../06-adding-app-insights/README.md)
+[Previous](../05-adding-app-insights/README.md) &nbsp; [Next](../99-cleanup/README.md)
 
 35m
