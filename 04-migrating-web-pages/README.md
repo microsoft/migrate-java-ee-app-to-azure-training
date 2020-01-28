@@ -149,6 +149,11 @@ You should see the same page as before, but now it is running on AKS!
 1. You have deployed the Docker image to AKS.
 1. You have verified the application works on AKS.
 
+## More information
+
+1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
+1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
+
 ## Troubleshooting
 
 If you made a mistake and something does not work, please start over with this
