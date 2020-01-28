@@ -43,7 +43,7 @@ Please execute the command line below:
 ```shell
 az aks create --verbose --name sharearound-aks-$UNIQUE_ID \
   --resource-group sharearound --attach-acr sharearoundacr$UNIQUE_ID \
-  --node-count 1
+  --node-count 1 --generate-ssh-keys
 ```
 
 Note this step will take a while.
@@ -52,7 +52,7 @@ In the meanwhile feel free to read the
 documentation mentioned below in the [More information](#more-information)
 section.
 
-Or take a break!
+Or take a short break!
 
 ## Get the Kubernetes config file
 

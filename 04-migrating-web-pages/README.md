@@ -149,6 +149,17 @@ You should see the same page as before, but now it is running on AKS!
 1. You have deployed the Docker image to AKS.
 1. You have verified the application works on AKS.
 
+## Troubleshooting
+
+If you made a mistake and something does not work, please start over with this
+step using the following command line:
+
+```shell
+mvn clean
+```
+
+And then start back at the top of this README.
+
 [Previous](../03-setting-up-aks/README.md) &nbsp; [Next](../05-adding-app-insights/README.md)
 
 12m

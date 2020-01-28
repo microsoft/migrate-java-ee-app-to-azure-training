@@ -16,9 +16,12 @@ In this step we are going to setup the environment you will need for this
 training.
 
 > ---
-> If you used Git clone to get the Git repository and you are running on Windows 
-> please make sure the you have autocrlf set. Please execute 
-> `git config --global core.autocrlf input`.
+>
+> :stop_sign: If you used Git clone to get the Git repository AND you are running
+> on Windows please make sure the you have autocrlf set. Please execute 
+> `git config --global core.autocrlf input`. Recheck out the repository if you
+> already checked out the repository before setting this Git setting.
+>
 > ---
 
 You have 2 options to satisfy the prerequisites needed to complete this training.
@@ -78,7 +81,9 @@ And follow the directions there.
 
 #### If you are running on a non-Windows OS
 
-Replace `DIRECTORY` below with the base directory of the training material.
+:stop_sign: Replace `DIRECTORY` below with the base directory of the training
+material (this is the same as the directory as Git created when you checked it out
+from GitHub).
 
 And execute the command line:
 
@@ -89,8 +94,10 @@ docker run --name devenv -v DIRECTORY:/mnt \
 ```
 
 > ---
+>
 >  Note if you want to build the Docker container yourself execute the build 
 >  script (build.sh / build.cmd) on your local machine.
+>
 > ---
 
 #### If you are running on Windows
@@ -244,7 +251,7 @@ You will need to install the following tools:
 >
 > ---
 
-## What did you accomplish
+## What you accomplished
 
 1. You have setup your environment to start the training.
 

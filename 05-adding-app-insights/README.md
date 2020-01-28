@@ -252,6 +252,17 @@ proper table.
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
+## Troubleshooting
+
+If you made a mistake and something does not work, please start over with this
+step using the following command line:
+
+```shell
+mvn clean
+```
+
+And then start back at the top of this README.
+
 [Previous](../04-migrating-web-pages/README.md) &nbsp; [Next](../06-migrating-database/README.md)
 
 10m
