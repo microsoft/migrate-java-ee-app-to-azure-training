@@ -35,9 +35,9 @@ customer you can opt to keep your on-premise database and creating the appropria
 connectivity to it. However we recommend moving it to our managed offering Azure
 Database for PostgreSQL.
 
-> Any PostgreSQL database on Azure shares the DNS namespace across all Azure
-> subscriptions, so the UNIQUE_ID determined previously is used to make its name
-> unique.
+> :bulb: Any PostgreSQL database on Azure shares the DNS namespace across all
+> Azure subscriptions, so the UNIQUE_ID determined previously is used to make its
+> name unique.
 
 Before we go ahead and create the database we are going to set the Postgres admin
 username and password in your environment. In a classroom setting ask your
@@ -107,8 +107,8 @@ az postgres server firewall-rule create --resource-group sharearound \
   --start-ip-address $EXTERNAL_IP --end-ip-address $EXTERNAL_IP
 ```
 
-> Note if you install the PostgreSQL extension for Azure CLI you can simplify
-> creation of the database a bit, see
+> :pushpin: Note if you install the PostgreSQL extension for Azure CLI you can
+> simplify creation of the database a bit, see
 > [az postgres](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
 > for more information
 
@@ -116,8 +116,9 @@ az postgres server firewall-rule create --resource-group sharearound \
 
 We need to open up the firewall so your AKS cluster has access to PostgreSQL.
 
-> Note here we are opting to open it up to all Azure services. In a production
-> environment this is not recommended and you should define tigther rules.
+> :bulb: Note here we are opting to open it up to all Azure services. In a 
+> production environment this is not recommended and you should define tighter
+> rules.
 
 Execute the following command line:
 
@@ -129,10 +130,10 @@ az postgres server firewall-rule create --resource-group sharearound \
 
 ## Turn off requiring SSL connections
 
-> In a production environment you should NOT disable requiring SSL connections
-> between your application and the database. As the target of this training is
-> migrating your JavaEE application, we are going to turn off requiring SSL
-> connections.
+> :bulb: In a production environment you should NOT disable requiring SSL
+> connections between your application and the database. As the target of this
+> training is migrating your JavaEE application, we are going to turn off
+> requiring SSL connections.
 
 Please execute the following command line:
 
@@ -209,8 +210,8 @@ Execute the following command line, replacing `<username>` with the username you
 GRANT ALL PRIVILEGES ON DATABASE sharearound TO <username>;
 ```
 
-> Note in a production environment you would not use the PostgreSQL admin user
-> to allow access to application databases. You would setup users for each
+> :bulb: Note in a production environment you would not use the PostgreSQL admin
+> user to allow access to application databases. You would setup users for each
 > of your application databases.
 
 Next we are going to use the database.
@@ -295,16 +296,25 @@ echo sharearoundacr$UNIQUE_ID
 Now open `src/main/aks/sharearound.yml` in your editor and replace REGISTRY with
 the value of the previous command (which is the name of your ACR).
 
+Echo your environment variables using the command line below:
+
+```shell
+export
+```
+
 As we want to be able to point the WildFly server to a PostgreSQL database without
 having to rebuild the image we also have to update the
 `src/main/aks/sharearound.yml` file to use environment variables.
 
-> Note as this is a YAML file you have to be VERY careful with formatting.
-> When you copy and paste it make sure the same amount of spaces are present
-> as below.
+> :stop_sign: Note as this is a YAML file you have to be **VERY** careful with
+> formatting. When you copy and paste it make sure the same amount of spaces are
+> present as below.
 
-Copy the text below and paste it into the file `src/main/aks/sharearound.yml` just
+Copy the text below and paste it into the `src/main/aks/sharearound.yml` file just
 below `image`:
+
+Replace each `FILL_IN` with the values of the corresponding environment
+variables with the same name.
 
 ```yaml
         env:
@@ -316,19 +326,10 @@ below `image`:
           value: FILL_IN
 ```
 
-And then replace each `FILL_IN` with the values of the corresponding environment
-variables with the same name.
-
-If you need your environment variables use the command line below:
-
-```shell
-export
-```
-
-> Note that exposing the JDBC URL, username and password in the YAML file is not
-> a recommended practice. For the training it is sufficient to show that a JavaEE
-> application can talk to the PostgreSQL database. In a production environment we
-> recommend using either Kubernetes secrets, or Azure KeyVault.
+> :bulb: Note that exposing the JDBC URL, username and password in the YAML file
+> is not a recommended practice. For the training it is sufficient to show that a
+> JavaEE application can talk to the PostgreSQL database. In a production
+> environment we recommend using either Kubernetes secrets, or Azure KeyVault.
 
 And then finally deploy the application by using the following command line:
 
@@ -336,7 +337,7 @@ And then finally deploy the application by using the following command line:
 kubectl apply -f src/main/aks/sharearound.yml
 ```
 
-The command will quickly return, but the deployment will still be going on.
+The command will return, but the deployment will still be going on.
 
 We are going to use `kubectl` to wait for the service to become available:
 
@@ -348,7 +349,8 @@ kubectl get service/sharearound --output wide -w
 
 Now wait until you see the EXTERNAL-IP column populated with an IP address.
 
-> Note if the command does not show the EXTERNAL-IP after a long while, please
+> :stop_sign: Note if the command does not show the EXTERNAL-IP after a couple of
+> minutes, please
 > use `Ctrl+C` to cancel the command and then reissue the command without `-w`.
 
 Once the IP address is there you are ready to open Microsoft Edge to

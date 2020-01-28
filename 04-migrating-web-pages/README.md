@@ -131,8 +131,9 @@ kubectl get service/sharearound --output wide -w
 
 Now wait until you see the EXTERNAL-IP column populated with an IP address.
 
-> Note if the command does not show the EXTERNAL-IP after a long while, please
-> use `Ctrl+C` to cancel the command and then reissue the command without `-w`.
+> :stop_sign: Note if the command does not show the EXTERNAL-IP after a couple of
+> minutes, please use `Ctrl+C` to cancel the command and then reissue the command
+> without `-w` at the end.
 
 Once the IP address is there you are ready to open Microsoft Edge to
 `http://EXTERNAL-IP:8080/`
@@ -148,6 +149,6 @@ You should see the same page as before, but now it is running on AKS!
 1. You have deployed the Docker image to AKS.
 1. You have verified the application works on AKS.
 
-[Previous](../03-setting-up-aks/README.md) &nbsp; [Next](../05-migrating-database/README.md)
+[Previous](../03-setting-up-aks/README.md) &nbsp; [Next](../05-adding-app-insights/README.md)
 
 12m

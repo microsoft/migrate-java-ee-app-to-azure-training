@@ -59,9 +59,9 @@ Or take a break!
 In order to access the Kubernetes cluster using `kubectl` you will need a Kube
 config file.
 
-> Note as the purpose of this training is migrating the JavaEE application to
-> AKS and not Kubernetes administration we are using admin access to the AKS
-> cluster. For production environments we recommend
+> :pushpin: Note as the purpose of this training is migrating the JavaEE
+> application to AKS and not Kubernetes administration we are using admin access
+> to the AKS cluster. For production environments we recommend
 > [configuring RBAC](https://docs.microsoft.com/en-us/azure/aks/azure-ad-rbac)
 > to limit access to your Kubernetes cluster based on roles.
 
