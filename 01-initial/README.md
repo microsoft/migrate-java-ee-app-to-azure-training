@@ -1,5 +1,8 @@
 # The initial Sharearound web application
 
+> :stop_sign: **Note each command mentioned in this README should be executed in
+> the directory of this README unless specified otherwise**
+
 ## What are we going to do in this step
 
 We are going to be looking at an JavaEE application that we are going to migrate.

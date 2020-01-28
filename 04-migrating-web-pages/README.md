@@ -1,5 +1,8 @@
 # Migrating the web pages
 
+> :stop_sign: **Note each command mentioned in this README should be executed in
+> the directory of this README unless specified otherwise**
+
 ## Prerequisites
 
 It is assumed you have completed the following steps:

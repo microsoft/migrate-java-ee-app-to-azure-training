@@ -58,9 +58,12 @@ Please add the following to the `<dependencies>` block in your `pom.xml` file.
 
 ## Create ApplicationInsights.xml
 
-Create `src/main/resources/ApplicationInsights.xml` and paste the contents below
-into that file and replace `**  Your instrumentation key **` with your
-instrumentation key.
+Create `src/main/resources/ApplicationInsights.xml`.
+
+Paste the contents below into that file.
+
+:stop_sign: Replace `**  Your instrumentation key **` with your instrumentation
+key.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -140,7 +143,8 @@ kubectl get service/sharearound --output wide -w
 
 Now wait until you see the EXTERNAL-IP column populated with an IP address.
 
-> Note if the command does not show the EXTERNAL-IP after a long while, please
+> :stop_sign: Note if the command does not show the EXTERNAL-IP after a couple of
+> minutes, please
 > use `Ctrl+C` to cancel the command and then reissue the command without `-w`.
 
 Once the IP address is there you are ready to open Microsoft Edge to

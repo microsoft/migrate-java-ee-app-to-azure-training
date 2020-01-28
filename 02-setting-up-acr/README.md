@@ -1,5 +1,8 @@
 # Setting up Azure Container Registry
 
+> :stop_sign: **Note each command mentioned in this README should be executed in
+> the directory of this README unless specified otherwise**
+
 ## What are we going to do in this step
 
 As we are targeting deployment on Azure Kubernetes Service (AKS) we need a Docker

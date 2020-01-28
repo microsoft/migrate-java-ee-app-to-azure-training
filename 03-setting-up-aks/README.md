@@ -1,5 +1,8 @@
 # Setting up Azure Kubernetes Service
 
+> :stop_sign: **Note each command mentioned in this README should be executed in
+> the directory of this README unless specified otherwise**
+
 ## What are we going to do in this step
 
 In this step we are going to setup your Azure Kubernetes Service (AKS) cluster.
@@ -53,7 +56,8 @@ Or take a break!
 
 ## Get the Kubernetes config file
 
-In order to access the Kubernetes cluster using `kubectl` you will need a Kube config file.
+In order to access the Kubernetes cluster using `kubectl` you will need a Kube
+config file.
 
 > Note as the purpose of this training is migrating the JavaEE application to
 > AKS and not Kubernetes administration we are using admin access to the AKS
