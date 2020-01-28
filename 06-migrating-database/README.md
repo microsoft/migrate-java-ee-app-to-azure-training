@@ -35,42 +35,44 @@ customer you can opt to keep your on-premise database and creating the appropria
 connectivity to it. However we recommend moving it to our managed offering Azure
 Database for PostgreSQL.
 
-> :bulb: Any PostgreSQL database on Azure shares the DNS namespace across all
-> Azure subscriptions, so the UNIQUE_ID determined previously is used to make its
-> name unique.
+## Determine your unique id and set it in your environment
 
-Before we go ahead and create the database we are going to set the Postgres admin
-username and password in your environment. In a classroom setting ask your
-proctor what the value of `PGUSER` and `PGPASS` needs to be. If you are doing this
-workshop by yourself use the any combination you like.
+Some of the resources we are going to create need to have a unique id. In a class
+room setting ask your proctor what the value of the `UNIQUE_ID` environment
+variable needs to be. If you are doing this workshop by yourself use the same
+timestamp in `YYYYMMDDHHSS` format as your unique id throughout the training.
+
+Replacing `FILL_THIS_IN` with the value you determined above and execute the
+command line below:
+
+```shell
+export UNIQUE_ID=FILL_THIS_IN
+```
+
+## Setting PG environment variables
+
+Before we go ahead and migrate the database we are going to set the Postgres admin
+username and password in your environment.
+
+> :bulb: If you are interested to know what steps the ARM template took to
+> provision your Postgres database on Azure, see
+> [Manual Provisioning steps](MANUAL.md)
 
 To set the `PGUSER` environment variable use the following command line, replacing
-`FILL_THIS_IN` with the appropriate value:
+`FILL_THIS_IN` with the same value for the PGUSER variable you entered when you
+used the ARM template:
 
 ```shell
 export PGUSER=FILL_THIS_IN
 ```
 
 And for the `PGPASS` environment variable use the following command line,
-replacing `FILL_THIS_IN` with the appropriate value:
+replacing `FILL_THIS_IN` with the same value for the PGPASS variable you entered
+when you used the ARM template:
 
 ```shell
 export PGPASS=FILL_THIS_IN
 ```
-
-And now it is time to create the database.
-
-Use the command line below:
-
-```shell
-az postgres server create --resource-group sharearound \
-  --name sharearound-postgres-$UNIQUE_ID --location westus2 \
-  --admin-user $PGUSER --admin-password $PGPASS \
-  --sku-name B_Gen5_1
-```
-
-While this command is running, please feel free to review the documentation
-listed below at [More information](#more-information).
 
 Now lets set the `PGHOST` environment variable so you can use it later.
 
@@ -144,7 +146,8 @@ az postgres server update --resource-group sharearound \
 
 ## Set the PGFULLUSER environment variable
 
-Accessing the PostgreSQL database on Azure requires a longer version of your username which we will construct now.
+Accessing the PostgreSQL database on Azure requires a longer version of your
+username which we will construct now.
 
 Execute the command line below to set the PGFULLUSER environment variable:
 
@@ -204,7 +207,8 @@ Note this might take a short while to complete.
 
 Now we need to make sure your user has access to the newly created database
 
-Execute the following command line, replacing `<username>` with the username you picked previously:
+Execute the following command line, replacing `<username>` with the username you
+picked previously:
 
 ```sql
 GRANT ALL PRIVILEGES ON DATABASE sharearound TO <username>;
@@ -365,7 +369,6 @@ It should show you a short list of items.
 
 ## What you accomplished
 
-1. You have created an Azure Database for PostgreSQL.
 1. You have verified you can access the PostgreSQL database.
 1. You have loaded the data for the application into your PostgreSQL database.
 1. You have migrated the web application to use the PostgreSQL database.

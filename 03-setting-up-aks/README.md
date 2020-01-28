@@ -7,19 +7,6 @@
 
 In this step we are going to setup your Azure Kubernetes Service (AKS) cluster.
 
-## Create the Resource Group
-
-We need a resource group to host the AKS cluster.
-
-Please use the following command line to create the resource group:
-
-```shell
-az group create --name sharearound --location westus2
-```
-
-*Note if the output tells you the resource group already exists that is fine and
-continue on.*
-
 ## Determine your unique id and set it in your environment
 
 Some of the resources we are going to create need to have a unique id. In a class
@@ -34,25 +21,8 @@ command line below:
 export UNIQUE_ID=FILL_THIS_IN
 ```
 
-## Create the AKS cluster
-
-Now we are going to create your AKS cluster.
-
-Please execute the command line below:
-
-```shell
-az aks create --verbose --name sharearound-aks-$UNIQUE_ID \
-  --resource-group sharearound --attach-acr sharearoundacr$UNIQUE_ID \
-  --node-count 1 --generate-ssh-keys
-```
-
-Note this step will take a while.
-
-In the meanwhile feel free to read the
-documentation mentioned below in the [More information](#more-information)
-section.
-
-Or take a short break!
+> :bulb: If you are interested to know what steps the ARM template took to
+> provision your AKS cluster, see [Manual Provisioning steps](MANUAL.md)
 
 ## Get the Kubernetes config file
 
@@ -101,9 +71,7 @@ This should show you the list of nodes in your Kubernetes cluster.
 
 ## What you accomplished
 
-1. You have created a resource group to host your resources.
-1. You have created an AKS cluster to host your containers.
-1. You have created a Kubeconfig file for use by kubectl.
+1. You have created a Kubeconfig file for use by `kubectl`.
 1. You have verified you can see the nodes of your AKS cluster.
 
 ## More information
@@ -116,5 +84,3 @@ For more information about AKS, see:
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
 [Previous](../02-setting-up-acr/README.md) &nbsp; [Next](../04-migrating-web-pages/README.md)
-
-22m

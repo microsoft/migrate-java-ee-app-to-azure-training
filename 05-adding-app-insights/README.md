@@ -27,21 +27,25 @@ in your terminal:
 
 ## Installing Application Insights Azure CLI extension
 
+Execute the command below to install the extension:
+
 ```shell
 az extension add --name application-insights
 ```
 
-## Create Application Insights application
+> :bulb: If you are interested to know what steps the ARM template took to
+> provision Application Insights, see [Manual Provisioning steps](MANUAL.md)
 
-We need to create the Application Insights application so we have a place we can
-gather our insights to. Please execute the command line below:
+## Get the instrumentation key
+
+Execute the conmand below to get the instrumentation key.
 
 ```shell
-az monitor app-insights component create --app sharearound-app-insights \
-  --resource-group sharearound --location westus2 --application-type java
+az monitor app-insights component show --app sharearound-app-insights \
+  --resource-group sharearound
 ```
 
-Please capture the instrumentationKey as you will need it for later.
+Capture the `instrumentationKey` as we need it later.
 
 ## Changes needed to the web application
 
@@ -234,7 +238,6 @@ proper table.
 
 ## What you accomplished
 
-1. You have created an Application Insights resource.
 1. You have added Application Insights to the web application.
 1. You have build the Docker image with WildFly and your application.
 1. You have deployed the Docker image to AKS.
