@@ -266,7 +266,7 @@ And then start back at the top of this README.
 1. `kubectl get pods` will show the status of your pods.
 1. `kubectl logs -f service/sharearound` will show logs for the `sharearound`
    service.
-1. `kubectl describe deployment/sharearound --output yaml` will show your 
+1. `kubectl get deployment/sharearound --output yaml` will show your 
    deployment YAML.
 
 [Previous](../04-migrating-web-pages/README.md) &nbsp; [Next](../06-migrating-database/README.md)
