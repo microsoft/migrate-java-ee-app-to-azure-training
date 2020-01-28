@@ -52,7 +52,7 @@ Now log into your ACR using the command line below:
 az acr login -n sharearoundacr$UNIQUE_ID
 ```
 
-## What did you accomplish
+## What you accomplished
 
 1. You have created a resource group to host your resources.
 1. You have created an ACR to host your Docker images.

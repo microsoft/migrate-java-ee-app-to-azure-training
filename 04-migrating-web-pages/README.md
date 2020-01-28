@@ -136,7 +136,7 @@ Once the IP address is there you are ready to open Microsoft Edge to
 
 You should see the same page as before, but now it is running on AKS!
 
-## What did you accomplish
+## What you accomplished
 
 1. You have migrated the web pages in the web application.
 1. You have build a Docker image containing WildFly and your web application.

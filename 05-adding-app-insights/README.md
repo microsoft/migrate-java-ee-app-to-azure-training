@@ -230,7 +230,7 @@ Remember at the beginning of this step we told you that we are purposely ignorin
 the database. Here the message is telling you the database does NOT have the
 proper table.
 
-## What did you accomplish
+## What you accomplished
 
 1. You have created an Application Insights resource.
 1. You have added Application Insights to the web application.

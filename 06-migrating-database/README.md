@@ -358,7 +358,7 @@ the link to show a list of items.
 
 It should show you a short list of items.
 
-## What did you accomplish
+## What you accomplished
 
 1. You have created an Azure Database for PostgreSQL.
 1. You have verified you can access the PostgreSQL database.

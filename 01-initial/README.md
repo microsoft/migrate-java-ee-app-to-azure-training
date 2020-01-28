@@ -56,7 +56,7 @@ to shut it down issue the following command from the
 docker-compose down
 ```
 
-## What did you accomplish
+## What you accomplished
 
 1. You have build the web application locally.
 1. You have deployed the web application locally using Docker Compose.

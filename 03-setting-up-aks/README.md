@@ -95,7 +95,7 @@ kubectl get nodes
 
 This should show you the list of nodes in your Kubernetes cluster.
 
-## What did you accomplish
+## What you accomplished
 
 1. You have created a resource group to host your resources.
 1. You have created an AKS cluster to host your containers.
