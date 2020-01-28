@@ -160,7 +160,7 @@ which we will construct now.
 Execute the command line below to set the PGJDBCURL environment variable:
 
 ```shell
-export PGJDBCURL=jdbc:postgresql://sharearound-postgres-$UNIQUE_ID.postgres.database.azure.com:5432/sharearound"
+export PGJDBCURL=jdbc:postgresql://sharearound-postgres-$UNIQUE_ID.postgres.database.azure.com:5432/sharearound
 ```
 
 ## Verifying you can access your database
