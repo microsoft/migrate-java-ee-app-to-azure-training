@@ -140,8 +140,10 @@ docker run --name devenv -v DIRECTORY:/mnt \
 ```
 
 > ---
+>
 >  Note if you want to build the Docker container yourself execute the build 
 >  script (build.sh / build.cmd) on your local machine.
+>
 > ---
 
 If Docker Desktop for Windows asks to share enter the proper credentials

@@ -13,6 +13,10 @@ In this step we are going to configure Application Insights so you can have more
 insight into what your application is doing. For simplicity sake we are going to
 ignore the fact that the application is using a database.
 
+> :bulb: If you are interested to know what steps the ARM template took to
+> provision the Application Insights application, see
+> [Manual Provisioning steps](MANUAL.md)
+
 ## Setting up
 
 To start the migration we are going to copy the application from the `01-initial`
@@ -32,9 +36,6 @@ Execute the command below to install the extension:
 ```shell
 az extension add --name application-insights
 ```
-
-> :bulb: If you are interested to know what steps the ARM template took to
-> provision Application Insights, see [Manual Provisioning steps](MANUAL.md)
 
 ## Get the instrumentation key
 

@@ -54,10 +54,6 @@ export UNIQUE_ID=FILL_THIS_IN
 Before we go ahead and migrate the database we are going to set the Postgres admin
 username and password in your environment.
 
-> :bulb: If you are interested to know what steps the ARM template took to
-> provision your Postgres database on Azure, see
-> [Manual Provisioning steps](MANUAL.md)
-
 To set the `PGUSER` environment variable use the following command line, replacing
 `FILL_THIS_IN` with the same value for the PGUSER variable you entered when you
 used the ARM template:
@@ -73,6 +69,10 @@ when you used the ARM template:
 ```shell
 export PGPASS=FILL_THIS_IN
 ```
+
+> :bulb: If you are interested to know what steps the ARM template took to
+> provision your Postgres database on Azure, see
+> [Manual Provisioning steps](MANUAL.md)
 
 Now lets set the `PGHOST` environment variable so you can use it later.
 

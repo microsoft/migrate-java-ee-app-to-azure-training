@@ -5,7 +5,8 @@
 
 ## What are we going to do in this step
 
-In this step we are going to setup your Azure Kubernetes Service (AKS) cluster.
+In this step we are going to setup access to your Azure Kubernetes Service (AKS)
+cluster.
 
 ## Determine your unique id and set it in your environment
 
@@ -22,7 +23,8 @@ export UNIQUE_ID=FILL_THIS_IN
 ```
 
 > :bulb: If you are interested to know what steps the ARM template took to
-> provision your AKS cluster, see [Manual Provisioning steps](MANUAL.md)
+> provision your Azure Kubernetes Service cluster, see
+> [Manual Provisioning steps](MANUAL.md)
 
 ## Get the Kubernetes config file
 
