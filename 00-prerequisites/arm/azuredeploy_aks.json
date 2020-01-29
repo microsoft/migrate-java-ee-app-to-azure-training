@@ -1,0 +1,64 @@
+{
+    "$schema":"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "uniqueId": {
+            "defaultValue": "Ask proctor!",
+            "type": "String"
+        },
+        "sshPublicKey": {
+            "defaultValue": "Paste in your public SSH key",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.ContainerService/managedClusters",
+            "apiVersion": "2020-01-01",
+            "name": "[concat(resourceGroup().name,'-aks-cluster-',parameters('uniqueId'))]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "kubernetesVersion": "1.14.8",
+                "dnsPrefix": "[concat(resourceGroup().name,'-aks-',parameters('uniqueId'))]",
+                "agentPoolProfiles": [
+                    {
+                        "name": "nodepool1",
+                        "count": 3,
+                        "vmSize": "Standard_DS2_v2",
+                        "osDiskSizeGB": 100,
+                        "maxPods": 110,
+                        "type": "VirtualMachineScaleSets",
+                        "orchestratorVersion": "1.14.8",
+                        "osType": "Linux"
+                    }
+                ],
+                "linuxProfile": {
+                    "adminUsername": "sharearound",
+                    "ssh": {
+                        "publicKeys": [
+                            {
+                                "keyData": "[parameters('sshPublicKey')]"
+                            }
+                        ]
+                    }
+                },
+                "servicePrincipalProfile": {
+                    "clientId":"[newGuid()]",
+                    "secret":"[concat(resourceGroup().name,'-spsecret')]"
+                },
+                "nodeResourceGroup": "[concat(resourceGroup().name,'-aks-nodes-',parameters('uniqueId'))]",
+                "enableRBAC": true,
+                "networkProfile": {
+                    "networkPlugin": "kubenet",
+                    "loadBalancerSku": "Standard",
+                    "podCidr": "10.244.0.0/16",
+                    "serviceCidr": "10.0.0.0/16",
+                    "dnsServiceIP": "10.0.0.10",
+                    "dockerBridgeCidr": "172.17.0.1/16",
+                    "outboundType": "loadBalancer"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,70 @@
+{
+    "$schema":"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "uniqueId": {
+            "defaultValue": "Ask proctor!",
+            "type": "String"
+        },
+        "postgresAdminUsername": {
+            "defaultValue": "postgres",
+            "type": "String"
+        },
+        "postgresAdminPassword": {
+            "defaultValue": "p0stgr@s1",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.ContainerRegistry/registries",
+            "apiVersion": "2019-05-01",
+            "name": "[concat(resourceGroup().name,'acr',parameters('uniqueId'))]",
+            "location": "westus2",
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic"
+            },
+            "properties": {
+                "adminUserEnabled": true
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2015-05-01",
+            "name": "[concat(resourceGroup().name,'-app-insights')]",
+            "location": "westus2",
+            "kind": "web",
+            "properties": {
+                "Application_Type": "java",
+                "Flow_Type": "Bluefield",
+                "Request_Source": "rest"
+            }
+        },
+        {
+            "type": "Microsoft.DBforPostgreSQL/servers",
+            "apiVersion": "2017-12-01",
+            "name": "[concat(resourceGroup().name,'-postgres-',parameters('uniqueId'))]",
+            "location": "westus2",
+            "sku": {
+                "name": "B_Gen5_1",
+                "tier": "Basic",
+                "family": "Gen5",
+                "capacity": 1
+            },
+            "properties": {
+                "administratorLogin": "[parameters('postgresAdminUsername')]",
+                "administratorLoginPassword": "[parameters('postgresAdminPassword')]",
+                "storageProfile": {
+                    "storageMB": 5120,
+                    "backupRetentionDays": 7,
+                    "geoRedundantBackup": "Disabled",
+                    "storageAutoGrow": "Enabled"
+                },
+                "version": "9.6",
+                "sslEnforcement": "Disabled"
+            }
+        }
+    ]
+}
