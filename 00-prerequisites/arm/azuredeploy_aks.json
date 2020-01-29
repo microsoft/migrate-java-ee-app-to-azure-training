@@ -9,6 +9,14 @@
         "sshPublicKey": {
             "defaultValue": "Paste in your public SSH key",
             "type": "String"
+        },
+        "servicePrincipalClientId": {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "servicePrincipalSecret": {
+            "defaultValue": "",
+            "type": "String"
         }
     },
     "variables": {},
@@ -44,8 +52,8 @@
                     }
                 },
                 "servicePrincipalProfile": {
-                    "clientId":"[newGuid()]",
-                    "secret":"[concat(resourceGroup().name,'-spsecret')]"
+                    "clientId":"[parameters('servicePrincipalClientId')]",
+                    "secret":"[parameters('servicePrincipalSecret')]"
                 },
                 "nodeResourceGroup": "[concat(resourceGroup().name,'-aks-nodes-',parameters('uniqueId'))]",
                 "enableRBAC": true,
