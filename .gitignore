@@ -1,3 +1,11 @@
+.classpath
+.project
+.settings/
+.vscode/
+nb-configuration.xml
+target/
+kubeconfig
+
 # Compiled class file
 *.class
 

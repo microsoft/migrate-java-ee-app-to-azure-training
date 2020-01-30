@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sharearound
+  labels:
+    app: sharearound
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sharearound
+  template:
+    metadata:
+      labels:
+        app: sharearound
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: sharearound
+        image: REGISTRY.azurecr.io/sharearound
+        ports:
+        - containerPort: 8080
+          name: http
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sharearound
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+  selector:
+    app: sharearound
