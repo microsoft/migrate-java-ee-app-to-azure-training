@@ -90,7 +90,7 @@ And execute the command line:
 ```shell
 docker run --name devenv -v DIRECTORY:/mnt \
  -v /var/run/docker.sock:/var/run/docker.sock -d \
- azurejavalab.azurecr.io/azurejavalab:2020.01
+ azurejavalab.azurecr.io/azurejavalab
 ```
 
 > ---
@@ -136,7 +136,7 @@ And execute the command line:
 ```shell
 docker run --name devenv -v DIRECTORY:/mnt \
  -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d \
- azurejavalab.azurecr.io/azurejavalab:2020.01
+ azurejavalab.azurecr.io/azurejavalab
 ```
 
 > ---
