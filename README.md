@@ -34,7 +34,7 @@ This training is a demonstration on what you can expect when looking at migratin
 
 ## How to start this training
 
-To start the guided training please open up [00-prerequisites/README.md in your browser](00-prerequisites/README.md in your browser).
+To start the guided training please go to [00-prerequisites/README.md in your browser](00-prerequisites/README.md).
 
 ## Key concepts
 
