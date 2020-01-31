@@ -124,9 +124,7 @@ cd sharearound
 And now we are going to start the Docker container using the following command line:
 
 ```shell
-docker run --name devenv -v $PWD:/mnt \
- -v /var/run/docker.sock:/var/run/docker.sock -d \
- azurejavalab.azurecr.io/azurejavalab:2020.01
+docker run --name devenv -v $PWD:/mnt -v /var/run/docker.sock:/var/run/docker.sock -d azurejavalab.azurecr.io/azurejavalab
 ```
 
 > ---
