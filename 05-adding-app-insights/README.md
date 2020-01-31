@@ -185,6 +185,10 @@ The Application Dashboard will look similar to the image below:
 
 ![Application Dashboard Page](images/application-dashboard-detail.png "Application Dashboard Page")
 
+> :stop_sign: Note it might be that youdo not immediately see metrics show up. That is OK. It
+> might take a couple of minutes for the metrics to funnel into Application Insights. Refresh 
+> the portal page until you see the metrics show up.
+
 ## Looking at Log Analytics
 
 It is possible to drill even further down by analyzing the logs that are collected.
@@ -263,25 +267,12 @@ proper table.
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-## Troubleshooting
-
-If you made a mistake and something does not work, please start over with this
-step using the following command line:
-
-```shell
-mvn clean
-```
-
-And then start back at the top of this README.
-
-## Additional troubleshooting commands
+## Troubleshooting commands
 
 1. `kubectl get pods` will show the status of your pods.
 1. `kubectl logs -f service/sharearound` will show logs for the `sharearound`
    service.
-1. `kubectl get deployment/sharearound --output yaml` will show your 
+1. `kubectl get deployment/sharearound --output yaml` will show your
    deployment YAML.
 
 [Previous](../04-migrating-web-pages/README.md) &nbsp; [Next](../06-migrating-database/README.md)
-
-10m
