@@ -1,28 +1,19 @@
 # Setting up Azure Kubernetes Service
 
-> :stop_sign: **Note each command mentioned in this README should be executed in
-> the directory of this README unless specified otherwise**
-
 ## What are we going to do in this step
 
 In this step we are going to setup access to your Azure Kubernetes Service (AKS)
 cluster.
 
-## Determine your unique id and set it in your environment
+## Start in the correct directory
 
-Some of the resources we are going to create need to have a unique id. In a class
-room setting ask your proctor what the value of the `UNIQUE_ID` environment
-variable needs to be. If you are doing this workshop by yourself use the same
-timestamp in `YYYYMMDDHHSS` format as your unique id throughout the training.
-
-Replacing `FILL_THIS_IN` with the value you determined above and execute the
-command line below:
+Please execute the command below:
 
 ```shell
-export UNIQUE_ID=FILL_THIS_IN
+cd /mnt/02-setting-up-aks
 ```
 
-> :bulb: If you are interested to know what steps the ARM template took to
+> :bulb: If you are interested to know what steps the provision script took to
 > provision your Azure Kubernetes Service cluster, see
 > [Manual Provisioning steps](MANUAL.md)
 
@@ -48,8 +39,7 @@ This will create the Kube config file in `kubeconfig`
 
 ## Set the KUBECONFIG environment variable
 
-In the directory where you executed the previous command execute the command line
-below:
+Execute the command line below:
 
 ```shell
 export KUBECONFIG=$PWD/kubeconfig

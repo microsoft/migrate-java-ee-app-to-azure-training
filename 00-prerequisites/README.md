@@ -1,30 +1,58 @@
 # Prerequisites
 
-> ---
->
-> Note you need an Azure subscription for this training. If you haven't signed
-> up for Azure, please do so now.
->
-> Go to
-> [Create your Azure free account today](https://azure.microsoft.com/en-us/free/)
->
-> ---
-
 ## What are we going to do in this step
 
-In this step we are going to setup the environment you will need for this
+In this step we are going to first create some Azure resources you will need for
+this training and then setup the environment you will need for this
 training.
 
-> ---
->
-> :stop_sign: If you used Git clone to get the Git repository AND you are running
-> on Windows please make sure the you have autocrlf set. Please execute 
-> `git config --global core.autocrlf input`. Recheck out the repository if you
-> already checked out the repository before setting this Git setting.
->
-> ---
+## Determine your unique id
 
-You have 2 options to satisfy the prerequisites needed to complete this training.
+Some of the resources we are going to create need to have a unique id. In a class
+room setting ask your proctor what the value of the `UNIQUE_ID` environment
+variable needs to be. If you are doing this workshop by yourself use the same
+timestamp in `YYYYMMDDHHSS` format as your unique id throughout the training.
+
+Capture the `UNIQUE_ID` as you will need it later.
+
+## Setting up the Azure resources
+
+Open an Azure Cloud Shell by clicking on the button below:
+
+<a href="https://shell.azure.com"><img src="https://shell.azure.com/images/launchcloudshell.png"></A>
+
+## Set your default subscription
+
+We need to set the subscription you want to use for this training.
+
+To get a list of your subscriptions execute the command line below:
+
+````shell
+az account list --output table
+````
+
+Now replace `subscription-id`  with the `SubscriptionId` you determined you want to use in the command line below.
+
+Execute the command line to set the default subscription id:
+
+```shell
+az account set --subscription "subscription-id"
+```
+
+Replacing `FILL_THIS_IN` with the value you determined above and execute the
+command lines below:
+
+```shell
+export UNIQUE_ID=FILL_THIS_IN
+curl https://raw.githubusercontent.com/microsoft/migrate-java-ee-app-to-azure-training/master/00-prerequisites/provision.sh > provision.sh
+sh ./provision.sh $UNIQUE_ID
+```
+
+You are now done in Azure Cloud Shell and you can close it and continue on.
+
+## Setting up the environment
+
+You have 2 options to satisfy the remainder of the prerequisites needed to complete this training.
 
 1. [Docker Container option](#docker-container-option)
 1. [Alternate option](#alternate-option)
@@ -81,22 +109,28 @@ And follow the directions there.
 
 #### If you are running on a non-Windows OS
 
-:stop_sign: Replace `DIRECTORY` below with the base directory of the training
-material (this is the same as the directory as Git created when you checked it out
-from GitHub).
-
-And execute the command line:
+We are going to create an empty directory:
 
 ```shell
-docker run --name devenv -v DIRECTORY:/mnt \
- -v /var/run/docker.sock:/var/run/docker.sock -d \
- azurejavalab.azurecr.io/azurejavalab
+mkdir sharearound
+```
+
+And then execute the command below to change into it:
+
+```shell
+cd sharearound
+```
+
+And now we are going to start the Docker container using the following command line:
+
+```shell
+docker run --name devenv -v $PWD:/mnt -v /var/run/docker.sock:/var/run/docker.sock -d azurejavalab.azurecr.io/azurejavalab
 ```
 
 > ---
 >
->  Note if you want to build the Docker container yourself execute the build 
->  script (build.sh / build.cmd) on your local machine.
+> Note if you want to build the Docker container yourself execute the build 
+> script (build.sh / build.cmd) on your local machine.
 >
 > ---
 
@@ -129,20 +163,28 @@ See if it says `Switch to Windows containers...` or
 If it says `Switch to Linux containers...` please click it, otherwise no action is
 required.
 
-Replace `DIRECTORY` below with the base directory of the training material.
-
-And execute the command line:
+We are going to need a directory to store the training material, execute the comamnd line below:
 
 ```shell
-docker run --name devenv -v DIRECTORY:/mnt \
- -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d \
- azurejavalab.azurecr.io/azurejavalab
+mkdir sharearound
+```
+
+Go into the directory using the command line below:
+
+```shell
+cd sharearound
+```
+
+And now execute the command line below to start the Docker container:
+
+```shell
+docker run --name devenv -v %CD%:/mnt -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d azurejavalab.azurecr.io/azurejavalab
 ```
 
 > ---
 >
->  Note if you want to build the Docker container yourself execute the build 
->  script (build.sh / build.cmd) on your local machine.
+> Note if you want to build the Docker container yourself execute the build
+> script (build.sh / build.cmd) on your local machine.
 >
 > ---
 
@@ -197,7 +239,7 @@ unless noted otherwise.
 > **Note each command mentioned in a README should be executed in the
 > directory of that README unless specified otherwise**
 
-### Login into Azure
+### Login into Azure in the Docker container
 
 To login into Azure execute the following command line:
 
@@ -207,7 +249,7 @@ az login
 
 Follow the directions given and return here when you are done.
 
-### Set your default subscription
+### Set your default subscription in the Docker container
 
 We need to set the subscription you want to use for this training.
 
@@ -221,11 +263,32 @@ Now replace `subscription-id`  with the `SubscriptionId` you determined you want
 
 Execute the command line to set the default subscription id:
 
-````shell
+```shell
 az account set --subscription "subscription-id"
-````
+```
 
-Now you are ready to start the training!
+Now we are going to go to the `/mnt` directory.
+
+```shell
+cd /mnt
+```
+
+And clone the Git repository
+
+```shell
+git clone https://github.com/microsoft/migrate-java-ee-app-to-azure-training.git .
+```
+
+Replacing `FILL_THIS_IN` with the value for `UNIQUE_ID` you determined above
+and execute the command line below:
+
+```shell
+export UNIQUE_ID=FILL_THIS_IN
+```
+
+And you are now ready to start the training!
+
+[Next](../01-initial/README.md)
 
 ## Alternate option
 

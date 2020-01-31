@@ -1,18 +1,23 @@
-# The initial Sharearound web application
-
-> :stop_sign: **Note each command mentioned in this README should be executed in
-> the directory of this README unless specified otherwise**
+# The Sharearound web application
 
 ## What are we going to do in this step
 
 We are going to be looking at an JavaEE application that we are going to migrate.
 Note this is an imperfect application that uses an unsupported version of the JDK,
 an unsupported version of a JavaEE application server. So we will need to do some
-migrating!
+migrating, but before we do we are going to let you see the web application in action!
+
+## Start in the correct directory
+
+Please execute the command below:
+
+```shell
+cd /mnt/01-initial
+```
 
 ## Building the web application
 
-Please build the web application using:
+And then build the web application using:
 
 ```shell
 mvn package
@@ -29,19 +34,27 @@ docker build -t sharearound -f src/main/compose/Dockerfile .
 ## Starting the application server and database locally
 
 Finally we are going to start up the application server and the database by means
-of Docker compose. 
+of Docker compose.
 
-:stop_sign: From the `src/main/compose/sharearound` directory issue the following
-command.
+Execute the command below to go into the `src/main/compose/sharearound` directory:
+
+```shell
+cd /mnt/01-initial/src/main/compose/sharearound
+```
+
+And the use the following command to execute Docker compose:
 
 ```shell
 docker-compose up -d
 ```
 
-Once the command completes we are going to load the database with some data.
+Now go back into the directory of the current step by executing:
 
-:stop_sign: Execute the following commands from the directory which contains this
-README:
+```shell
+cd /mnt/01-initial
+```
+
+Once the command completes we are going to load the database with some data.
 
 ```shell
 docker cp src/main/postgres/load.sql postgres:/mnt
@@ -68,17 +81,6 @@ docker-compose down
 1. You have deployed the web application locally using Docker Compose.
 1. You have verified the web application works.
 
-## Troubleshooting
-
-If you made a mistake and something does not work, please start over with this
-step using the following command line:
-
-```shell
-mvn clean
-```
-
 And then start back at the top of this README.
 
 [Next](../02-setting-up-acr/README.md)
-
-6m

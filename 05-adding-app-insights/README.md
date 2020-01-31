@@ -13,21 +13,29 @@ In this step we are going to configure Application Insights so you can have more
 insight into what your application is doing. For simplicity sake we are going to
 ignore the fact that the application is using a database.
 
-> :bulb: If you are interested to know what steps the ARM template took to
+> :bulb: If you are interested to know what steps the provision script took to
 > provision the Application Insights application, see
 > [Manual Provisioning steps](MANUAL.md)
 
-## Setting up
+## Start in the correct directory
 
-To start the migration we are going to copy the application from the `01-initial`
-directory into this directory.
-
-To do so please issue the following command line
-in your terminal:
+Please execute the command below:
 
 ```shell
-  mvn antrun:run@setup
+cd /mnt/05-adding-app-insights
 ```
+
+## Setting up
+
+To start the application migration we are going to need a copy of the application.
+
+Please issue the following command line in your terminal:
+
+```shell
+mvn antrun:run@setup
+```
+
+You now have a copy of the application so we can start the migration process.
 
 ## Installing Application Insights Azure CLI extension
 
@@ -128,10 +136,11 @@ echo sharearoundacr$UNIQUE_ID
 Now open `src/main/aks/sharearound.yml` in your editor and replace REGISTRY with
 the value of the previous command (which is the name of your ACR).
 
-And then finally deploy the application by using the following command line:
+And then finally deploy the application by using the following command lines:
 
 ```shell
 kubectl apply -f src/main/aks/sharearound.yml
+kubectl set env deployment/sharearound DEPLOY_DATE=`date`
 ```
 
 The command will return, but the deployment will still be going on.
@@ -175,6 +184,10 @@ If you want to drill down even more click on `Application Dashboard`.
 The Application Dashboard will look similar to the image below:
 
 ![Application Dashboard Page](images/application-dashboard-detail.png "Application Dashboard Page")
+
+> :stop_sign: Note it might be that youdo not immediately see metrics show up. That is OK. It
+> might take a couple of minutes for the metrics to funnel into Application Insights. Refresh 
+> the portal page until you see the metrics show up.
 
 ## Looking at Log Analytics
 
@@ -254,25 +267,12 @@ proper table.
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-## Troubleshooting
-
-If you made a mistake and something does not work, please start over with this
-step using the following command line:
-
-```shell
-mvn clean
-```
-
-And then start back at the top of this README.
-
-## Additional troubleshooting commands
+## Troubleshooting commands
 
 1. `kubectl get pods` will show the status of your pods.
 1. `kubectl logs -f service/sharearound` will show logs for the `sharearound`
    service.
-1. `kubectl get deployment/sharearound --output yaml` will show your 
+1. `kubectl get deployment/sharearound --output yaml` will show your
    deployment YAML.
 
 [Previous](../04-migrating-web-pages/README.md) &nbsp; [Next](../06-migrating-database/README.md)
-
-10m
