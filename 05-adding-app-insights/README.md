@@ -13,9 +13,17 @@ In this step we are going to configure Application Insights so you can have more
 insight into what your application is doing. For simplicity sake we are going to
 ignore the fact that the application is using a database.
 
-> :bulb: If you are interested to know what steps the ARM template took to
+> :bulb: If you are interested to know what steps the provision script took to
 > provision the Application Insights application, see
 > [Manual Provisioning steps](MANUAL.md)
+
+## Start in the correct directory
+
+Please execute the command below:
+
+```shell
+cd /mnt/05-adding-app-insights
+```
 
 ## Setting up
 
@@ -128,10 +136,11 @@ echo sharearoundacr$UNIQUE_ID
 Now open `src/main/aks/sharearound.yml` in your editor and replace REGISTRY with
 the value of the previous command (which is the name of your ACR).
 
-And then finally deploy the application by using the following command line:
+And then finally deploy the application by using the following command lines:
 
 ```shell
 kubectl apply -f src/main/aks/sharearound.yml
+kubectl set env deployment/sharearound DEPLOY_DATE=`date`
 ```
 
 The command will return, but the deployment will still be going on.

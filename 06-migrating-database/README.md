@@ -16,6 +16,14 @@ In the previous step we made sure we could deploy the web application on Azure
 Kubernetes Service (AKS) without taking into account that it is using a database.
 In this step we are going to tackle the migration of the database.
 
+## Start in the correct directory
+
+Please execute the command below:
+
+```shell
+cd /mnt/05-migrating-database
+```
+
 ## Setting up
 
 To start the migration we are going to copy the application from the `01-initial`
@@ -335,10 +343,11 @@ variables with the same name.
 > JavaEE application can talk to the PostgreSQL database. In a production
 > environment we recommend using either Kubernetes secrets, or Azure KeyVault.
 
-And then finally deploy the application by using the following command line:
+And then finally deploy the application by using the following command lines:
 
 ```shell
 kubectl apply -f src/main/aks/sharearound.yml
+kubectl set env deployment/sharearound DEPLOY_DATE=`date`
 ```
 
 The command will return, but the deployment will still be going on.

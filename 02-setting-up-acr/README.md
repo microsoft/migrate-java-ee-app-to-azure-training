@@ -9,23 +9,17 @@ As we are targeting deployment on Azure Kubernetes Service (AKS) we need a Docke
 registry from which we can pull our container images. In this step we will verify
 we can access the Azure Container Registry (ACR).
 
-> :bulb: If you are interested to know what steps the ARM template took to
-> provision your Azure Container registry, see 
-> [Manual Provisioning steps](MANUAL.md)
+## Start in the correct directory
 
-## Determine your unique id and set it in your environment
-
-Some of the resources we are going to create need to have a unique id. In a class
-room setting ask your proctor what the value of the `UNIQUE_ID` environment
-variable needs to be. If you are doing this workshop by yourself use the same
-timestamp in `YYYYMMDDHHSS` format as your unique id throughout the training.
-
-Replacing `FILL_THIS_IN` with the value you determined above and execute the
-command line below:
+Please execute the command below:
 
 ```shell
-export UNIQUE_ID=FILL_THIS_IN
+cd /mnt/02-setting-up-acr
 ```
+
+> :bulb: If you are interested to know what steps the provision script took to
+> provision your Azure Container registry, see
+> [Manual Provisioning steps](MANUAL.md)
 
 ## Login into your ACR
 

@@ -17,6 +17,14 @@ Service (AKS) we need to make some changes to make it possible to deploy this we
 application onto AKS. For simplicity sake we are going to ignore the fact that
 the application is using a database for now.
 
+## Start in the correct directory
+
+Please execute the command below:
+
+```shell
+cd /mnt/04-migrating-web-pages
+```
+
 ## Setting up
 
 To start the application migration we are going to copy the application from the
@@ -30,18 +38,11 @@ mvn antrun:run@setup
 
 ## Changes needed to the web pages
 
-We need to verify if there is a server specific deployment descriptor that sets a
-specific context root. In this particular case we have one, you can find the
-`glassfish-web.xml` file in the `src/main/webapp/WEB-INF` directory.
+In this application you need to check each of the web pages as the developer hardcode the context root the application is served on as `/sharearound`. 
 
-Look at the contents and you will  notice it specifies `/sharearound`.
+This can cause issues in cloud deployment so we are going to fix this.
 
-As we are targeting AKS and a specific context root was used we now need to make
-sure the application does NOT use it anywhere in a hard-coded way.
-
-Luckily in this application there is only one spot in the application that has the
-value hard-coded and that is in the index.jsp page. Please remove `/sharearound/`
-to make the links relative.
+Open the `src/main/webapp/index.jsp` file as it is the only place in the web application that has the value hard-coded. Remove every `/sharearound/` in the `index.jsp` file you see and save the file.
 
 ## Build the web application
 
@@ -61,7 +62,7 @@ WildFly and your web application in it.
 To do so execute the following command line:
 
 ```shell
-docker build -t test -f src/main/aks/Dockerfile .
+docker build -t sharearound -f src/main/aks/Dockerfile .
 ```
 
 ## Test the Docker image locally
@@ -71,7 +72,7 @@ Now we are going to validate that the image works.
 Please execute the following command line:
 
 ```shell
-docker run --rm -it -p 8080:8080 test
+docker run --rm -it -p 8080:8080 sharearound
 ```
 
 You should see something like the output below:
@@ -82,7 +83,7 @@ Full 18.0.1.Final (WildFly Core 10.0.3.Final) started in 5058ms - Started 315 of
 
 Now open Microsoft Edge to [http://localhost:8080/](http://localhost:8080/)
 
-You should see the home page of the *Sharearound* application.
+You should see the home page of the *Sharearound* application. Note if you click the link to show the list of items it will show an error page and that is expected as we did not migrate the database yet.
 
 Now shutdown the Docker container using:
 
@@ -113,10 +114,11 @@ echo sharearoundacr$UNIQUE_ID
 Now open `src/main/aks/sharearound.yml` in your editor and replace REGISTRY with
 the value of the previous command (which is the name of your ACR).
 
-And then finally deploy the application by using the following command line:
+And then finally deploy the application by using the following command lines:
 
 ```shell
 kubectl apply -f src/main/aks/sharearound.yml
+kubectl set env deployment/sharearound DEPLOY_DATE=`date`
 ```
 
 The command will quickly return, but the deployment will still be going on.
@@ -154,18 +156,9 @@ You should see the same page as before, but now it is running on AKS!
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-## Troubleshooting
-
-If you made a mistake and something does not work, please start over with this
-step using the following command line:
-
-```shell
-mvn clean
-```
-
 And then start back at the top of this README.
 
-## Additional troubleshooting commands
+## Troubleshooting commands
 
 1. `kubectl get pods` will show the status of your pods.
 1. `kubectl logs -f service/sharearound` will show logs for the `sharearound`
@@ -174,5 +167,3 @@ And then start back at the top of this README.
    deployment YAML.
 
 [Previous](../03-setting-up-aks/README.md) &nbsp; [Next](../05-adding-app-insights/README.md)
-
-12m

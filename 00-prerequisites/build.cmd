@@ -1,1 +1,1 @@
-docker build -t azurejavalab.azurecr.io/azurejavalab:2020.01 .
+docker build -t azurejavalab.azurecr.io/azurejavalab .
