@@ -25,6 +25,11 @@ az acr create --name sharearoundacr$1 --location westus2 --resource-group sharea
 az aks create --verbose --name sharearound-aks-$1 --resource-group sharearound --attach-acr sharearoundacr$1 --node-count 1 --generate-ssh-keys
 
 #
+# Add application-insights extension
+#
+az extension add --name application-insights
+
+#
 # Create the Application Insights application used by our web application.
 #
 

@@ -1,8 +1,5 @@
 # Setting up Azure Container Registry
 
-> :stop_sign: **Note each command mentioned in this README should be executed in
-> the directory of this README unless specified otherwise**
-
 ## What are we going to do in this step
 
 As we are targeting deployment on Azure Kubernetes Service (AKS) we need a Docker
@@ -31,8 +28,6 @@ az acr login -n sharearoundacr$UNIQUE_ID
 
 ## What you accomplished
 
-1. You have created a resource group to host your resources.
-1. You have created an ACR to host your Docker images.
 1. You have verified you can login into your ACR.
 
 ## More information

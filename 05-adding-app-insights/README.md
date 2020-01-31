@@ -27,15 +27,15 @@ cd /mnt/05-adding-app-insights
 
 ## Setting up
 
-To start the migration we are going to copy the application from the `01-initial`
-directory into this directory.
+To start the application migration we are going to need a copy of the application.
 
-To do so please issue the following command line
-in your terminal:
+Please issue the following command line in your terminal:
 
 ```shell
-  mvn antrun:run@setup
+mvn antrun:run@setup
 ```
+
+You now have a copy of the application so we can start the migration process.
 
 ## Installing Application Insights Azure CLI extension
 

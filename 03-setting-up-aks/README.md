@@ -1,8 +1,5 @@
 # Setting up Azure Kubernetes Service
 
-> :stop_sign: **Note each command mentioned in this README should be executed in
-> the directory of this README unless specified otherwise**
-
 ## What are we going to do in this step
 
 In this step we are going to setup access to your Azure Kubernetes Service (AKS)
@@ -42,8 +39,7 @@ This will create the Kube config file in `kubeconfig`
 
 ## Set the KUBECONFIG environment variable
 
-In the directory where you executed the previous command execute the command line
-below:
+Execute the command line below:
 
 ```shell
 export KUBECONFIG=$PWD/kubeconfig

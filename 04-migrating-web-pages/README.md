@@ -1,8 +1,5 @@
 # Migrating the web pages
 
-> :stop_sign: **Note each command mentioned in this README should be executed in
-> the directory of this README unless specified otherwise**
-
 ## Prerequisites
 
 It is assumed you have completed the following steps:
@@ -27,22 +24,25 @@ cd /mnt/04-migrating-web-pages
 
 ## Setting up
 
-To start the application migration we are going to copy the application from the
-`01-initial` directory into this directory.
+To start the application migration we are going to need a copy of the application.
 
-To do so please issue the following command line in your terminal:
+Please issue the following command line in your terminal:
 
 ```shell
 mvn antrun:run@setup
 ```
 
+You now have a copy of the application so we can start the migration process.
+
 ## Changes needed to the web pages
 
-In this application you need to check each of the web pages as the developer hardcode the context root the application is served on as `/sharearound`. 
+In this application you need to check each of the web pages as the developer hardcoded the context root the application is served on as `/sharearound`.
 
 This can cause issues in cloud deployment so we are going to fix this.
 
-Open the `src/main/webapp/index.jsp` file as it is the only place in the web application that has the value hard-coded. Remove every `/sharearound/` in the `index.jsp` file you see and save the file.
+Open the `src/main/webapp/index.jsp` file as it is the only place in the web application that has the value hard-coded. 
+
+Remove every occurrence of `/sharearound/` in the `index.jsp` file and then save the file.
 
 ## Build the web application
 
@@ -121,7 +121,7 @@ kubectl apply -f src/main/aks/sharearound.yml
 kubectl set env deployment/sharearound DEPLOY_DATE=`date`
 ```
 
-The command will quickly return, but the deployment will still be going on.
+These commands will quickly return, but the deployment will still be going on.
 
 We are going to use `kubectl` to wait for the service to become available:
 

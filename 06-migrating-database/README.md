@@ -1,8 +1,5 @@
 # Migrating the database
 
-> :stop_sign: **Note each command mentioned in this README should be executed in
-> the directory of this README unless specified otherwise**
-
 ## Prerequisites
 
 It is assumed you have completed the following steps:
@@ -26,15 +23,15 @@ cd /mnt/05-migrating-database
 
 ## Setting up
 
-To start the migration we are going to copy the application from the `01-initial`
-directory into this directory.
+To start the application migration we are going to need a copy of the application.
 
-To do so please issue the following command line
-in your terminal:
+Please issue the following command line in your terminal:
 
 ```shell
 mvn antrun:run@setup
 ```
+
+You now have a copy of the application so we can start the migration process.
 
 ## Create the PostgreSQL database on Azure
 
@@ -117,7 +114,7 @@ az postgres server firewall-rule create --resource-group sharearound \
   --start-ip-address $EXTERNAL_IP --end-ip-address $EXTERNAL_IP
 ```
 
-> :pushpin: Note if you install the PostgreSQL extension for Azure CLI you can
+> :pushpin: Note if you install the db-up extension for Azure CLI you can
 > simplify creation of the database a bit, see
 > [az postgres](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
 > for more information

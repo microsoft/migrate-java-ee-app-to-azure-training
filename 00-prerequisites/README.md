@@ -1,15 +1,5 @@
 # Prerequisites
 
-> ---
->
-> Note you need an Azure subscription for this training. If you haven't signed
-> up for Azure, please do so now.
->
-> Go to
-> [Create your Azure free account today](https://azure.microsoft.com/en-us/free/)
->
-> ---
-
 ## What are we going to do in this step
 
 In this step we are going to first create some Azure resources you will need for
@@ -62,7 +52,7 @@ You are now done in Azure Cloud Shell and you can close it and continue on.
 
 ## Setting up the environment
 
-You have 2 options to satisfy the prerequisites needed to complete this training.
+You have 2 options to satisfy the remainder of the prerequisites needed to complete this training.
 
 1. [Docker Container option](#docker-container-option)
 1. [Alternate option](#alternate-option)

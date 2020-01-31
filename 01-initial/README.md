@@ -81,17 +81,6 @@ docker-compose down
 1. You have deployed the web application locally using Docker Compose.
 1. You have verified the web application works.
 
-## Troubleshooting
-
-If you made a mistake and something does not work, you try resetting the content
-of this step by using the following command line:
-
-```shell
-mvn clean
-```
-
-*Note this only reset the content, not any processes or resources you created*
-
 And then start back at the top of this README.
 
 [Next](../02-setting-up-acr/README.md)

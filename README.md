@@ -1,11 +1,11 @@
 ---
 page_type: sample
 languages:
-- csharp
+- java
 products:
-- dotnet
-description: "Add 150 character max description"
-urlFragment: "update-this-to-unique-url-stub"
+- azure-kubernetes-service
+description: "Migrate a JavaEE application to AKS"
+urlFragment: "migrate-javaee-to-aks"
 ---
 
 # Official Microsoft Sample
@@ -18,36 +18,27 @@ Guidance on onboarding samples to docs.microsoft.com/samples: https://review.doc
 Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
 -->
 
-Give a short description for your sample here. What does it do and why is it important?
-
-## Contents
-
-Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
-
-| File/folder       | Description                                |
-|-------------------|--------------------------------------------|
-| `src`             | Sample source code.                        |
-| `.gitignore`      | Define what to ignore at commit time.      |
-| `CHANGELOG.md`    | List of changes to the sample.             |
-| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
-| `README.md`       | This README file.                          |
-| `LICENSE`         | The license for the sample.                |
+This training is a demonstration on what you can expect when looking at migrating a JavaEE application to Azure Kubernetes Service.
 
 ## Prerequisites
 
-Outline the required components and tools that a user might need to have on their machine in order to run the sample. This can be anything from frameworks, SDKs, OS versions or IDE releases.
+> ---
+>
+> You need an Azure subscription for this training. If you haven't signed
+> up for Azure, please do so now.
+>
+> Go to
+> [Create your Azure free account today](https://azure.microsoft.com/en-us/free/)
+>
+> ---
 
-## Setup
+## How to start this training
 
-Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
-
-## Running the sample
-
-Outline step-by-step instructions to execute the sample and see its output. Include steps for executing the sample from the IDE, starting specific services in the Azure portal or anything related to the overall launch of the code.
+To start the guided training please open up [00-prerequisites/README.md in your browser](00-prerequisites/README.md in your browser).
 
 ## Key concepts
 
-Provide users with more context on the tools and services used in the sample. Explain some of the code that is being used and how services interact with each other.
+Each of the steps in this training covers one aspect of migrating a JavaEE application to Azure Kubernetes Service.
 
 ## Contributing
 
