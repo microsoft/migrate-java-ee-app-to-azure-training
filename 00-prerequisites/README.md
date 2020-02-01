@@ -82,7 +82,7 @@ cd sharearound
 And now we are going to start the Docker container using the following command line:
 
 ```shell
-docker run --name devenv -v $PWD:/mnt -v /var/run/docker.sock:/var/run/docker.sock -d azurejavalab.azurecr.io/azurejavalab
+docker run --name sharearound -v $PWD:/mnt -v /var/run/docker.sock:/var/run/docker.sock -d azurejavalab.azurecr.io/azurejavalab
 ```
 
 > ---
@@ -106,6 +106,12 @@ And then click `Settings`.
 ![Docker expose](images/docker-expose.png "Docker expose")
 
 Make sure `Expose daemon on tcp://localhost:2375 without TLS` is checked.
+
+You will also need to make sure you share your `C` drive so we can store the trainig material on your local drive.
+
+![Docker C share](images/docker-share.png "Docker C share")
+
+Make sure the `C` drive is checked and click `Aoply`,
 
 We need to verify Docker Desktop for Windows is set to run Linux containers.
 
@@ -133,10 +139,10 @@ Go into the directory using the command line below:
 cd sharearound
 ```
 
-And now execute the command line below to start the Docker container:
+And now execute the command line below (using `cmd.exe`) to start the Docker container:
 
 ```shell
-docker run --name devenv -v %CD%:/mnt -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d azurejavalab.azurecr.io/azurejavalab
+docker run --name sharearound -v %CD%:/mnt -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d azurejavalab.azurecr.io/azurejavalab
 ```
 
 > ---
@@ -145,9 +151,6 @@ docker run --name devenv -v %CD%:/mnt -e DOCKER_HOST=tcp://docker.for.win.localh
 > script (build.sh / build.cmd) on your local machine.
 >
 > ---
-
-If Docker Desktop for Windows asks to share enter the proper credentials
-to allow it to do so.
 
 #### Next steps are for all OS-es
 
@@ -167,9 +170,9 @@ Remote-Containers: Attach to Running Container
 
 The next step is to select the remote container we want to connect to.
 
-![Remote devenv container](images/remote-devenv.png "Remote devenv container")
+![Remote sharearound container](images/remote-container.png "Remote sharearound container")
 
-Click `devenv` to attach to the remote Docker container.
+Click `sharearound` to attach to the remote Docker container.
 
 This opens a 2nd window of VSCode that is attached to the running Docker
 container.
@@ -255,7 +258,7 @@ az account set --subscription "subscription-id"
 
 Some of the resources we are going to create need to have a unique id. In a class
 room setting ask your proctor what the value of the `UNIQUE_ID` environment
-variable needs to be. If you are doing this workshop by yourself use the same
+variable needs to be. If you are doing this training by yourself use the same
 timestamp in `YYYYMMDDHHSS` format as the value for `UNIQUE_ID`.
 
 Replacing `FILL_THIS_IN` with the value for `UNIQUE_ID` you determined above
