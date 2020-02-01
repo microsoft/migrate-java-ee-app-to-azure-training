@@ -36,6 +36,31 @@ This training is a demonstration on what you can expect when looking at migratin
 
 To start the guided training please go to [00-prerequisites/README.md](00-prerequisites/README.md).
 
+## Brief summary about each step
+
+Steps that have to be executed in order:
+
+| Step                  | Summary                                       |
+|-----------------------|-----------------------------------------------|
+| 00-prerequisites      | setup your environment                        |
+| 01-initial            | see the application to be migrated in action  |
+| 02-setting-up-acr     | set up your Azure Container Registry          |
+| 03-setting-up-aks     | set up your Azure Kubernetes Service cluster  |
+
+Steps the can be done in any order once the steps above are done:
+
+| Step                      | Summary                                           |
+|---------------------------|---------------------------------------------------|
+| 04-migrating-web-pages    | migrating of the web pages only                   |
+| 05-adding-app-insights    | adding Application Insights to the application    |
+| 06-migrating-database     | migrating of the PostgreSQL database to Azure     |
+
+Step that has to be executed at the conclusion of the training:
+
+| Step                      | Summary                                           |
+|---------------------------|---------------------------------------------------|
+| 99-cleanup                | Clean up of environment and resources             |
+
 ## Key concepts
 
 Each of the steps in this training covers one aspect of migrating a JavaEE application to Azure Kubernetes Service.
