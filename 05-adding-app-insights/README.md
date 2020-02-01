@@ -186,7 +186,7 @@ The Application Dashboard will look similar to the image below:
 ![Application Dashboard Page](images/application-dashboard-detail.png "Application Dashboard Page")
 
 > :stop_sign: Note it might be that youdo not immediately see metrics show up. That is OK. It
-> might take a couple of minutes for the metrics to funnel into Application Insights. Refresh 
+> might take a couple of minutes for the metrics to funnel into Application Insights. Refresh
 > the portal page until you see the metrics show up.
 
 ## Looking at Log Analytics

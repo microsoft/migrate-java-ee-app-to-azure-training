@@ -65,6 +65,11 @@ Step that has to be executed at the conclusion of the training:
 
 Each of the steps in this training covers one aspect of migrating a JavaEE application to Azure Kubernetes Service.
 
+## Special note
+
+> :stop_sign" Because this is training material it is optimized to demonstrate
+> some of the aspects you will run into when migrating a JavaEE application to Azure.
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
