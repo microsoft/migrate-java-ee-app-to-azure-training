@@ -82,7 +82,7 @@ cd sharearound
 And now we are going to start the Docker container using the following command line:
 
 ```shell
-docker run --name devenv -v $PWD:/mnt -v /var/run/docker.sock:/var/run/docker.sock -d azurejavalab.azurecr.io/azurejavalab
+docker run --name sharearound -v $PWD:/mnt -v /var/run/docker.sock:/var/run/docker.sock -d azurejavalab.azurecr.io/azurejavalab
 ```
 
 > ---
@@ -142,7 +142,7 @@ cd sharearound
 And now execute the command line below (using `cmd.exe`) to start the Docker container:
 
 ```shell
-docker run --name devenv -v %CD%:/mnt -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d azurejavalab.azurecr.io/azurejavalab
+docker run --name sharearound -v %CD%:/mnt -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d azurejavalab.azurecr.io/azurejavalab
 ```
 
 > ---
@@ -170,9 +170,9 @@ Remote-Containers: Attach to Running Container
 
 The next step is to select the remote container we want to connect to.
 
-![Remote devenv container](images/remote-devenv.png "Remote devenv container")
+![Remote sharearound container](images/remote-container.png "Remote sharearound container")
 
-Click `devenv` to attach to the remote Docker container.
+Click `sharearound` to attach to the remote Docker container.
 
 This opens a 2nd window of VSCode that is attached to the running Docker
 container.
