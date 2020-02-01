@@ -258,7 +258,7 @@ az account set --subscription "subscription-id"
 
 Some of the resources we are going to create need to have a unique id. In a class
 room setting ask your proctor what the value of the `UNIQUE_ID` environment
-variable needs to be. If you are doing this workshop by yourself use the same
+variable needs to be. If you are doing this training by yourself use the same
 timestamp in `YYYYMMDDHHSS` format as the value for `UNIQUE_ID`.
 
 Replacing `FILL_THIS_IN` with the value for `UNIQUE_ID` you determined above
