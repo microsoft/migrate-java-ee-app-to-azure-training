@@ -14,7 +14,7 @@ Please execute the command below:
 cd /mnt/02-setting-up-acr
 ```
 
-> :bulb: If you are interested to know what steps the provision script took to
+> :bulb: If you are interested to know what steps the provisioning script took to
 > provision your Azure Container registry, see
 > [Manual Provisioning steps](MANUAL.md)
 

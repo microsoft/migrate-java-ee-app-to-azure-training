@@ -13,7 +13,7 @@ Please execute the command below:
 cd /mnt/02-setting-up-aks
 ```
 
-> :bulb: If you are interested to know what steps the provision script took to
+> :bulb: If you are interested to know what steps the provisioning script took to
 > provision your Azure Kubernetes Service cluster, see
 > [Manual Provisioning steps](MANUAL.md)
 
@@ -60,6 +60,11 @@ kubectl get nodes
 ```
 
 This should show you the list of nodes in your Kubernetes cluster.
+
+> :stop_sign: If you are getting errors on this command, please go to the
+> Azure Portal to verify the deployment of the Azure Kubernetes Cluster
+> has completed. If it has not completed wait until it has completed
+> and then try to command above again.
 
 ## What you accomplished
 
