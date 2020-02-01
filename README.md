@@ -67,7 +67,7 @@ Each of the steps in this training covers one aspect of migrating a JavaEE appli
 
 ## Special note
 
-> :stop_sign" Because this is training material it is optimized to demonstrate
+> :stop_sign: Because this is training material it is optimized to demonstrate
 > some of the aspects you will run into when migrating a JavaEE application to Azure.
 
 ## Contributing
