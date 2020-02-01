@@ -40,19 +40,9 @@ customer you can opt to keep your on-premise database and creating the appropria
 connectivity to it. However we recommend moving it to our managed offering Azure
 Database for PostgreSQL.
 
-## Determine your unique id and set it in your environment
-
-Some of the resources we are going to create need to have a unique id. In a class
-room setting ask your proctor what the value of the `UNIQUE_ID` environment
-variable needs to be. If you are doing this workshop by yourself use the same
-timestamp in `YYYYMMDDHHSS` format as your unique id throughout the training.
-
-Replacing `FILL_THIS_IN` with the value you determined above and execute the
-command line below:
-
-```shell
-export UNIQUE_ID=FILL_THIS_IN
-```
+> :bulb: If you are interested to know what steps the provisioning script took to
+> provision your Postgres database on Azure, see
+> [Manual Provisioning steps](MANUAL.md)
 
 ## Setting PG environment variables
 
@@ -61,7 +51,8 @@ username and password in your environment.
 
 To set the `PGUSER` environment variable use the following command line, replacing
 `FILL_THIS_IN` with the same value for the PGUSER variable you entered when you
-used the ARM template:
+created the PostgreSQL database (if you used the provisioning script it was hard coded
+to be `postgres`):
 
 ```shell
 export PGUSER=FILL_THIS_IN
@@ -69,15 +60,12 @@ export PGUSER=FILL_THIS_IN
 
 And for the `PGPASS` environment variable use the following command line,
 replacing `FILL_THIS_IN` with the same value for the PGPASS variable you entered
-when you used the ARM template:
+when you created the PostgreSQL database (if you used the provisioning script it was
+hard coded to be `p0stgr@s1`):
 
 ```shell
 export PGPASS=FILL_THIS_IN
 ```
-
-> :bulb: If you are interested to know what steps the ARM template took to
-> provision your Postgres database on Azure, see
-> [Manual Provisioning steps](MANUAL.md)
 
 Now lets set the `PGHOST` environment variable so you can use it later.
 
@@ -123,7 +111,7 @@ az postgres server firewall-rule create --resource-group sharearound \
 
 We need to open up the firewall so your AKS cluster has access to PostgreSQL.
 
-> :bulb: Note here we are opting to open it up to all Azure services. In a 
+> :bulb: Note here we are opting to open it up to all Azure services. In a
 > production environment this is not recommended and you should define tighter
 > rules.
 
@@ -195,6 +183,11 @@ Type "help" for help.
 
 postgres=>
 ```
+
+> :stop_sign: If you are getting errors connecting please look at the IP address it is reporting and
+> compare it against the firewall rule you created for your public IP. If they do not match up your
+> own outbound connection is using multiple public IPs. You will have to add a firewall rule to open
+> it up to an IP block of addresses if that happens.
 
 ## Populate the database with data
 
@@ -411,7 +404,7 @@ And then start back at the top of this README.
 1. `kubectl get pods` will show the status of your pods.
 1. `kubectl logs -f service/sharearound` will show logs for the `sharearound`
    service.
-1. `kubectl get deployment/sharearound --output yaml` will show your 
+1. `kubectl get deployment/sharearound --output yaml` will show your
    deployment YAML.
 
 [Previous](../05-adding-app-insights/README.md) &nbsp; [Next](../99-cleanup/README.md)
