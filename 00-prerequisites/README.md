@@ -2,60 +2,15 @@
 
 ## What are we going to do in this step
 
-In this step we are going to first create some Azure resources you will need for
-this training and then setup the environment you will need for this
+In this step we are going to setup the environment you will need for this
 training.
-
-## Determine your unique id
-
-Some of the resources we are going to create need to have a unique id. In a class
-room setting ask your proctor what the value of the `UNIQUE_ID` environment
-variable needs to be. If you are doing this workshop by yourself use the same
-timestamp in `YYYYMMDDHHSS` format as your unique id throughout the training.
-
-Capture the `UNIQUE_ID` as you will need it later.
-
-## Setting up the Azure resources
-
-Open an Azure Cloud Shell by clicking on the button below:
-
-<a href="https://shell.azure.com"><img src="https://shell.azure.com/images/launchcloudshell.png"></A>
-
-## Set your default subscription
-
-We need to set the subscription you want to use for this training.
-
-To get a list of your subscriptions execute the command line below:
-
-````shell
-az account list --output table
-````
-
-Now replace `subscription-id`  with the `SubscriptionId` you determined you want to use in the command line below.
-
-Execute the command line to set the default subscription id:
-
-```shell
-az account set --subscription "subscription-id"
-```
-
-Replacing `FILL_THIS_IN` with the value you determined above and execute the
-command lines below:
-
-```shell
-export UNIQUE_ID=FILL_THIS_IN
-curl https://raw.githubusercontent.com/microsoft/migrate-java-ee-app-to-azure-training/master/00-prerequisites/provision.sh > provision.sh
-sh ./provision.sh $UNIQUE_ID
-```
-
-You are now done in Azure Cloud Shell and you can close it and continue on.
 
 ## Setting up the environment
 
-You have 2 options to satisfy the remainder of the prerequisites needed to complete this training.
+You have 2 options to satisfy the prerequisites needed to complete this training.
 
 1. [Docker Container option](#docker-container-option)
-1. [Alternate option](#alternate-option)
+2. [Alternate option](#alternate-option)
 
 ## Docker Container option
 
@@ -65,6 +20,9 @@ You have 2 options to satisfy the remainder of the prerequisites needed to compl
 1. Run the Docker container
 1. Log into Azure
 1. Set your default subscription
+1. Set the default working directory
+1. Clone the Git repository
+1. Provision the necessary Azure resources
 
 ### Install Visual Studio Code (VSCode)
 
@@ -129,7 +87,7 @@ docker run --name devenv -v $PWD:/mnt -v /var/run/docker.sock:/var/run/docker.so
 
 > ---
 >
-> Note if you want to build the Docker container yourself execute the build 
+> Note if you want to build the Docker container yourself execute the build
 > script (build.sh / build.cmd) on your local machine.
 >
 > ---
@@ -239,6 +197,32 @@ unless noted otherwise.
 > **Note each command mentioned in a README should be executed in the
 > directory of that README unless specified otherwise**
 
+### Set the default working directory
+
+Lets make sure that your VSCode Explorer view is open to the `/mnt` directory.
+
+Execute the command line below:
+
+```shell
+code -r /mnt
+```
+
+Lets also make sure the integrated shell is open in the `/mnt` directory.
+
+Execute the command line below:
+
+```shell
+cd /mnt
+```
+
+### Clone the Git repository
+
+And clone the Git repository
+
+```shell
+git clone https://github.com/microsoft/migrate-java-ee-app-to-azure-training.git .
+```
+
 ### Login into Azure in the Docker container
 
 To login into Azure execute the following command line:
@@ -267,17 +251,12 @@ Execute the command line to set the default subscription id:
 az account set --subscription "subscription-id"
 ```
 
-Now we are going to go to the `/mnt` directory.
+### Provision the necessary Azure resources
 
-```shell
-cd /mnt
-```
-
-And clone the Git repository
-
-```shell
-git clone https://github.com/microsoft/migrate-java-ee-app-to-azure-training.git .
-```
+Some of the resources we are going to create need to have a unique id. In a class
+room setting ask your proctor what the value of the `UNIQUE_ID` environment
+variable needs to be. If you are doing this workshop by yourself use the same
+timestamp in `YYYYMMDDHHSS` format as the value for `UNIQUE_ID`.
 
 Replacing `FILL_THIS_IN` with the value for `UNIQUE_ID` you determined above
 and execute the command line below:
@@ -285,6 +264,20 @@ and execute the command line below:
 ```shell
 export UNIQUE_ID=FILL_THIS_IN
 ```
+
+Execute the command line below to get the provision script:
+
+```shell
+curl https://raw.githubusercontent.com/microsoft/migrate-java-ee-app-to-azure-training/master/00-prerequisites/provision.sh > provision.sh
+```
+
+Then ezecute the command line below to provision the Azure resources.
+
+```shell
+sh ./provision.sh $UNIQUE_ID
+```
+
+Note this will take some time!
 
 And you are now ready to start the training!
 
