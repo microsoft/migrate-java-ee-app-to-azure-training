@@ -12,8 +12,8 @@ To shutdown and remove the Docker container use the following command lines
 (outside of the container):
 
 ```shell
-docker kill devenv
-docker rm devenv
+docker kill sharearound
+docker rm sharearound
 ```
 
 ## If you did the training on Windows
@@ -23,3 +23,5 @@ in the Docker Desktop for Windows settings.
 
 If you changed Docker Desktop for Windows to run Linux containers you can switch
 it back to run Windows containers if so desired.
+
+And uncheck sharing of your `C` drive.
