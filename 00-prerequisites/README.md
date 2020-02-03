@@ -197,9 +197,6 @@ This will open a new integrated terminal.
 The remainder of the steps are going to be performed in the integrated terminal
 unless noted otherwise.
 
-> **Note each command mentioned in a README should be executed in the
-> directory of that README unless specified otherwise**
-
 ### Set the default working directory
 
 Lets make sure that your VSCode Explorer view is open to the `/mnt` directory.

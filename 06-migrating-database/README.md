@@ -172,7 +172,7 @@ psql "dbname=postgres user=$PGFULLUSER"
 
 Note it will prompt for the password.
 
-Use the same password as the one you used to create the database.
+Use the same password as the one you used to create the database (which is `p0stgr@s1` if you used the provisioning script).
 
 If you connected successfully you will see something similar to:
 
@@ -273,7 +273,7 @@ mvn package
 In the `src/main/aks/Dockerfile` file we are now going to enable the database
 section.
 
-Follow the instructions in the file.
+Follow the instructions at the end of the `Dockerfile` file.
 
 ## Build the image on ACR
 
@@ -388,18 +388,7 @@ It should show you a short list of items.
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-## Troubleshooting
-
-If you made a mistake and something does not work, please start over with this
-step using the following command line:
-
-```shell
-mvn clean
-```
-
-And then start back at the top of this README.
-
-## Additional troubleshooting commands
+## Troubleshooting commands
 
 1. `kubectl get pods` will show the status of your pods.
 1. `kubectl logs -f service/sharearound` will show logs for the `sharearound`
@@ -408,5 +397,3 @@ And then start back at the top of this README.
    deployment YAML.
 
 [Previous](../05-adding-app-insights/README.md) &nbsp; [Next](../99-cleanup/README.md)
-
-35m

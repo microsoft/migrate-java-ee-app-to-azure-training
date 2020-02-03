@@ -40,7 +40,7 @@ In this application you need to check each of the web pages as the developer har
 
 This can cause issues in cloud deployment so we are going to fix this.
 
-Open the `src/main/webapp/index.jsp` file as it is the only place in the web application that has the value hard-coded. 
+Open the `src/main/webapp/index.jsp` file as it is the only place in the web application that has the value hard-coded.
 
 Remove every occurrence of `/sharearound/` in the `index.jsp` file and then save the file.
 
@@ -83,7 +83,9 @@ Full 18.0.1.Final (WildFly Core 10.0.3.Final) started in 5058ms - Started 315 of
 
 Now open Microsoft Edge to [http://localhost:8080/](http://localhost:8080/)
 
-You should see the home page of the *Sharearound* application. Note if you click the link to show the list of items it will show an error page and that is expected as we did not migrate the database yet.
+You should see the home page of the *Sharearound* application.
+
+> :stop_sign: Note if you click the link to show the list of items it will so you an error page and that is expected as we did not migrate the database yet.
 
 Now shutdown the Docker container using:
 
@@ -156,14 +158,12 @@ You should see the same page as before, but now it is running on AKS!
 1. [Azure CLI commands for ACR](https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest)
 1. [Kubectl Reference Documentation](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 
-And then start back at the top of this README.
-
 ## Troubleshooting commands
 
 1. `kubectl get pods` will show the status of your pods.
 1. `kubectl logs -f service/sharearound` will show logs for the `sharearound`
    service.
-1. `kubectl get deployment/sharearound --output yaml` will show your 
+1. `kubectl get deployment/sharearound --output yaml` will show your
    deployment YAML.
 
 [Previous](../03-setting-up-aks/README.md) &nbsp; [Next](../05-adding-app-insights/README.md)
