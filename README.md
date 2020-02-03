@@ -47,7 +47,7 @@ Steps that have to be executed in order:
 | 02-setting-up-acr     | set up your Azure Container Registry          |
 | 03-setting-up-aks     | set up your Azure Kubernetes Service cluster  |
 
-Steps the can be done in any order once the steps above are done:
+Steps that can be done in any order once the steps above are done:
 
 | Step                      | Summary                                           |
 |---------------------------|---------------------------------------------------|
@@ -55,7 +55,7 @@ Steps the can be done in any order once the steps above are done:
 | 05-adding-app-insights    | adding Application Insights to the application    |
 | 06-migrating-database     | migrating of the PostgreSQL database to Azure     |
 
-Step that has to be executed at the conclusion of the training:
+Step that has to be done at the conclusion of the training:
 
 | Step                      | Summary                                           |
 |---------------------------|---------------------------------------------------|
