@@ -131,19 +131,17 @@ See if it says `Switch to Windows containers...` or
 If it says `Switch to Linux containers...` please click it, otherwise no action is
 required.
 
+> :stop_sign: The folliowing command line MUST be executed using `cmd.exe`
+
 And now execute the command line below inside of the `sharearound` directory you created
-before (:stop_sign: using `cmd.exe`) to start the Docker container:
+before to start the Docker container:
 
 ```shell
 docker run --name sharearound -v %CD%:/mnt -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d azurejavalab.azurecr.io/azurejavalab
 ```
 
-> ---
->
-> Note if you want to build the Docker container yourself execute the build
+> :bulb: if you want to build the Docker container yourself execute the build
 > script (build.sh / build.cmd) on your local machine.
->
-> ---
 
 #### Next steps are for all OS-es when using the Docker container
 
