@@ -277,7 +277,7 @@ You will need to install the following tools:
 
 ### Setup your environment
 
-> :stop_sign: the training material assumes all commands are run in a bash shell
+> :stop_sign: The training material assumes all commands are run in a bash shell
 
 Using a bash shell follow the steps above  starting at [Login to Azure](#login-into-azure).
 
