@@ -131,19 +131,8 @@ See if it says `Switch to Windows containers...` or
 If it says `Switch to Linux containers...` please click it, otherwise no action is
 required.
 
-We are going to need a directory to store the training material, execute the comamnd line below:
-
-```shell
-mkdir sharearound
-```
-
-Go into the directory using the command line below:
-
-```shell
-cd sharearound
-```
-
-And now execute the command line below (using `cmd.exe`) to start the Docker container:
+And now execute the command line below inside of the `sharearound` directory you created
+before (:stop_sign: using `cmd.exe`) to start the Docker container:
 
 ```shell
 docker run --name sharearound -v %CD%:/mnt -e DOCKER_HOST=tcp://docker.for.win.localhost:2375 -d azurejavalab.azurecr.io/azurejavalab
