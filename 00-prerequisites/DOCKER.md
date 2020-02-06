@@ -7,16 +7,16 @@ training. We will use a Docker container with all the tooling already installed
 inside of it.
 
 1. Create the `sharearound` directory
-2. Clone the Git repository
-3. Install Visual Studio Code (VSCode)
-4. Install the Remote Containers extension for VSCode
-5. Install Docker Desktop
-6. Run the Docker container
-7. Log into Azure
-8. Set your default subscription
-9. Set the default working directory
-10. Determine your unique id
-11. Set the BASEDIR variable
+1. Install Visual Studio Code (VSCode)
+1. Install the Remote Containers extension for VSCode
+1. Install Docker Desktop
+1. Run the Docker container
+1. Clone the Git repository
+1. Log into Azure
+1. Set your default subscription
+1. Set the default working directory
+1. Determine your unique id
+1. Set the BASEDIR variable
 
 ## Create the sharearound directory
 
@@ -30,14 +30,6 @@ And then execute the command below to change into it:
 
 ```shell
 cd sharearound
-```
-
-## Clone the Git repository
-
-Then clone the repository using:
-
-```shell
-git clone https://github.com/microsoft/migrate-java-ee-app-to-azure-training
 ```
 
 ### Install Visual Studio Code (VSCode)
@@ -183,6 +175,14 @@ This will open a new integrated terminal.
 
 The remainder of the steps are going to be performed in the integrated terminal
 unless noted otherwise.
+
+### Clone the Git repository
+
+Then clone the repository using:
+
+```shell
+git clone https://github.com/microsoft/migrate-java-ee-app-to-azure-training
+```
 
 ### Set the default working directory
 
