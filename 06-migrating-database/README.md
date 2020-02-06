@@ -18,7 +18,7 @@ In this step we are going to tackle the migration of the database.
 Please execute the command below:
 
 ```shell
-cd /mnt/05-migrating-database
+cd $BASEDIR/05-migrating-database
 ```
 
 ## Setting up
@@ -40,9 +40,25 @@ customer you can opt to keep your on-premise database and creating the appropria
 connectivity to it. However we recommend moving it to our managed offering Azure
 Database for PostgreSQL.
 
-> :bulb: If you are interested to know what steps the provisioning script took to
-> provision your Postgres database on Azure, see
-> [Manual Provisioning steps](MANUAL.md)
+> :bulb: Any PostgreSQL database on Azure shares the DNS namespace across all
+> Azure subscriptions, so the UNIQUE_ID determined previously was used to make its
+> name unique.
+
+And now it is time to create the database.
+
+Use the command line below:
+
+```shell
+az postgres server create --resource-group sharearound \
+  --name sharearound-postgres-$UNIQUE_ID --location westus2 \
+  --admin-user $PGUSER --admin-password $PGPASS \
+  --sku-name B_Gen5_1
+```
+
+> :pushpin: Note if you install the db-up extension for Azure CLI you can
+> simplify creation of the database a bit, see
+> [az postgres](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
+> for more information
 
 ## Setting PG environment variables
 
@@ -101,11 +117,6 @@ az postgres server firewall-rule create --resource-group sharearound \
   --server sharearound-postgres-$UNIQUE_ID --name AllowMyIP \
   --start-ip-address $EXTERNAL_IP --end-ip-address $EXTERNAL_IP
 ```
-
-> :pushpin: Note if you install the db-up extension for Azure CLI you can
-> simplify creation of the database a bit, see
-> [az postgres](https://docs.microsoft.com/en-us/cli/azure/ext/db-up/postgres?view=azure-cli-latest)
-> for more information
 
 ## Open the firewall to allow access from Azure services
 
@@ -337,7 +348,7 @@ And then finally deploy the application by using the following command lines:
 
 ```shell
 kubectl apply -f src/main/aks/sharearound.yml
-kubectl set env deployment/sharearound DEPLOY_DATE=`date`
+kubectl set env deployment/sharearound DEPLOY_DATE="$(date)"
 ```
 
 The command will return, but the deployment will still be going on.
@@ -361,6 +372,9 @@ Once the IP address is there you are ready to open Microsoft Edge to
 
 You should see the same page as before, but now it is running on AKS!
 
+> :stop_sign: if you are seeing the default WildFly page you probably missed
+> the instructions in the Dockerfile.
+
 Now to verify the web application is properly talking to the database click on
 the link to show a list of items.
 
@@ -368,6 +382,7 @@ It should show you a short list of items.
 
 ## What you accomplished
 
+1. You have created an Azure Database for PostgreSQL.
 1. You have verified you can access the PostgreSQL database.
 1. You have loaded the data for the application into your PostgreSQL database.
 1. You have migrated the web application to use the PostgreSQL database.

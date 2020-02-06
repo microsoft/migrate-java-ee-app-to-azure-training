@@ -11,12 +11,32 @@ we can access the Azure Container Registry (ACR).
 Please execute the command below:
 
 ```shell
-cd /mnt/02-setting-up-acr
+cd $BASEDIR/02-setting-up-acr
 ```
 
-> :bulb: If you are interested to know what steps the provisioning script took to
-> provision your Azure Container registry, see
-> [Manual Provisioning steps](MANUAL.md)
+## Create the Resource Group
+
+We need a resource group to host the ACR.
+
+Please use the following command line to create the resource group:
+
+```shell
+az group create --name sharearound --location westus2
+```
+
+*Note if the output tells you the resource group already exists that is fine and
+continue on.*
+
+## Create the ACR
+
+Now we are going to create your ACR.
+
+Please execute the command line below:
+
+```shell
+az acr create --name sharearoundacr$UNIQUE_ID --location westus2 \
+  --resource-group sharearound --sku Basic
+```
 
 ## Login into your ACR
 
@@ -28,6 +48,8 @@ az acr login -n sharearoundacr$UNIQUE_ID
 
 ## What you accomplished
 
+1. You have created a resource group to host your resources.
+1. You have created an ACR to host your Docker images.
 1. You have verified you can login into your ACR.
 
 ## More information

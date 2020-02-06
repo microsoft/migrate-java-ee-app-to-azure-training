@@ -12,7 +12,7 @@ migrating, but before we do we are going to let you see the web application in a
 Please execute the command below:
 
 ```shell
-cd /mnt/01-initial
+cd $BASEDIR/01-initial
 ```
 
 ## Building the web application
@@ -39,7 +39,7 @@ of Docker compose.
 Execute the command below to go into the `src/main/compose/sharearound` directory:
 
 ```shell
-cd /mnt/01-initial/src/main/compose/sharearound
+cd $BASEDIR/01-initial/src/main/compose/sharearound
 ```
 
 And the use the following command to execute Docker compose:
@@ -51,14 +51,14 @@ docker-compose up -d
 Now go back into the directory of the current step by executing:
 
 ```shell
-cd /mnt/01-initial
+cd $BASEDIR/01-initial
 ```
 
-Once the command completes we are going to load the database with some data.
+And now we are going to load the database with some data.
 
 ```shell
 docker cp src/main/postgres/load.sql postgres:/mnt
-docker exec postgres bash -c 'psql --username postgres < /mnt/load.sql'
+docker exec postgres bash -c "psql --username postgres < /mnt/load.sql"
 ```
 
 Once the command completes open your browser to
@@ -80,7 +80,5 @@ docker-compose down
 1. You have build the web application locally.
 1. You have deployed the web application locally using Docker Compose.
 1. You have verified the web application works.
-
-And then start back at the top of this README.
 
 [Next](../02-setting-up-acr/README.md)

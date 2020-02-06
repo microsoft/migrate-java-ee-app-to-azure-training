@@ -5,12 +5,32 @@
 In this step we are going to setup the environment you will need for this
 training.
 
+## Initial steps
+
+Create an empty directory called `sharearound` on your local filesyatem.
+
+```shell
+mkdir sharearound
+```
+
+And then execute the command below to change into it:
+
+```shell
+cd sharearound
+```
+
+Then clone the repository using:
+
+```shell
+git clone https://github.com/microsoft/migrate-java-ee-app-to-azure-training
+```
+
 ## Setting up the environment
 
-You have 2 options to satisfy the prerequisites needed to complete this training.
+You have 2 options to satisfy the remaining prerequisites needed to complete this training.
 
 1. [Docker Container option](#docker-container-option)
-2. [Alternate option](#alternate-option)
+2. [Self install option](#alternate-option)
 
 ## Docker Container option
 
@@ -21,8 +41,8 @@ You have 2 options to satisfy the prerequisites needed to complete this training
 1. Log into Azure
 1. Set your default subscription
 1. Set the default working directory
-1. Clone the Git repository
-1. Provision the necessary Azure resources
+1. Determine your unique id
+1. Set the BASEDIR variable
 
 ### Install Visual Studio Code (VSCode)
 
@@ -57,7 +77,7 @@ will need it to download the Docker Desktop*
 **Note you DO NOT have to go through the Docker tutorial, you only need to
 download the Docker Desktop installer and then install Docker Desktop**
 
-> *Note if at any time you are asked to reboot your machine please do so*
+> :stop_sign: if at any time you are asked to reboot your machine please do so
 
 Go to [Get Started with Docker](https://www.docker.com/get-started)
 
@@ -67,30 +87,14 @@ And follow the directions there.
 
 #### If you are running on a non-Windows OS
 
-We are going to create an empty directory:
-
-```shell
-mkdir sharearound
-```
-
-And then execute the command below to change into it:
-
-```shell
-cd sharearound
-```
-
-And now we are going to start the Docker container using the following command line:
+Start the Docker container using the following command line:
 
 ```shell
 docker run --name sharearound -v $PWD:/mnt -v /var/run/docker.sock:/var/run/docker.sock -d azurejavalab.azurecr.io/azurejavalab
 ```
 
-> ---
->
-> Note if you want to build the Docker container yourself execute the build
+> :pushpin: if you want to build the Docker container yourself execute the build
 > script (build.sh / build.cmd) on your local machine.
->
-> ---
 
 #### If you are running on Windows
 
@@ -152,7 +156,7 @@ docker run --name sharearound -v %CD%:/mnt -e DOCKER_HOST=tcp://docker.for.win.l
 >
 > ---
 
-#### Next steps are for all OS-es
+#### Next steps are for all OS-es when using the Docker container
 
 Now start VSCode
 
@@ -215,15 +219,7 @@ Execute the command line below:
 cd /mnt
 ```
 
-### Clone the Git repository
-
-And clone the Git repository
-
-```shell
-git clone https://github.com/microsoft/migrate-java-ee-app-to-azure-training.git .
-```
-
-### Login into Azure in the Docker container
+### Login into Azure
 
 To login into Azure execute the following command line:
 
@@ -233,7 +229,7 @@ az login
 
 Follow the directions given and return here when you are done.
 
-### Set your default subscription in the Docker container
+### Set your default subscription
 
 We need to set the subscription you want to use for this training.
 
@@ -251,7 +247,7 @@ Execute the command line to set the default subscription id:
 az account set --subscription "subscription-id"
 ```
 
-### Provision the necessary Azure resources
+### Determine your unique id
 
 Some of the resources we are going to create need to have a unique id. In a class
 room setting ask your proctor what the value of the `UNIQUE_ID` environment
@@ -265,49 +261,38 @@ and execute the command line below:
 export UNIQUE_ID=FILL_THIS_IN
 ```
 
-Execute the command line below to get the provision script:
+Now we are going to set the BASEDIR environment variable:
+
+Execute the command line below:
 
 ```shell
-curl https://raw.githubusercontent.com/microsoft/migrate-java-ee-app-to-azure-training/master/00-prerequisites/provision.sh > provision.sh
+export BASEDIR=$PWD
 ```
 
-Then ezecute the command line below to provision the Azure resources.
-
-```shell
-sh ./provision.sh $UNIQUE_ID
-```
-
-Note this will take some time!
-
-And you are now ready to start the training!
+You are now ready to start the training!
 
 [Next](../01-initial/README.md)
 
-## Alternate option
-
-> ---
->
-> *Note we DO not recommend using this option*
->
-> ---
+## Self install option
 
 You will need to install the following tools:
 
 1. An editor / IDE
-1. Docker Desktop
-1. Docker Compose
-1. Azure CLI
-1. Azul JDK 8
-1. Maven 3.6.3
-1. curl
-1. kubectl
-1. psql
+2. Docker
+3. Docker Compose
+4. Azure CLI
+5. Azul JDK 8
+6. Maven 3.6.3
+7. bash
+8. curl
+9. kubectl
+10. psql
 
-> ---
->
-> *Note the training material assumes all commands are run in a unix shell*
->
-> ---
+### Setup your environment
+
+> :stop_sign: the training material assumes all commands are run in a bash shell
+
+Using a bash shell follow the steps above  starting at [Login to Azure](#login-into-azure).
 
 ## What you accomplished
 
