@@ -19,7 +19,7 @@ the application is using a database for now.
 Please execute the command below:
 
 ```shell
-cd /mnt/04-migrating-web-pages
+cd $BASEDIR/04-migrating-web-pages
 ```
 
 ## Setting up
@@ -120,7 +120,7 @@ And then finally deploy the application by using the following command lines:
 
 ```shell
 kubectl apply -f src/main/aks/sharearound.yml
-kubectl set env deployment/sharearound DEPLOY_DATE=`date`
+kubectl set env deployment/sharearound DEPLOY_DATE="$(date)"
 ```
 
 These commands will quickly return, but the deployment will still be going on.

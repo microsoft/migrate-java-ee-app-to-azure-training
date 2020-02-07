@@ -8,6 +8,8 @@ To cleanup the Azure resources use the following command line:
 az group delete --name sharearound
 ```
 
+## If you used the Docker container for the training
+
 To shutdown and remove the Docker container use the following command lines
 (outside of the container):
 
@@ -16,7 +18,7 @@ docker kill sharearound
 docker rm sharearound
 ```
 
-## If you did the training on Windows
+## If you did the training on Windows and used the Docker container
 
 Make sure to uncheck `Expose daemon on tcp://localhost:2375 without TLS`
 in the Docker Desktop for Windows settings.

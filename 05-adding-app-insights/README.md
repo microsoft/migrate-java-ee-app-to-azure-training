@@ -13,16 +13,12 @@ In this step we are going to configure Application Insights so you can have more
 insight into what your application is doing. For simplicity sake we are going to
 ignore the fact that the application is using a database.
 
-> :bulb: If you are interested to know what steps the provision script took to
-> provision the Application Insights application, see
-> [Manual Provisioning steps](MANUAL.md)
-
 ## Start in the correct directory
 
 Please execute the command below:
 
 ```shell
-cd /mnt/05-adding-app-insights
+cd $BASEDIR/05-adding-app-insights
 ```
 
 ## Setting up
@@ -43,6 +39,18 @@ Execute the command below to install the extension:
 
 ```shell
 az extension add --name application-insights
+```
+
+## Create Application Insights application
+
+We need to create the Application Insights application so we have a place where
+we can gather our insights.
+
+Please execute the command line below:
+
+```shell
+az monitor app-insights component create --app sharearound-app-insights \
+  --resource-group sharearound --location westus2 --application-type java
 ```
 
 ## Get the instrumentation key
@@ -140,7 +148,7 @@ And then finally deploy the application by using the following command lines:
 
 ```shell
 kubectl apply -f src/main/aks/sharearound.yml
-kubectl set env deployment/sharearound DEPLOY_DATE=`date`
+kubectl set env deployment/sharearound DEPLOY_DATE="$(date)"
 ```
 
 The command will return, but the deployment will still be going on.
@@ -252,6 +260,7 @@ proper table.
 
 ## What you accomplished
 
+1. You have created an Application Insights application.
 1. You have added Application Insights to the web application.
 1. You have build the Docker image with WildFly and your application.
 1. You have deployed the Docker image to AKS.
